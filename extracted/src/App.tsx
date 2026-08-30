@@ -86,19 +86,20 @@ export default function App() {
                 <span>SOLO TRIP</span>
               </div>
 
-              {/* 꿈돌이는 회전·왜곡 없이 고정 (디자인 가이드라인) */}
-              <div className="hero-kkumdori">
-                <img src={kkumdori} alt="대전 마스코트 꿈돌이" />
-              </div>
             </div>
 
             <aside className="ticket-stub">
-              <div className="stub-top">
-                <span className="stub-label">DESTINATION</span>
+<div className="stub-top">
+  <span className="stub-label">DESTINATION</span>
 
-                <div className="destination">DAEJEON</div>
+  <div className="destination">DAEJEON</div>
 
-                <div className="ticket-info">
+  {/* 꿈돌이는 회전·왜곡 없이 고정 (디자인 가이드라인) */}
+  <div className="hero-kkumdori">
+    <img src={kkumdori} alt="대전 마스코트 꿈돌이" />
+  </div>
+
+  <div className="ticket-info">
                   <div>
                     <span className="info-label">PASSENGER</span>
                     <span className="info-value">혼자</span>
