@@ -645,6 +645,46 @@ LFS 로 잡고 있었다.** Vercel 은 빌드 시 LFS 오브젝트를 받아오�
 git lfs ls-files    # 이미지가 잡히면 안 된다
 ```
 
+## 8-2. 공유 채널 (2026-08-30)
+
+| 무엇 | 어디 | 용도 |
+|---|---|---|
+| 라이브 | https://extracted-mu.vercel.app/ | **인터랙션 확인용.** 퀴즈·찢기 모션은 여기서만 볼 수 있다 |
+| 코드 | https://github.com/jjbb3239-pixel/daejeon-landing | private. main 에 push 하면 Vercel 자동 재배포 |
+| 디자인 | https://www.figma.com/design/je1rN5ppbHZ63rEvECk2d7 | 팀원이 직접 수정. gbsa5의 팀 |
+
+### Figma 파일 구성
+
+```
+＊ 읽어주세요        안내 (폰트 대체 · 모션은 링크 · 변수 위치)
+01 홈               히어로 승차권 / 기분 카드 4 / 인스타그램 / 푸터
+02~05 퀴즈 Q1~Q4    팝업 4문항
+06 결과             결과 승차권 + 이 코스 보러가기
+07~10 코스 4종      사진 / 맛집 / 카페 / 혼자
+```
+
+- 색은 로컬 변수 **「대전 팔레트」** 9개로 묶여 있다. 한 번에 바꾸면 전체 반영.
+- 사진 19장은 실제 이미지로 채워 넣었다 (`upload_assets`).
+- **폰트 대체** : Figma 에 Pretendard·나눔 펜 스크립트가 없어서
+  `Noto Sans KR` + `Gaegu` 로 대체했다. Gaegu 는 CSS 폴백에 이미 걸어둔 폰트.
+- **모션은 Figma 에 없다.** 캔버스로 매 프레임 그리는 방식이라 레이어로 표현 불가.
+  파일 안내 프레임에 Vercel 링크를 적어뒀다.
+
+### 되풀이하지 말 것 — auto-layout 프레임의 resize()
+
+`resize()` 는 sizing mode 를 FIXED 로 되돌린다. 자식을 붙인 뒤 `resize(w, h)` 를
+호출하면 세로가 그 높이에 고정되어 **프레임이 납작하게 접힌다.** 퀴즈 팝업과
+기분 카드에서 두 번 겪었다.
+
+```js
+frame.resize(640, frame.height)          // <- 세로가 FIXED 로 굳는다
+frame.primaryAxisSizingMode = 'AUTO'     // <- 반드시 뒤에서 되돌릴 것
+frame.counterAxisSizingMode = 'FIXED'
+```
+
+카드 높이를 나란히 맞출 때는 자식을 `FILL` 로 두기 전에
+**행 높이를 (가장 큰 카드 + 패딩)으로 먼저 키운다.** 안 그러면 내용이 잘린다.
+
 ## 9. 다음 작업 시작 전에
 
 `LANDING_GUIDE.md` 0장 규칙대로 **관련 파일을 먼저 읽고 → 이해한 내용을 확인받은 뒤 → 수정**한다.
@@ -677,6 +717,7 @@ git lfs ls-files    # 이미지가 잡히면 안 된다
 | 16 | 승차권 절취 전환 프로토타입 제작 **(앱 미적용)** | `prototypes/ticket-tear.html` |
 | 17 | 히어로 CTA 위 클릭 유도 마크 (시안 6종 중 D안 채택) | `App.tsx` `index.css` `prototypes/click-hint.html` |
 | 18 | GitHub 저장소 생성 + 최초 커밋, 이미지 LFS 해제 | `.gitignore` `README.md` `extracted/.gitattributes` |
+| 19 | Vercel 배포 + Figma 디자인 시안 10화면 제작 | (코드 변경 없음) |
 
 ### 프로토타입 폴더
 
