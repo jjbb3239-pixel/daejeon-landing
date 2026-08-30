@@ -1,0 +1,422 @@
+<title>클릭 유도 마크 시안</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;900&display=swap">
+
+<style>
+:root{
+  --ivory:#fff8e9;      /* 페이지 배경 */
+  --paper:#f8efdc;      /* 승차권 스텁 종이 */
+  --ink:#292929;        /* 본문·테두리 */
+  --ink-soft:#6f6656;   /* 아이보리에 맞춘 회색 (황토 쪽으로 살짝 치우침) */
+  --yellow:#ffd634;     /* CTA */
+  --coral:#ef6475;      /* 강조 소량 */
+  --cobalt:#2869d8;     /* 포인트 */
+  --line:#e2d7c0;
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  padding:56px 24px 96px;
+  background:var(--ivory);
+  color:var(--ink);
+  font-family:"Noto Sans KR",system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.7;
+
+  word-break:keep-all;
+  overflow-wrap:break-word;
+  text-wrap:pretty;
+}
+
+body :is(h1,h2){ text-wrap:balance; }
+
+.wrap{ max-width:1120px; margin:0 auto; }
+
+/* ── 머리말 ─────────────────────────────── */
+
+.page-head{
+  max-width:640px;
+  margin:0 auto 52px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.eyebrow{
+  align-self:center;
+  padding:5px 14px;
+  background:var(--yellow);
+  border:2px solid var(--ink);
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+
+h1{
+  margin:0;
+  font-family:"Nanum Pen Script","Gaegu",cursive;
+  font-size:clamp(40px,6vw,62px);
+  font-weight:400;
+  line-height:1.15;
+  transform:rotate(-1deg);
+}
+
+.page-head p{ margin:0; color:var(--ink-soft); }
+
+/* ── 시안 그리드 ─────────────────────────── */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:26px;
+}
+
+.variant{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  background:#fff;
+  border:2px solid var(--ink);
+  border-radius:14px;
+  box-shadow:6px 7px 0 rgba(0,0,0,.10);
+  overflow:hidden;
+}
+
+.variant-head{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:16px 18px;
+  border-bottom:2px solid var(--ink);
+}
+
+.chip{
+  flex:none;
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  background:var(--ink);
+  color:var(--ivory);
+  border-radius:8px;
+  font-size:14px;
+  font-weight:900;
+}
+
+.variant-head h2{
+  margin:0;
+  font-size:17px;
+  font-weight:900;
+  letter-spacing:-.01em;
+}
+
+/* 승차권 스텁 복제 — 실제 히어로와 같은 종이색·CTA */
+.stage{
+  position:relative;
+  min-height:236px;
+  padding:26px 30px 30px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:center;
+  gap:0;
+  background:var(--paper);
+  border-left:3px dashed rgba(41,41,41,.22);
+  text-align:center;
+}
+
+.stage::before{
+  content:"DESTINATION · DAEJEON";
+  position:absolute;
+  top:18px;
+  left:0;
+  right:0;
+  color:rgba(41,41,41,.30);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.16em;
+}
+
+.cta{
+  width:100%;
+  padding:14px 15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--yellow);
+  border:2px solid #202020;
+  border-radius:7px;
+  color:#202020;
+  font:inherit;
+  font-size:14px;
+  font-weight:900;
+  box-shadow:0 4px 0 rgba(0,0,0,.15);
+  cursor:pointer;
+}
+
+.note{
+  margin:0;
+  padding:15px 18px 17px;
+  border-top:2px solid var(--line);
+  color:var(--ink-soft);
+  font-size:13.5px;
+  line-height:1.6;
+}
+
+/* ── 마크 공통 ──────────────────────────── */
+
+.mark{ pointer-events:none; }
+.mark svg{ display:block; width:100%; height:auto; overflow:visible; }
+
+.mark svg path,
+.mark svg polyline,
+.mark svg line{
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.mark svg text{
+  font-family:"Nanum Pen Script","Gaegu",cursive;
+  text-anchor:middle;
+}
+
+/* A — 손그림 말풍선 */
+.mark-a{ width:170px; margin-bottom:2px; animation:bob 2.6s ease-in-out infinite; }
+.mark-a path{ stroke:var(--coral); stroke-width:3.2; }
+.mark-a text{ fill:var(--coral); font-size:33px; }
+
+/* B — 손글씨 + 스윙 화살표 */
+.mark-b{ width:196px; margin-bottom:-6px; }
+.mark-b path{ stroke:var(--ink); stroke-width:2.6; }
+.mark-b text{ fill:var(--ink); font-size:30px; }
+.mark-b .swing{ transform-origin:26px 16px; animation:swing 2.8s ease-in-out infinite; }
+
+/* C — 꼬리 달린 태그 */
+.mark-c{
+  margin-bottom:11px;
+  padding:7px 15px 8px;
+  position:relative;
+  background:var(--ink);
+  color:var(--ivory);
+  border-radius:999px;
+  font-size:13px;
+  font-weight:900;
+  animation:bob 2.4s ease-in-out infinite;
+}
+.mark-c::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-9px;
+  width:0;
+  height:0;
+  transform:translateX(-50%);
+  border:9px solid transparent;
+  border-top-color:var(--ink);
+  border-bottom:0;
+}
+
+/* D — 셰브런 세 개 */
+.mark-d{
+  margin-bottom:8px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+}
+.mark-d .cap{
+  color:var(--ink-soft);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.14em;
+}
+.mark-d svg{ width:26px; }
+.mark-d polyline{ stroke:var(--ink); stroke-width:3; }
+.mark-d .c1{ animation:drop 1.5s ease-in-out infinite; }
+.mark-d .c2{ animation:drop 1.5s ease-in-out .16s infinite; }
+.mark-d .c3{ animation:drop 1.5s ease-in-out .32s infinite; }
+
+/* E — 손가락 + 탭 물결 */
+.mark-e{ width:132px; margin-bottom:0; }
+.mark-e path{ stroke:var(--ink); stroke-width:2.6; }
+.mark-e .ring{ stroke:var(--coral); stroke-width:2.4; animation:tapRing 1.9s ease-out infinite; }
+.mark-e .hand{ animation:tap 1.9s ease-in-out infinite; }
+.mark-e text{ fill:var(--ink); font-size:26px; }
+
+/* F — 승차권 스탬프 */
+.mark-f{ width:178px; margin-bottom:-2px; }
+.mark-f .box{ stroke:var(--cobalt); stroke-width:2.4; stroke-dasharray:7 5; }
+.mark-f .arrow{ stroke:var(--cobalt); stroke-width:3; animation:nudge 1.8s ease-in-out infinite; }
+.mark-f text{ fill:var(--cobalt); font-family:"Noto Sans KR",sans-serif; font-size:15px; font-weight:900; letter-spacing:.12em; }
+
+@keyframes bob{
+  0%,100%{ transform:translateY(0) rotate(-2deg); }
+  50%    { transform:translateY(-5px) rotate(1.5deg); }
+}
+@keyframes swing{
+  0%,100%{ transform:rotate(-3deg); }
+  50%    { transform:rotate(3deg); }
+}
+@keyframes drop{
+  0%,100%{ opacity:.25; transform:translateY(-3px); }
+  45%    { opacity:1;   transform:translateY(2px); }
+}
+@keyframes tap{
+  0%,100%{ transform:translateY(0); }
+  46%    { transform:translateY(7px); }
+}
+@keyframes tapRing{
+  0%  { opacity:0;  transform:scale(.45); }
+  40% { opacity:.9; transform:scale(.55); }
+  100%{ opacity:0;  transform:scale(1.35); }
+}
+@keyframes nudge{
+  0%,100%{ transform:translateY(0); }
+  50%    { transform:translateY(4px); }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .mark *,
+  .mark{ animation:none !important; }
+}
+
+/* ── 맺음 ──────────────────────────────── */
+
+.closing{
+  margin-top:46px;
+  padding:22px 26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  background:var(--yellow);
+  border:2px solid var(--ink);
+  border-radius:14px;
+  box-shadow:6px 7px 0 rgba(0,0,0,.10);
+  font-weight:900;
+  text-align:center;
+}
+</style>
+
+<div class="wrap">
+
+  <header class="page-head">
+    <span class="eyebrow">★ 히어로 CTA</span>
+    <h1>어떤 마크로 클릭을 부를까요?</h1>
+    <p>여섯 가지 모두 화살표가 「내 기분 따라 출발하기」 버튼을 가리킵니다. 배경과 버튼은 실제 히어로 승차권 스텁과 같은 값으로 맞췄습니다.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- A -->
+    <article class="variant">
+      <div class="variant-head"><span class="chip">A</span><h2>손그림 말풍선</h2></div>
+      <div class="stage">
+        <div class="mark mark-a">
+          <svg viewBox="0 0 170 104" aria-hidden="true">
+            <path d="M92 8 C56 5 30 18 31 33 C32 50 56 62 90 61 C124 60 146 47 144 30 C142 14 118 6 86 8 C80 8.4 74 9.4 70 11"/>
+            <path d="M104 63 C110 76 106 87 92 92"/>
+            <path d="M92 92 L100 87 M92 92 L98 99"/>
+            <text x="87" y="44">Click!</text>
+          </svg>
+        </div>
+        <button class="cta" type="button">내 기분 따라 출발하기</button>
+      </div>
+      <p class="note">히어로 제목과 같은 손글씨 결. 화살표가 말풍선에서 버튼으로 흘러내립니다. 코랄색이라 노란 버튼과 안 겹칩니다.</p>
+    </article>
+
+    <!-- B -->
+    <article class="variant">
+      <div class="variant-head"><span class="chip">B</span><h2>손글씨 + 스윙 화살표</h2></div>
+      <div class="stage">
+        <div class="mark mark-b">
+          <svg viewBox="0 0 196 96" aria-hidden="true">
+            <text x="112" y="34">30초면 끝나요</text>
+            <g class="swing">
+              <path d="M26 16 C10 34 12 60 34 74 C56 88 90 90 120 86"/>
+              <path d="M120 86 L108 79 M120 86 L109 93"/>
+            </g>
+          </svg>
+        </div>
+        <button class="cta" type="button">내 기분 따라 출발하기</button>
+      </div>
+      <p class="note">부담을 덜어주는 문구를 같이 얹은 안. 화살표가 좌측에서 크게 돌아 버튼으로 들어옵니다. 잉크 한 색이라 가장 차분합니다.</p>
+    </article>
+
+    <!-- C -->
+    <article class="variant">
+      <div class="variant-head"><span class="chip">C</span><h2>꼬리 달린 태그</h2></div>
+      <div class="stage">
+        <div class="mark mark-c">30초, 가입 없이</div>
+        <button class="cta" type="button">내 기분 따라 출발하기</button>
+      </div>
+      <p class="note">말풍선 꼬리 자체가 버튼을 찍어 누르는 화살표 역할을 합니다. 리스크 제거 문구를 담을 수 있는 유일한 안입니다.</p>
+    </article>
+
+    <!-- D -->
+    <article class="variant">
+      <div class="variant-head"><span class="chip">D</span><h2>셰브런 세 개</h2></div>
+      <div class="stage">
+        <div class="mark mark-d">
+          <span class="cap">TAP HERE</span>
+          <svg class="c1" viewBox="0 0 26 12" aria-hidden="true"><polyline points="3,3 13,9 23,3"/></svg>
+          <svg class="c2" viewBox="0 0 26 12" aria-hidden="true"><polyline points="3,3 13,9 23,3"/></svg>
+          <svg class="c3" viewBox="0 0 26 12" aria-hidden="true"><polyline points="3,3 13,9 23,3"/></svg>
+        </div>
+        <button class="cta" type="button">내 기분 따라 출발하기</button>
+      </div>
+      <p class="note">화살표 셋이 위에서 아래로 차례로 밝아지며 버튼을 짚습니다. 승차권의 잉크 선 느낌과 가장 잘 붙고, 자리를 적게 씁니다.</p>
+    </article>
+
+    <!-- E -->
+    <article class="variant">
+      <div class="variant-head"><span class="chip">E</span><h2>손가락 + 탭 물결</h2></div>
+      <div class="stage">
+        <div class="mark mark-e">
+          <svg viewBox="0 0 132 92" aria-hidden="true">
+            <text x="30" y="30">눌러요</text>
+            <g class="hand">
+              <path d="M86 22 L86 52"/>
+              <path d="M86 52 C78 50 71 53 71 60 C71 70 78 78 88 80 C99 82 108 77 109 68 L110 52 C110 47 104 46 103 51 L103 57 M103 51 C103 45 96 44 96 50 L96 56 M96 50 C96 44 89 44 89 50 L89 57"/>
+            </g>
+            <circle class="ring" cx="90" cy="82" r="18" fill="none"/>
+          </svg>
+        </div>
+        <button class="cta" type="button">내 기분 따라 출발하기</button>
+      </div>
+      <p class="note">손가락이 버튼을 톡톡 두드리고 물결이 퍼집니다. 화살표 대신 손끝이 방향을 가리키는 방식이라 모바일에서 직관적입니다.</p>
+    </article>
+
+    <!-- F -->
+    <article class="variant">
+      <div class="variant-head"><span class="chip">F</span><h2>승차권 스탬프</h2></div>
+      <div class="stage">
+        <div class="mark mark-f">
+          <svg viewBox="0 0 178 92" aria-hidden="true">
+            <g transform="rotate(-4 89 30)">
+              <rect class="box" x="26" y="8" width="126" height="44" rx="8" fill="none"/>
+              <text x="89" y="37">PRESS HERE</text>
+            </g>
+            <g class="arrow">
+              <path d="M89 58 L89 82"/>
+              <path d="M89 82 L81 73 M89 82 L97 73"/>
+            </g>
+          </svg>
+        </div>
+        <button class="cta" type="button">내 기분 따라 출발하기</button>
+      </div>
+      <p class="note">승차권 도장 컨셉을 그대로 이어받은 안. 화살표가 위아래로 콕콕 찍듯 움직입니다. 페이지의 코발트 블루를 재사용합니다.</p>
+    </article>
+
+  </div>
+
+  <p class="closing">마음에 드는 걸 알파벳으로 알려주세요. 색·문구는 고르신 다음에 바꿔도 됩니다.</p>
+
+</div>

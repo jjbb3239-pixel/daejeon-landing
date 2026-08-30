@@ -1,0 +1,12 @@
+{
+  "title": "기분이 이끄는 대로, 일단 대전행.",
+  "description": "오늘 기분에 맞는 대전 하루 코스를 찾아드립니다. 내 취향 찾기 4문항으로 사진·맛집·카페·게으른 코스 중 하나를 골라보세요.",
+  "language": "ko",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

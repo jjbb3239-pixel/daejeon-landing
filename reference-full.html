@@ -1,0 +1,2974 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>기분이 이끄는 대로, 일단 대전행.</title>
+
+<style>
+/* =========================================================
+   BASIC
+========================================================= */
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:"Pretendard","Noto Sans KR",Arial,sans-serif;
+  color:#292929;
+  background:#fff8e9;
+  line-height:1.6;
+}
+
+a{
+  color:inherit;
+}
+
+img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.section-inner{
+  width:min(1400px,100%);
+  margin:auto;
+}
+
+.section-back{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:35px;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:800;
+}
+
+.section-back span{
+  position:relative;
+}
+
+.section-back span::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-5px;
+  height:3px;
+  background:#ffd94a;
+  transform:rotate(-2deg);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:55px 30px;
+  overflow:hidden;
+
+  background:
+    radial-gradient(
+      circle at 22% 15%,
+      rgba(255,255,255,.28),
+      transparent 32%
+    ),
+    linear-gradient(
+      135deg,
+      #8fd0f4 0%,
+      #6fb7e9 52%,
+      #579fdb 100%
+    );
+}
+
+.ticket-wrap{
+  width:min(1180px,92vw);
+  position:relative;
+  transform:rotate(-1.5deg);
+
+  filter:
+    drop-shadow(0 24px 22px rgba(31,63,86,.24))
+    drop-shadow(0 7px 6px rgba(31,63,86,.16));
+
+  transition:.25s ease;
+}
+
+.ticket-wrap:hover{
+  transform:rotate(-.7deg) translateY(-4px);
+}
+
+.ticket{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,73%) minmax(270px,27%);
+  min-height:410px;
+}
+
+.ticket-main,
+.ticket-stub{
+  background-color:#f8efdc;
+
+  background-image:
+    linear-gradient(
+      115deg,
+      rgba(255,255,255,.68),
+      transparent 48%
+    ),
+    radial-gradient(
+      rgba(120,90,55,.06) .7px,
+      transparent .9px
+    ),
+    radial-gradient(
+      rgba(255,255,255,.25) .8px,
+      transparent 1px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.025) 0 2px,
+      rgba(120,95,65,.012) 2px 4px
+    );
+
+  background-size:auto,11px 11px,17px 17px,100% 100%;
+}
+
+.ticket-main{
+  position:relative;
+  padding:42px 58px 38px;
+  display:flex;
+  flex-direction:column;
+
+  clip-path:polygon(
+    3% 0,
+    100% 0,
+    100% 100%,
+    3% 100%,
+    0 92%,
+    0 8%
+  );
+}
+
+.ticket-main::after{
+  content:"";
+  position:absolute;
+  inset:18px 17px 18px 29px;
+  border:1px solid rgba(159,126,81,.30);
+  pointer-events:none;
+}
+
+.ticket-stub{
+  position:relative;
+  padding:38px 40px 30px 38px;
+  display:flex;
+  flex-direction:column;
+
+  clip-path:polygon(
+    0 0,
+    97% 0,
+    100% 1%,97% 2%,
+    99.4% 3%,97% 4%,
+    100% 5%,97% 6%,
+    99.4% 7%,97% 8%,
+    100% 9%,97% 10%,
+    99.4% 11%,97% 12%,
+    100% 13%,97% 14%,
+    99.4% 15%,97% 16%,
+    100% 17%,97% 18%,
+    99.4% 19%,97% 20%,
+    100% 21%,97% 22%,
+    99.4% 23%,97% 24%,
+    100% 25%,97% 26%,
+    99.4% 27%,97% 28%,
+    100% 29%,97% 30%,
+    99.4% 31%,97% 32%,
+    100% 33%,97% 34%,
+    99.4% 35%,97% 36%,
+    100% 37%,97% 38%,
+    99.4% 39%,97% 40%,
+    100% 41%,97% 42%,
+    99.4% 43%,97% 44%,
+    100% 45%,97% 46%,
+    99.4% 47%,97% 48%,
+    100% 49%,97% 50%,
+    99.4% 51%,97% 52%,
+    100% 53%,97% 54%,
+    99.4% 55%,97% 56%,
+    100% 57%,97% 58%,
+    99.4% 59%,97% 60%,
+    100% 61%,97% 62%,
+    99.4% 63%,97% 64%,
+    100% 65%,97% 66%,
+    99.4% 67%,97% 68%,
+    100% 69%,97% 70%,
+    99.4% 71%,97% 72%,
+    100% 73%,97% 74%,
+    99.4% 75%,97% 76%,
+    100% 77%,97% 78%,
+    99.4% 79%,97% 80%,
+    100% 81%,97% 82%,
+    99.4% 83%,97% 84%,
+    100% 85%,97% 86%,
+    99.4% 87%,97% 88%,
+    100% 89%,97% 90%,
+    99.4% 91%,97% 92%,
+    100% 93%,97% 94%,
+    99.4% 95%,97% 96%,
+    100% 97%,97% 98%,
+    99.4% 99%,97% 100%,
+    0 100%
+  );
+}
+
+.ticket-stub::after{
+  content:"";
+  position:absolute;
+  top:18px;
+  right:28px;
+  bottom:18px;
+  left:22px;
+  border-top:1px solid rgba(159,126,81,.30);
+  border-right:1px solid rgba(159,126,81,.30);
+  border-bottom:1px solid rgba(159,126,81,.30);
+  pointer-events:none;
+}
+
+.perforation{
+  position:absolute;
+  z-index:20;
+  left:73%;
+  top:22px;
+  bottom:22px;
+  width:7px;
+  transform:translateX(-50%);
+
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(135,108,75,.34) 0 1px,
+      transparent 1.45px
+    );
+
+  background-size:7px 12px;
+  background-repeat:repeat-y;
+}
+
+.perforation::before,
+.perforation::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  width:14px;
+  height:14px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:#6fb7e9;
+}
+
+.perforation::before{top:-24px}
+.perforation::after{bottom:-24px}
+
+.ticket-label{
+  position:relative;
+  z-index:3;
+  align-self:flex-start;
+  padding:7px 14px;
+  background:#ffd94a;
+  font-size:13px;
+  font-weight:900;
+  transform:rotate(-2deg);
+  box-shadow:2px 3px 0 rgba(0,0,0,.08);
+}
+
+.hero-title{
+  position:relative;
+  z-index:3;
+  margin:30px 0 14px;
+  font-size:clamp(44px,4.7vw,66px);
+  line-height:1.08;
+  letter-spacing:-.055em;
+}
+
+.hero-title strong{
+  position:relative;
+  color:#2869d8;
+}
+
+.hero-title strong::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-8px;
+  height:6px;
+  background:#ffd32a;
+  transform:rotate(-2deg);
+}
+
+.hero-copy{
+  position:relative;
+  z-index:3;
+  margin:0 0 28px;
+  color:#675b4c;
+  font-size:16px;
+  line-height:1.65;
+}
+
+.route{
+  position:relative;
+  z-index:3;
+  margin-top:auto;
+  width:68%;
+  display:grid;
+  grid-template-columns:1fr 60px 1fr;
+  align-items:end;
+  padding-top:15px;
+  border-top:1px solid rgba(132,105,72,.30);
+}
+
+.route-label,
+.info-label,
+.stub-label{
+  display:block;
+  margin-bottom:5px;
+  color:#8e7452;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.1em;
+}
+
+.route-value{
+  font-size:25px;
+  font-weight:900;
+}
+
+.route-arrow{
+  text-align:center;
+  font-size:30px;
+  color:#917757;
+}
+
+.daejeon-stamp{
+  position:absolute;
+  right:65px;
+  bottom:35px;
+  width:95px;
+  height:95px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  border:3px solid rgba(40,105,216,.40);
+  border-radius:50%;
+  color:rgba(40,105,216,.52);
+  font-size:10px;
+  font-weight:900;
+  line-height:1.3;
+  transform:rotate(9deg);
+  z-index:2;
+}
+
+.daejeon-stamp::after{
+  content:"";
+  position:absolute;
+  inset:6px;
+  border:1px dashed rgba(40,105,216,.35);
+  border-radius:50%;
+}
+
+.daejeon-stamp strong{
+  font-size:14px;
+}
+
+.train-doodle{
+  position:absolute;
+  right:175px;
+  bottom:58px;
+  width:95px;
+  height:42px;
+  border:3px solid rgba(40,105,216,.45);
+  border-radius:22px 10px 7px 7px;
+  transform:rotate(-5deg);
+}
+
+.train-doodle::before{
+  content:"";
+  position:absolute;
+  left:17px;
+  top:10px;
+  width:40px;
+  border-top:3px solid rgba(40,105,216,.45);
+}
+
+.train-doodle::after{
+  content:"";
+  position:absolute;
+  left:-8px;
+  right:-14px;
+  bottom:-9px;
+  border-top:3px solid rgba(40,105,216,.45);
+}
+
+.stub-top{
+  position:relative;
+  z-index:3;
+}
+
+.destination{
+  margin-top:5px;
+  font-size:30px;
+  font-weight:900;
+}
+
+.ticket-info{
+  margin-top:30px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:21px 10px;
+}
+
+.info-value{
+  display:block;
+  font-size:15px;
+  font-weight:900;
+}
+
+.ticket-cta{
+  position:relative;
+  z-index:3;
+  margin-top:auto;
+  padding:14px 15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  background:#ffd634;
+  border:2px solid #202020;
+  border-radius:7px;
+  color:#202020;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:900;
+  box-shadow:0 4px 0 rgba(0,0,0,.15);
+}
+
+.ticket-bottom{
+  position:relative;
+  z-index:3;
+  margin-top:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+}
+
+.barcode{
+  width:90px;
+  height:28px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #333 0 2px,
+      transparent 2px 5px,
+      #333 5px 8px,
+      transparent 8px 11px
+    );
+}
+
+.ticket-number{
+  color:#8e7452;
+  font-size:7px;
+  line-height:1.5;
+  text-align:right;
+}
+
+/* =========================================================
+   MOOD SELECT
+========================================================= */
+
+.mood-section{
+  padding:100px 32px 130px;
+  background:#fff8e9;
+}
+
+.mood-heading{
+  margin-bottom:65px;
+}
+
+.mood-kicker{
+  display:inline-block;
+  margin-bottom:12px;
+  padding:6px 12px;
+  background:#ffd94a;
+  font-size:13px;
+  font-weight:900;
+  transform:rotate(-2deg);
+}
+
+.mood-heading h2{
+  margin:0;
+  max-width:650px;
+  font-size:clamp(48px,5vw,72px);
+  line-height:1.12;
+  letter-spacing:-.055em;
+  font-weight:500;
+}
+
+.mood-heading h2 strong{
+  color:#2869d8;
+  font-weight:900;
+}
+
+.mood-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:30px;
+}
+
+.mood-card{
+  --accent:#2869d8;
+
+  position:relative;
+  height:510px;
+  display:flex;
+  flex-direction:column;
+  background:#fff;
+  border:3px solid #333;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:10px 12px 0 #333;
+  color:#292929;
+  text-decoration:none;
+  transition:.22s ease;
+}
+
+.mood-card:nth-child(1){
+  --accent:#ef6c79;
+  transform:rotate(-2deg) translateY(5px);
+}
+
+.mood-card:nth-child(2){
+  --accent:#d9a615;
+  transform:rotate(1.5deg) translateY(-3px);
+}
+
+.mood-card:nth-child(3){
+  --accent:#6f9e59;
+  transform:rotate(-1deg) translateY(3px);
+}
+
+.mood-card:nth-child(4){
+  --accent:#2869d8;
+  transform:rotate(2deg) translateY(-2px);
+}
+
+.mood-card:hover{
+  transform:rotate(0deg) translateY(-10px);
+  box-shadow:7px 9px 0 #333;
+}
+
+.card-photo{
+  position:relative;
+  height:220px;
+  flex-shrink:0;
+  overflow:hidden;
+  border-bottom:3px solid #333;
+}
+
+.photo-placeholder{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  color:#fff;
+  font-weight:900;
+  text-align:center;
+  text-shadow:0 2px 6px rgba(0,0,0,.2);
+}
+
+.photo-placeholder span{
+  font-size:64px;
+}
+
+.photo-spot{
+  background:linear-gradient(145deg,#a8d9fa,#4e91cc);
+}
+
+.photo-food{
+  background:linear-gradient(145deg,#f7d998,#c8793e);
+}
+
+.photo-cafe{
+  background:linear-gradient(145deg,#ddc7ae,#8b674c);
+}
+
+.photo-course{
+  background:linear-gradient(145deg,#bcd8ea,#6c91ad);
+}
+
+.photo-label{
+  position:absolute;
+  left:16px;
+  bottom:14px;
+  padding:6px 11px;
+  background:#fff;
+  border:2px solid #292929;
+  border-radius:999px;
+  color:#292929;
+  font-size:10px;
+  font-weight:900;
+  box-shadow:2px 3px 0 rgba(0,0,0,.14);
+}
+
+.card-content{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  padding:23px 24px 21px;
+}
+
+.card-icon{
+  margin-bottom:8px;
+  font-size:26px;
+}
+
+.card-content h3{
+  margin:0;
+  font-size:clamp(23px,2vw,29px);
+  line-height:1.22;
+  letter-spacing:-.045em;
+}
+
+.card-content p{
+  margin:13px 0 0;
+  color:#555;
+  font-size:15px;
+  line-height:1.6;
+}
+
+.card-bottom{
+  margin-top:auto;
+  padding-top:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  border-top:1px solid #ddd2bd;
+}
+
+.mood-name{
+  color:var(--accent);
+  font-size:12px;
+  font-weight:900;
+}
+
+.card-arrow{
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  border:2px solid #292929;
+  border-radius:50%;
+  background:var(--accent);
+  color:#fff;
+  font-size:20px;
+  font-weight:900;
+}
+
+/* =========================================================
+   COMMON DETAIL
+========================================================= */
+
+.detail-section{
+  padding:85px 30px 120px;
+  background-color:#fff9ec;
+
+  background-image:
+    radial-gradient(
+      rgba(100,80,50,.045) .7px,
+      transparent .8px
+    );
+
+  background-size:12px 12px;
+}
+
+.detail-eyebrow{
+  display:inline-block;
+  margin-bottom:13px;
+  padding:8px 18px;
+  background:#ffc5cb;
+  border-radius:30% 45% 35% 40%;
+  font-size:14px;
+  font-weight:900;
+  transform:rotate(-2deg);
+}
+
+.detail-title{
+  margin:0;
+  font-size:clamp(48px,5.2vw,78px);
+  line-height:1.05;
+  letter-spacing:-.065em;
+}
+
+.detail-lead{
+  margin:30px 0 55px;
+  max-width:760px;
+  color:#4b443c;
+  font-size:clamp(17px,1.5vw,21px);
+  line-height:1.75;
+}
+
+/* =========================================================
+   PHOTO DETAIL
+========================================================= */
+
+.photo-detail .detail-title strong{
+  color:#2869d8;
+}
+
+.photo-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:30px;
+}
+
+.place-card{
+  position:relative;
+  background:#fff;
+  border:2px solid #333;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:6px 7px 0 rgba(0,0,0,.10);
+}
+
+.place-photo{
+  position:relative;
+  height:320px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:80px;
+  overflow:hidden;
+}
+
+.place-photo.bridge{
+  background:linear-gradient(145deg,#5188bb,#162a4b);
+}
+
+.place-photo.museum{
+  background:linear-gradient(145deg,#e5e4dc,#9aa6a1);
+}
+
+.place-photo.tower{
+  background:linear-gradient(145deg,#657db4,#242744);
+}
+
+.place-photo.history{
+  background:linear-gradient(145deg,#ba8a67,#684b3e);
+}
+
+.place-number{
+  position:absolute;
+  right:18px;
+  bottom:16px;
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  border:2px solid #292929;
+  border-radius:50%;
+  color:#292929;
+  font-size:15px;
+  font-weight:900;
+}
+
+.place-content{
+  padding:28px 28px 30px;
+}
+
+.place-category{
+  display:block;
+  margin-bottom:8px;
+  color:#2869d8;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.12em;
+}
+
+.place-content h3{
+  margin:0;
+  font-size:clamp(28px,2.5vw,38px);
+  line-height:1.2;
+  letter-spacing:-.045em;
+}
+
+.place-subtitle{
+  margin:9px 0 18px;
+  color:#333;
+  font-size:17px;
+  font-weight:900;
+}
+
+.place-description{
+  color:#5b5147;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.photo-tip{
+  margin-top:20px;
+  padding:16px 18px;
+  background:#fff1ad;
+  border:1px solid #d4b950;
+  border-radius:10px;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.photo-tip strong{
+  color:#ef6475;
+}
+
+.photo-mission{
+  margin-top:70px;
+  padding:34px 36px;
+  background:#f3f8ff;
+  border:3px solid #292929;
+  border-radius:18px;
+  box-shadow:7px 8px 0 #292929;
+}
+
+.photo-mission h3{
+  margin:0 0 22px;
+  color:#2869d8;
+  font-size:28px;
+}
+
+.mission-list{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px 22px;
+}
+
+.mission-item{
+  padding:14px 16px;
+  background:#fff;
+  border:2px solid #292929;
+  border-radius:10px;
+  font-size:14px;
+  font-weight:800;
+}
+
+.mission-finish{
+  margin-top:20px;
+  color:#ef6475;
+  font-weight:900;
+  text-align:center;
+}
+
+.postit{
+  width:min(620px,90%);
+  margin:55px auto 0;
+  padding:24px 30px;
+  background:#ffe48a;
+  font-size:16px;
+  line-height:1.75;
+  font-weight:800;
+  transform:rotate(-2deg);
+  box-shadow:4px 5px 0 rgba(0,0,0,.07);
+}
+
+/* =========================================================
+   FOOD DETAIL
+========================================================= */
+
+.food-detail{
+  background:#fff6ed;
+}
+
+.food-detail .detail-title strong{
+  color:#ef6475;
+}
+
+.restaurant-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:22px;
+}
+
+.restaurant-card{
+  --food:#ef6878;
+  background:#fffdf7;
+  border:2px solid #363636;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:5px 6px 0 rgba(42,42,42,.10);
+}
+
+.restaurant-card:nth-child(2){
+  --food:#dcae2e;
+}
+
+.restaurant-card:nth-child(3){
+  --food:#367edb;
+}
+
+.restaurant-photo{
+  position:relative;
+  height:260px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#e7cc9c,#9a6a4d);
+  color:#fff;
+  font-size:75px;
+  border-bottom:2px solid #363636;
+}
+
+.restaurant-badge{
+  position:absolute;
+  top:15px;
+  left:15px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.restaurant-number{
+  width:43px;
+  height:43px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--food);
+  border:2px solid #2d2d2d;
+  border-radius:50%;
+  color:#fff;
+  font-weight:900;
+}
+
+.restaurant-category{
+  padding:7px 12px;
+  background:var(--food);
+  border:2px solid #2d2d2d;
+  border-radius:999px;
+  color:#fff;
+  font-size:13px;
+  font-weight:900;
+}
+
+.restaurant-body{
+  padding:24px 20px 22px;
+}
+
+.restaurant-body h3{
+  margin:0;
+  font-size:clamp(25px,2vw,31px);
+  line-height:1.15;
+}
+
+.restaurant-description{
+  min-height:70px;
+  margin:15px 0 18px;
+  color:#514a43;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.food-info{
+  padding-top:15px;
+  border-top:1px dashed #cfc3b0;
+}
+
+.food-info-row{
+  display:grid;
+  grid-template-columns:75px 1fr;
+  gap:8px;
+  margin-bottom:10px;
+  font-size:13px;
+}
+
+.food-info-label{
+  color:#887866;
+  font-size:11px;
+  font-weight:900;
+}
+
+.food-info-value{
+  font-weight:800;
+}
+
+/* =========================================================
+   CAFE DETAIL
+========================================================= */
+
+.cafe-detail{
+  background:#f4f0e8;
+}
+
+.cafe-detail .detail-title strong{
+  color:#71925e;
+}
+
+.cafe-intro{
+  display:grid;
+  grid-template-columns:1fr 370px;
+  gap:40px;
+  align-items:start;
+}
+
+.cafe-mood-test{
+  padding:25px;
+  background:#fff;
+  border:3px solid #292929;
+  border-radius:18px;
+  box-shadow:6px 7px 0 #292929;
+}
+
+.cafe-mood-test h3{
+  margin:0 0 18px;
+  color:#71925e;
+  font-size:22px;
+}
+
+.mood-test-item{
+  display:block;
+  padding:15px;
+  margin-bottom:12px;
+  background:#fff9ea;
+  border:2px solid #292929;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:900;
+  text-decoration:none;
+}
+
+.cafe-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:25px;
+  margin-top:55px;
+}
+
+.cafe-card{
+  --cafe:#71925e;
+  background:#fff;
+  border:2px solid #292929;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:6px 7px 0 rgba(0,0,0,.10);
+}
+
+.cafe-card:nth-child(1){
+  --cafe:#e6ad2e;
+}
+
+.cafe-card:nth-child(2){
+  --cafe:#4f7ea8;
+}
+
+.cafe-card:nth-child(3){
+  --cafe:#71925e;
+}
+
+.cafe-photo{
+  height:250px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg,#dfc8ad,#8a684e);
+  color:#fff;
+  font-size:74px;
+  border-bottom:2px solid #292929;
+}
+
+.cafe-body{
+  padding:25px 22px 24px;
+}
+
+.cafe-category{
+  display:inline-block;
+  margin-bottom:10px;
+  padding:5px 9px;
+  background:var(--cafe);
+  border-radius:999px;
+  color:#fff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+
+.cafe-body h3{
+  margin:0;
+  font-size:29px;
+}
+
+.cafe-headline{
+  margin:7px 0 16px;
+  font-size:17px;
+  font-weight:900;
+  color:#333;
+}
+
+.cafe-description{
+  color:#5c534a;
+  font-size:14px;
+  line-height:1.75;
+}
+
+.cafe-point{
+  margin-top:20px;
+  padding-top:15px;
+  border-top:1px dashed #cfc3b0;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.cafe-mission{
+  margin-top:15px;
+  padding:12px;
+  background:#fff2b6;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:900;
+}
+
+/* =========================================================
+   COURSE DETAIL
+========================================================= */
+
+.course-detail{
+  background:
+    linear-gradient(
+      180deg,
+      #edf5ff 0%,
+      #fff8e9 100%
+    );
+}
+
+.course-detail .detail-title strong{
+  color:#2869d8;
+}
+
+.course-timeline{
+  max-width:1000px;
+  margin:60px auto 0;
+}
+
+.course-stop{
+  position:relative;
+  display:grid;
+  grid-template-columns:95px 1fr;
+  gap:25px;
+  padding-bottom:55px;
+}
+
+.course-stop:not(:last-child)::after{
+  content:"";
+  position:absolute;
+  left:46px;
+  top:70px;
+  bottom:0;
+  width:3px;
+  border-left:3px dashed #8eb8df;
+}
+
+.stop-number{
+  width:78px;
+  height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  z-index:2;
+  background:#fff;
+  border:3px solid #292929;
+  border-radius:50%;
+  box-shadow:4px 4px 0 #292929;
+  color:#2869d8;
+  font-size:18px;
+  font-weight:900;
+}
+
+.stop-card{
+  padding:28px 30px;
+  background:#fff;
+  border:2px solid #292929;
+  border-radius:18px;
+  box-shadow:5px 6px 0 rgba(0,0,0,.09);
+}
+
+.stop-kicker{
+  display:block;
+  margin-bottom:5px;
+  color:#2869d8;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.1em;
+}
+
+.stop-card h3{
+  margin:0;
+  font-size:clamp(28px,3vw,40px);
+  letter-spacing:-.045em;
+}
+
+.stop-copy{
+  margin:10px 0 18px;
+  color:#5b5147;
+  font-size:15px;
+  line-height:1.75;
+}
+
+.stop-action{
+  display:inline-block;
+  padding:8px 12px;
+  background:#fff1ad;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:900;
+}
+
+.dual-place{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:16px;
+}
+
+.dual-box{
+  padding:14px;
+  background:#f6f4ee;
+  border:1px solid #d5cabb;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:900;
+}
+
+.route-receipt{
+  max-width:700px;
+  margin:45px auto 0;
+  padding:35px 40px;
+  background:#fff;
+  border:2px solid #292929;
+  box-shadow:6px 7px 0 rgba(0,0,0,.10);
+  text-align:center;
+  transform:rotate(-1deg);
+}
+
+.route-receipt small{
+  color:#2869d8;
+  font-weight:900;
+  letter-spacing:.1em;
+}
+
+.route-receipt h3{
+  margin:12px 0 20px;
+  font-size:30px;
+}
+
+.route-line{
+  color:#5b5147;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.route-receipt strong{
+  display:block;
+  margin-top:20px;
+  color:#ef6475;
+  font-size:20px;
+}
+
+/* =========================================================
+   FESTIVAL
+========================================================= */
+
+.festival-section{
+  padding:105px 30px 115px;
+  background:#fff3d9;
+}
+
+.festival-heading{
+  margin-bottom:55px;
+  text-align:center;
+}
+
+.festival-kicker{
+  display:inline-block;
+  margin-bottom:13px;
+  padding:7px 13px;
+  background:#75c8ff;
+  font-size:13px;
+  font-weight:900;
+  transform:rotate(-2deg);
+}
+
+.festival-heading h2{
+  margin:0;
+  font-size:clamp(44px,5vw,68px);
+  line-height:1.1;
+  letter-spacing:-.055em;
+}
+
+.festival-heading h2 strong{
+  color:#2869d8;
+}
+
+.festival-heading p{
+  max-width:680px;
+  margin:22px auto 0;
+  color:#62584d;
+  font-size:17px;
+  line-height:1.75;
+}
+
+.festival-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:28px;
+}
+
+.festival-card{
+  position:relative;
+  min-height:400px;
+  background:#fff;
+  border:3px solid #292929;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:8px 9px 0 #292929;
+}
+
+.festival-card:nth-child(1){
+  transform:rotate(-1.5deg);
+}
+
+.festival-card:nth-child(2){
+  transform:rotate(1deg);
+}
+
+.festival-card:nth-child(3){
+  transform:rotate(-.8deg);
+}
+
+.festival-photo{
+  height:215px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#9fd8ff,#5d9ed5);
+  color:#fff;
+  font-size:65px;
+  border-bottom:3px solid #292929;
+}
+
+.festival-card:nth-child(2) .festival-photo{
+  background:linear-gradient(135deg,#ffd882,#e9a43a);
+}
+
+.festival-card:nth-child(3) .festival-photo{
+  background:linear-gradient(135deg,#b6d7a8,#6a9b5e);
+}
+
+.festival-body{
+  padding:22px 22px 24px;
+}
+
+.festival-label{
+  display:inline-block;
+  margin-bottom:9px;
+  padding:5px 9px;
+  background:#ffd94a;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:900;
+}
+
+.festival-body h3{
+  margin:0;
+  font-size:25px;
+  line-height:1.25;
+}
+
+.festival-body p{
+  margin:12px 0 0;
+  color:#62584d;
+  font-size:14px;
+  line-height:1.65;
+}
+
+.instagram-box{
+  max-width:760px;
+  margin:70px auto 0;
+  padding:32px;
+  background:#75c8ff;
+  border:3px solid #292929;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:6px 7px 0 #292929;
+  transform:rotate(-1deg);
+}
+
+.instagram-box h3{
+  margin:0 0 10px;
+  font-size:30px;
+}
+
+.instagram-box p{
+  margin:0 0 22px;
+  font-size:15px;
+  line-height:1.7;
+}
+
+.instagram-button{
+  display:inline-block;
+  padding:14px 20px;
+  background:#ffd94a;
+  border:3px solid #292929;
+  border-radius:9px;
+  color:#292929;
+  text-decoration:none;
+  font-weight:900;
+  box-shadow:4px 4px 0 #292929;
+  transition:.15s;
+}
+
+.instagram-button:hover{
+  transform:translate(2px,2px);
+  box-shadow:2px 2px 0 #292929;
+}
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+.final-section{
+  padding:110px 30px 120px;
+  background:#75c8ff;
+  text-align:center;
+}
+
+.final-section h2{
+  margin:0;
+  font-size:clamp(48px,6vw,82px);
+  line-height:1.1;
+  letter-spacing:-.06em;
+}
+
+.final-section p{
+  margin:25px auto 35px;
+  max-width:650px;
+  font-size:18px;
+  line-height:1.8;
+}
+
+.final-cta{
+  display:inline-block;
+  padding:17px 25px;
+  background:#ffd94a;
+  border:3px solid #292929;
+  border-radius:10px;
+  box-shadow:5px 5px 0 #292929;
+  color:#292929;
+  text-decoration:none;
+  font-size:17px;
+  font-weight:900;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+  .ticket{
+    display:block;
+  }
+
+  .ticket-main{
+    min-height:460px;
+  }
+
+  .ticket-stub{
+    min-height:300px;
+    clip-path:none;
+  }
+
+  .perforation{
+    display:none;
+  }
+
+  .mood-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .restaurant-grid,
+  .cafe-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .cafe-intro{
+    grid-template-columns:1fr;
+  }
+
+  .festival-grid{
+    grid-template-columns:1fr;
+  }
+
+  .festival-card:nth-child(1),
+  .festival-card:nth-child(2),
+  .festival-card:nth-child(3){
+    transform:none;
+  }
+}
+
+@media(max-width:760px){
+
+  .photo-grid,
+  .restaurant-grid,
+  .cafe-grid,
+  .mission-list{
+    grid-template-columns:1fr;
+  }
+
+  .course-stop{
+    grid-template-columns:70px 1fr;
+    gap:15px;
+  }
+
+  .stop-number{
+    width:60px;
+    height:60px;
+  }
+
+  .course-stop:not(:last-child)::after{
+    left:29px;
+    top:58px;
+  }
+
+  .dual-place{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:620px){
+
+  .hero{
+    min-height:auto;
+    padding:45px 15px;
+  }
+
+  .ticket-wrap{
+    transform:rotate(-.5deg);
+  }
+
+  .ticket-main{
+    min-height:470px;
+    padding:38px 30px;
+  }
+
+  .hero-title{
+    font-size:39px;
+  }
+
+  .route{
+    width:100%;
+    grid-template-columns:1fr 35px 1fr;
+  }
+
+  .route-value{
+    font-size:19px;
+  }
+
+  .daejeon-stamp,
+  .train-doodle{
+    display:none;
+  }
+
+  .ticket-stub{
+    padding:35px 32px;
+  }
+
+  .mood-section{
+    padding:75px 20px 90px;
+  }
+
+  .mood-heading h2{
+    font-size:44px;
+  }
+
+  .mood-grid{
+    grid-template-columns:1fr;
+  }
+
+  .mood-card:nth-child(1),
+  .mood-card:nth-child(2),
+  .mood-card:nth-child(3),
+  .mood-card:nth-child(4){
+    transform:none;
+  }
+
+  .detail-section{
+    padding:55px 18px 80px;
+  }
+
+  .detail-title{
+    font-size:46px;
+  }
+
+  .place-photo{
+    height:260px;
+  }
+
+  .route-receipt{
+    padding:28px 20px;
+  }
+
+  .festival-section{
+    padding:75px 18px 90px;
+  }
+
+  .festival-heading h2{
+    font-size:42px;
+  }
+
+  .instagram-box{
+    padding:25px 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     01. HERO
+===================================================== -->
+
+<section class="hero">
+
+  <div class="ticket-wrap">
+
+    <div class="ticket">
+
+      <div class="ticket-main">
+
+        <span class="ticket-label">
+          ★ 오늘, 대전행 티켓
+        </span>
+
+        <h1 class="hero-title">
+          기분이 이끄는 대로,<br>
+          일단 <strong>대전행.</strong>
+        </h1>
+
+        <p class="hero-copy">
+          계획은 도착해서 생각해도 되니까.<br>
+          <strong>오늘은 내 마음대로, 대전.</strong>
+        </p>
+
+        <div class="route">
+
+          <div>
+            <span class="route-label">FROM</span>
+            <div class="route-value">오늘 기분</div>
+          </div>
+
+          <div class="route-arrow">
+            →
+          </div>
+
+          <div>
+            <span class="route-label">TO</span>
+            <div class="route-value">DAEJEON</div>
+          </div>
+
+        </div>
+
+        <div class="train-doodle"></div>
+
+        <div class="daejeon-stamp">
+          <span>ARRIVED</span>
+          <strong>DAEJEON</strong>
+          <span>대 전 역</span>
+          <span>SOLO TRIP</span>
+        </div>
+
+      </div>
+
+
+      <aside class="ticket-stub">
+
+        <div class="stub-top">
+
+          <span class="stub-label">
+            DESTINATION
+          </span>
+
+          <div class="destination">
+            DAEJEON →
+          </div>
+
+          <div class="ticket-info">
+
+            <div>
+              <span class="info-label">PASSENGER</span>
+              <span class="info-value">혼자</span>
+            </div>
+
+            <div>
+              <span class="info-label">PLAN</span>
+              <span class="info-value">미정</span>
+            </div>
+
+            <div>
+              <span class="info-label">MOOD</span>
+              <span class="info-value">오늘 기분대로</span>
+            </div>
+
+            <div>
+              <span class="info-label">DEPARTURE</span>
+              <span class="info-value">지금</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <a href="#choose" class="ticket-cta">
+          <span>내 기분 따라 출발하기</span>
+          <span>→</span>
+        </a>
+
+        <div class="ticket-bottom">
+
+          <div class="barcode"></div>
+
+          <div class="ticket-number">
+            DAEJEON<br>
+            SOLO TRIP<br>
+            ONE WAY
+          </div>
+
+        </div>
+
+      </aside>
+
+      <div class="perforation"></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =====================================================
+     02. MOOD SELECT
+===================================================== -->
+
+<section class="mood-section" id="choose">
+
+  <div class="section-inner">
+
+    <header class="mood-heading">
+
+      <span class="mood-kicker">
+        TODAY'S MOOD
+      </span>
+
+      <h2>
+        오늘의 <strong>기분</strong>을<br>
+        골라주세요
+      </h2>
+
+    </header>
+
+
+    <div class="mood-grid">
+
+      <a href="#photo" class="mood-card">
+
+        <div class="card-photo photo-spot">
+
+          <div class="photo-placeholder">
+            <span>📸</span>
+            <small>대전 장소 사진</small>
+          </div>
+
+          <span class="photo-label">PHOTO</span>
+
+        </div>
+
+        <div class="card-content">
+
+          <span class="card-icon">📷</span>
+
+          <h3>
+            오늘 피드 좀<br>
+            채워볼까?
+          </h3>
+
+          <p>
+            찍는 곳마다 그림 되는<br>
+            대전의 추천 스팟들.
+          </p>
+
+          <div class="card-bottom">
+
+            <span class="mood-name">
+              사진 왕창 찍고 싶은 날
+            </span>
+
+            <span class="card-arrow">
+              →
+            </span>
+
+          </div>
+
+        </div>
+
+      </a>
+
+
+      <a href="#food" class="mood-card">
+
+        <div class="card-photo photo-food">
+
+          <div class="photo-placeholder">
+            <span>🍜</span>
+            <small>대전 음식 사진</small>
+          </div>
+
+          <span class="photo-label">EAT</span>
+
+        </div>
+
+        <div class="card-content">
+
+          <span class="card-icon">🍽️</span>
+
+          <h3>
+            맛집<br>
+            도장깨기
+          </h3>
+
+          <p>
+            오늘은 남의 입맛 말고<br>
+            내 입맛대로 골라봐요.
+          </p>
+
+          <div class="card-bottom">
+
+            <span class="mood-name">
+              맛집 다 뿌수고 싶은 날
+            </span>
+
+            <span class="card-arrow">→</span>
+
+          </div>
+
+        </div>
+
+      </a>
+
+
+      <a href="#cafe" class="mood-card">
+
+        <div class="card-photo photo-cafe">
+
+          <div class="photo-placeholder">
+            <span>☕</span>
+            <small>대전 카페 사진</small>
+          </div>
+
+          <span class="photo-label">CAFE</span>
+
+        </div>
+
+        <div class="card-content">
+
+          <span class="card-icon">☕</span>
+
+          <h3>
+            기분 따라<br>
+            고르는 카페
+          </h3>
+
+          <p>
+            오늘 하고 싶은 것에 따라<br>
+            카페도 달라지니까.
+          </p>
+
+          <div class="card-bottom">
+
+            <span class="mood-name">
+              느좋 카페 가고 싶은 날
+            </span>
+
+            <span class="card-arrow">→</span>
+
+          </div>
+
+        </div>
+
+      </a>
+
+
+      <a href="#course" class="mood-card">
+
+        <div class="card-photo photo-course">
+
+          <div class="photo-placeholder">
+            <span>🗺️</span>
+            <small>오늘 코스</small>
+          </div>
+
+          <span class="photo-label">EASY</span>
+
+        </div>
+
+        <div class="card-content">
+
+          <span class="card-icon">😴</span>
+
+          <h3>
+            오늘은<br>
+            다 귀찮아
+          </h3>
+
+          <p>
+            어디 갈지 생각하는 것도 귀찮다면<br>
+            그냥 이대로 따라오세요.
+          </p>
+
+          <div class="card-bottom">
+
+            <span class="mood-name">
+              아무 생각 하기 싫은 날
+            </span>
+
+            <span class="card-arrow">→</span>
+
+          </div>
+
+        </div>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =====================================================
+     03. PHOTO DETAIL
+===================================================== -->
+
+<section class="detail-section photo-detail" id="photo">
+
+  <div class="section-inner">
+
+    <a href="#choose" class="section-back">
+      ←
+      <span>기분 다시 고르기</span>
+    </a>
+
+    <span class="detail-eyebrow">
+      사진 왕창 찍고 싶은 기분이에요
+    </span>
+
+    <h2 class="detail-title">
+      대전에서 놓치기 아까운<br>
+      <strong>추천 명소 4곳</strong>
+    </h2>
+
+    <p class="detail-lead">
+      랜드마크부터 미술관,
+      오래된 건축과 야경까지.<br>
+      <strong>오늘 피드에 남기고 싶은 대전을 골라보세요.</strong>
+    </p>
+
+
+    <div class="photo-grid">
+
+      <article class="place-card">
+
+        <div class="place-photo bridge">
+          🌉
+          <span class="place-number">01</span>
+        </div>
+
+        <div class="place-content">
+
+          <span class="place-category">NIGHT VIEW</span>
+
+          <h3>엑스포다리</h3>
+
+          <p class="place-subtitle">
+            대전의 밤을 가장 아름답게 건너는 방법
+          </p>
+
+          <p class="place-description">
+            갑천 위를 가로지르는 엑스포다리는
+            한밭수목원과 엑스포과학공원을 이어주는
+            대전의 대표적인 야경 명소입니다.
+            해가 지면 다리를 따라 조명이 켜지고,
+            강물 위로 한빛탑과 도시의 불빛이 번져
+            낮과는 전혀 다른 풍경을 만듭니다.
+            천천히 다리를 건너거나 갑천변 산책로를 걸으며
+            바라보는 야경이 특히 매력적입니다.
+          </p>
+
+          <div class="photo-tip">
+            📸 <strong>이렇게 찍어봐요</strong><br>
+            엑스포다리와 한빛탑을 한 화면에 담아보세요.
+            일몰 직전에 도착해 노을부터 야경까지 이어서 감상해 보세요.
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="place-card">
+
+        <div class="place-photo museum">
+          🎨
+          <span class="place-number">02</span>
+        </div>
+
+        <div class="place-content">
+
+          <span class="place-category">
+            ART & ARCHITECTURE
+          </span>
+
+          <h3>이응노미술관</h3>
+
+          <p class="place-subtitle">
+            작품과 건축이 하나로 이어지는 공간
+          </p>
+
+          <p class="place-description">
+            한국 현대미술을 대표하는 고암 이응노의 삶과 작품 세계를
+            만날 수 있는 미술관입니다.
+            전통 수묵에서 문자추상과 군상에 이르기까지
+            끊임없이 새로운 표현을 탐구했던 작가의 예술 세계를
+            다양한 전시로 소개합니다.
+            프랑스 건축가 로랑 보두앵이 이응노의 작품 「수(壽)」에서
+            영감을 받아 설계한 건물도 놓치기 아까운 볼거리입니다.
+          </p>
+
+          <div class="photo-tip">
+            📸 <strong>이렇게 찍어봐요</strong><br>
+            미술관의 하얀 외벽과 대나무, 잔디광장이 어우러진 야외 공간도 둘러보세요.
+            인근 대전시립미술관과 한밭수목원을 함께 방문하면
+            여유로운 반나절 코스가 완성됩니다.
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="place-card">
+
+        <div class="place-photo tower">
+          ✦
+          <span class="place-number">03</span>
+        </div>
+
+        <div class="place-content">
+
+          <span class="place-category">
+            DAEJEON LANDMARK
+          </span>
+
+          <h3>엑스포과학공원 한빛탑</h3>
+
+          <p class="place-subtitle">
+            과학도시 대전을 밝히는 랜드마크
+          </p>
+
+          <p class="place-description">
+            한빛탑은 1993년 대전엑스포를 기념해 세워진
+            높이 93m의 상징탑입니다.
+            우주선을 떠올리게 하는 독특한 모습은
+            지금도 ‘과학도시 대전’을 대표하는 풍경으로 사랑받고 있습니다.
+            밤이 되면 탑과 광장에 화려한 조명이 더해지고,
+            운영 기간에는 음악분수와 미디어파사드가 어우러져
+            더욱 생동감 있는 야경을 선사합니다.
+          </p>
+
+          <div class="photo-tip">
+            📸 <strong>이렇게 찍어봐요</strong><br>
+            한빛탑 광장에서 엑스포다리 방향으로 걸어보세요.
+            탑의 불빛과 분수, 다리의 조명이 차례로 이어집니다.
+            <br><br>
+            ※ 음악분수와 미디어파사드는 방문 전 운영 일정을 확인해 주세요.
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="place-card">
+
+        <div class="place-photo history">
+          🏛️
+          <span class="place-number">04</span>
+        </div>
+
+        <div class="place-content">
+
+          <span class="place-category">
+            RETRO
+          </span>
+
+          <h3>대전근현대사전시관</h3>
+
+          <p class="place-subtitle">
+            오래된 청사에서 만나는 대전의 시간
+          </p>
+
+          <p class="place-description">
+            1932년에 지어진 옛 충남도청사 본관을 활용한 전시관으로,
+            대전이 근대도시로 성장해 온 과정과 도시의 변화를
+            한눈에 살펴볼 수 있습니다.
+            당시의 모습을 간직한 복도와 계단, 창문 등
+            건물 자체도 하나의 전시물처럼 느껴집니다.
+            여러 영화와 드라마의 촬영지로 사용될 만큼
+            고풍스럽고 묵직한 분위기도 인상적입니다.
+          </p>
+
+          <div class="photo-tip">
+            📸 <strong>이렇게 찍어봐요</strong><br>
+            오래된 건물의 세부 장식과 공간 구성을 눈여겨보세요.
+            관람 후에는 중앙로와 선화동 일대를 걸으며
+            원도심의 오래된 풍경과 새로운 감성이 공존하는 모습을 만나보세요.
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <section class="photo-mission">
+
+      <h3>TODAY'S PHOTO MISSION</h3>
+
+      <div class="mission-list">
+
+        <div class="mission-item">
+          □ 엑스포다리 + 한빛탑 한 프레임에 담기
+        </div>
+
+        <div class="mission-item">
+          □ 이응노미술관에서 건축 디테일 찾기
+        </div>
+
+        <div class="mission-item">
+          □ 한빛탑 불빛이 켜지는 순간 찍기
+        </div>
+
+        <div class="mission-item">
+          □ 근현대사전시관에서 나만의 레트로 컷 남기기
+        </div>
+
+      </div>
+
+      <div class="mission-finish">
+        4개 다 찍으면 오늘 피드 완성 ✦
+      </div>
+
+    </section>
+
+
+    <div class="postit">
+      사진 잘 찍는 법? 일단 가는 게 먼저죠. 📸<br>
+      남들이 찍은 대전을 따라 찍어도 좋고,<br>
+      <strong>내 눈에 예쁜 대전을 찾아도 좋아요.</strong>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =====================================================
+     04. FOOD DETAIL
+===================================================== -->
+
+<section class="detail-section food-detail" id="food">
+
+  <div class="section-inner">
+
+    <a href="#choose" class="section-back">
+      ←
+      <span>기분 다시 고르기</span>
+    </a>
+
+    <span class="detail-eyebrow">
+      맛있는 거 다 뿌수고 싶은 기분이에요
+    </span>
+
+    <h2 class="detail-title">
+      대전 <strong>맛집</strong><br>
+      도장깨기
+    </h2>
+
+    <p class="detail-lead">
+      오늘은 누구랑 메뉴를 맞출 필요 없이<br>
+      <strong>내가 먹고 싶은 걸 골라보세요.</strong>
+    </p>
+
+
+    <div class="restaurant-grid">
+
+      <article class="restaurant-card">
+
+        <div class="restaurant-photo">
+          🍣
+
+          <div class="restaurant-badge">
+
+            <span class="restaurant-number">01</span>
+
+            <span class="restaurant-category">
+              일식
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="restaurant-body">
+
+          <h3>토미야</h3>
+
+          <p class="restaurant-description">
+            오늘은 일식이 당기는 날이라면 첫 번째 후보.
+            혼자 천천히 한 끼를 즐기고 싶을 때 골라보세요.
+          </p>
+
+          <div class="food-info">
+
+            <div class="food-info-row">
+              <span class="food-info-label">CATEGORY</span>
+              <span class="food-info-value">일식</span>
+            </div>
+
+            <div class="food-info-row">
+              <span class="food-info-label">MENU</span>
+              <span class="food-info-value">메뉴 정보 추가 입력</span>
+            </div>
+
+            <div class="food-info-row">
+              <span class="food-info-label">LOCATION</span>
+              <span class="food-info-value">주소 확인 후 입력</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="restaurant-card">
+
+        <div class="restaurant-photo">
+          🍝
+
+          <div class="restaurant-badge">
+
+            <span class="restaurant-number">02</span>
+
+            <span class="restaurant-category">
+              양식
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="restaurant-body">
+
+          <h3>트리니트 비스트로</h3>
+
+          <p class="restaurant-description">
+            분위기까지 챙기고 싶은 오늘의 한 끼.
+            혼자여도 천천히 즐기는 비스트로 무드.
+          </p>
+
+          <div class="food-info">
+
+            <div class="food-info-row">
+              <span class="food-info-label">CATEGORY</span>
+              <span class="food-info-value">양식</span>
+            </div>
+
+            <div class="food-info-row">
+              <span class="food-info-label">MENU</span>
+              <span class="food-info-value">메뉴 정보 추가 입력</span>
+            </div>
+
+            <div class="food-info-row">
+              <span class="food-info-label">LOCATION</span>
+              <span class="food-info-value">주소 확인 후 입력</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="restaurant-card">
+
+        <div class="restaurant-photo">
+          🥢
+
+          <div class="restaurant-badge">
+
+            <span class="restaurant-number">03</span>
+
+            <span class="restaurant-category">
+              중식
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="restaurant-body">
+
+          <h3>희락반점</h3>
+
+          <p class="restaurant-description">
+            든든하고 익숙한 중식이 생각나는 날.
+            혼자서도 부담 없이 한 끼 채우기 좋은 선택.
+          </p>
+
+          <div class="food-info">
+
+            <div class="food-info-row">
+              <span class="food-info-label">CATEGORY</span>
+              <span class="food-info-value">중식</span>
+            </div>
+
+            <div class="food-info-row">
+              <span class="food-info-label">MENU</span>
+              <span class="food-info-value">메뉴 정보 추가 입력</span>
+            </div>
+
+            <div class="food-info-row">
+              <span class="food-info-label">LOCATION</span>
+              <span class="food-info-value">주소 확인 후 입력</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <div class="postit">
+      혼자라서 좋은 점 하나.<br>
+      오늘 먹을 메뉴를 누구랑 합의할 필요가 없어요.<br>
+      <strong>내 입맛이 오늘의 여행 코스.</strong>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =====================================================
+     05. CAFE DETAIL
+===================================================== -->
+
+<section class="detail-section cafe-detail" id="cafe">
+
+  <div class="section-inner">
+
+    <a href="#choose" class="section-back">
+      ←
+      <span>기분 다시 고르기</span>
+    </a>
+
+
+    <div class="cafe-intro">
+
+      <div>
+
+        <span class="detail-eyebrow">
+          느좋 카페 가고 싶은 기분이에요
+        </span>
+
+        <h2 class="detail-title">
+          오늘은 어떤<br>
+          <strong>카페 무드?</strong>
+        </h2>
+
+        <p class="detail-lead">
+          같은 커피 한 잔이어도<br>
+          오늘 원하는 시간은 조금씩 다르니까.<br>
+          <strong>지금 하고 싶은 걸 골라 대전 카페로 가볼까요?</strong>
+        </p>
+
+      </div>
+
+
+      <aside class="cafe-mood-test">
+
+        <h3>TODAY'S CAFE MOOD</h3>
+
+        <a href="#sosin" class="mood-test-item">
+          👽 대전에서만 할 수 있는 것 → 소신
+        </a>
+
+        <a href="#told" class="mood-test-item">
+          ☕ 커피 맛에 제대로 빠지고 싶다 → 톨드어스토리
+        </a>
+
+        <a href="#ssangri" class="mood-test-item">
+          📖 책과 작업에 몰입하고 싶다 → 쌍리
+        </a>
+
+      </aside>
+
+    </div>
+
+
+    <div class="cafe-grid">
+
+      <article class="cafe-card" id="sosin">
+
+        <div class="cafe-photo">
+          👽
+        </div>
+
+        <div class="cafe-body">
+
+          <span class="cafe-category">
+            ONLY DAEJEON
+          </span>
+
+          <h3>궁동 소신</h3>
+
+          <p class="cafe-headline">
+            대전에서만 만날 수 있는 귀여움
+          </p>
+
+          <p class="cafe-description">
+            대전의 상징이라고 할 수 있는 귀여운 캐릭터 꿈돌이.
+            너무 유명하고 붐비는 곳보다 조금 여유롭게
+            대전다운 귀여움을 만나고 싶은 혼자 여행자에게
+            궁동의 ‘소신’을 추천합니다.
+          </p>
+
+          <div class="cafe-point">
+            <strong>추천 기분</strong><br>
+            대전에서만 할 수 있는 것을 찾아보고 싶은 날
+            <br><br>
+            <strong>POINT</strong><br>
+            꿈돌이 · 대전 로컬 감성
+          </div>
+
+          <div class="cafe-mission">
+            📸 오늘의 미션 : 꿈돌이와 인증샷 남기기
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="cafe-card" id="told">
+
+        <div class="cafe-photo">
+          ☕
+        </div>
+
+        <div class="cafe-body">
+
+          <span class="cafe-category">
+            COFFEE LOVER
+          </span>
+
+          <h3>갈마동 톨드어스토리</h3>
+
+          <p class="cafe-headline">
+            오늘은 커피에 진심이고 싶어서
+          </p>
+
+          <p class="cafe-description">
+            제공한 자료에 따르면 외관 창문에
+            블루리본 스티커가 10개 붙어 있는 곳.
+            2005년부터 시작해 2021년 갈마동으로 이전한 뒤에도
+            발길이 이어지고 있는 공간입니다.
+          </p>
+
+          <div class="cafe-point">
+            <strong>추천 기분</strong><br>
+            오늘만큼은 커피 맛 자체에 집중하고 싶은 날
+            <br><br>
+            <strong>POINT</strong><br>
+            커피 · 오랜 시간 이어온 공간
+          </div>
+
+          <div class="cafe-mission">
+            ☕ 오늘의 미션 : 평소 안 마셔본 커피 한 잔 골라보기
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="cafe-card" id="ssangri">
+
+        <div class="cafe-photo">
+          📖
+        </div>
+
+        <div class="cafe-body">
+
+          <span class="cafe-category">
+            READ & WORK
+          </span>
+
+          <h3>대흥동 쌍리</h3>
+
+          <p class="cafe-headline">
+            아무 방해 없이 내 시간에 몰입하기
+          </p>
+
+          <p class="cafe-description">
+            ‘쌍리’라는 이름은 두 마리의 잉어를 뜻하고,
+            고전 문학에서는 멀리서 온 반가운 편지를 의미한다고 합니다.
+            2008년부터 한 자리를 지켜온 카페로,
+            1층은 레트로한 분위기,
+            2층은 밝고 모던한 갤러리 공간으로 소개되어 있습니다.
+          </p>
+
+          <div class="cafe-point">
+            <strong>혼자라면 2층</strong><br>
+            갤러리형 공간에 자리를 잡고
+            책을 읽거나 작업하며 천천히 머물러보세요.
+          </div>
+
+          <div class="cafe-mission">
+            📖 오늘의 미션 : 휴대폰 내려놓고 20분 집중하기
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <div class="postit">
+      혼자 카페에 가면 좋은 점. ☕<br>
+      한 잔만 마시고 나와도 되고,<br>
+      마음에 들면 두 시간 있어도 되니까.<br>
+      <strong>오늘 머무는 시간도 내 기분대로.</strong>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =====================================================
+     06. COURSE DETAIL
+===================================================== -->
+
+<section class="detail-section course-detail" id="course">
+
+  <div class="section-inner">
+
+    <a href="#choose" class="section-back">
+      ←
+      <span>기분 다시 고르기</span>
+    </a>
+
+    <span class="detail-eyebrow">
+      오늘은 코스 짜기도 귀찮은 기분이에요
+    </span>
+
+    <h2 class="detail-title">
+      생각하지 마세요.<br>
+      <strong>오늘 코스는 정해드릴게요.</strong>
+    </h2>
+
+    <p class="detail-lead">
+      오래된 골목부터 카페와 책방,<br>
+      대전의 풍경이 내려다보이는 곳까지.<br>
+      <strong>그냥 이 순서대로 따라가면 되는 대전의 하루.</strong>
+    </p>
+
+
+    <div class="course-timeline">
+
+      <div class="course-stop">
+
+        <div class="stop-number">
+          01
+        </div>
+
+        <article class="stop-card">
+
+          <span class="stop-kicker">
+            START · OLD TOWN
+          </span>
+
+          <h3>소제동 철도 관사촌</h3>
+
+          <p class="stop-copy">
+            오래된 대전에서 하루 시작.
+            처음부터 바쁘게 움직일 필요는 없어요.
+            소제동의 골목을 천천히 걸으며 오늘 여행을 시작해보세요.
+          </p>
+
+          <span class="stop-action">
+            📸 마음에 드는 골목 하나 찍어두기
+          </span>
+
+        </article>
+
+      </div>
+
+
+      <div class="course-stop">
+
+        <div class="stop-number">
+          02
+        </div>
+
+        <article class="stop-card">
+
+          <span class="stop-kicker">
+            COFFEE & BOOK
+          </span>
+
+          <h3>구모카페 · 구름책방</h3>
+
+          <p class="stop-copy">
+            걷다가 마음에 들면 잠깐 앉아 있기.
+            다음 목적지를 서두르기보다
+            카페와 책방에서 잠시 쉬어가는 시간입니다.
+          </p>
+
+          <div class="dual-place">
+
+            <div class="dual-box">
+              ☕ 구모카페
+            </div>
+
+            <div class="dual-box">
+              📚 구름책방
+            </div>
+
+          </div>
+
+          <br>
+
+          <span class="stop-action">
+            ☕ 커피 한 잔 마시며 아무것도 안 하기
+          </span>
+
+        </article>
+
+      </div>
+
+
+      <div class="course-stop">
+
+        <div class="stop-number">
+          03
+        </div>
+
+        <article class="stop-card">
+
+          <span class="stop-kicker">
+            SUNSET
+          </span>
+
+          <h3>대동 하늘공원</h3>
+
+          <p class="stop-copy">
+            슬슬 하늘이 예뻐질 시간.
+            하루가 조금씩 저물기 시작하면 대동 하늘공원으로.
+            잠깐 멈춰서 대전의 풍경을 바라보세요.
+          </p>
+
+          <span class="stop-action">
+            🌇 오늘 가장 마음에 드는 하늘 남기기
+          </span>
+
+        </article>
+
+      </div>
+
+
+      <div class="course-stop">
+
+        <div class="stop-number">
+          04
+        </div>
+
+        <article class="stop-card">
+
+          <span class="stop-kicker">
+            FINISH · NIGHT VIEW
+          </span>
+
+          <h3>식장산 해돋이 전망대</h3>
+
+          <p class="stop-copy">
+            오늘 하루의 마지막 장면.
+            마지막에는 멀리 펼쳐진 풍경 앞에서
+            하루를 마무리해보세요.
+          </p>
+
+          <span class="stop-action">
+            🌃 사진 한 장 찍고 잠깐 휴대폰 내려놓기
+          </span>
+
+        </article>
+
+      </div>
+
+    </div>
+
+
+    <div class="route-receipt">
+
+      <small>TODAY'S ROUTE</small>
+
+      <h3>
+        감성 따라가는 대전
+      </h3>
+
+      <p class="route-line">
+        소제동 철도 관사촌<br>
+        ↓<br>
+        구모카페 · 구름책방<br>
+        ↓<br>
+        대동 하늘공원<br>
+        ↓<br>
+        식장산 해돋이 전망대
+      </p>
+
+      <strong>
+        계획 고민 0분.
+      </strong>
+
+      <p>
+        오늘은 어디 갈지 고민하지 말고,<br>
+        그냥 대전이 이끄는 대로.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =====================================================
+     07. FESTIVAL
+===================================================== -->
+
+<section class="festival-section">
+
+  <div class="section-inner">
+
+    <header class="festival-heading">
+
+      <span class="festival-kicker">
+        DAEJEON FESTIVAL
+      </span>
+
+      <h2>
+        여행 온 날,<br>
+        <strong>마침 이런 행사가 열린다면?</strong>
+      </h2>
+
+      <p>
+        계획에 없던 축제나 행사를 만나는 것도 여행의 재미니까.<br>
+        대전에서 열리는 다양한 행사와 페스티벌도 가볍게 둘러보세요.
+      </p>
+
+    </header>
+
+
+    <div class="festival-grid">
+
+      <article class="festival-card">
+
+        <div class="festival-photo">
+          🎆
+        </div>
+
+        <div class="festival-body">
+
+          <span class="festival-label">
+            FESTIVAL 01
+          </span>
+
+          <h3>
+            행사명 입력
+          </h3>
+
+          <p>
+            행사 일정과 장소,
+            어떤 분위기의 행사인지 한 줄 소개를 넣어주세요.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="festival-card">
+
+        <div class="festival-photo">
+          🎵
+        </div>
+
+        <div class="festival-body">
+
+          <span class="festival-label">
+            FESTIVAL 02
+          </span>
+
+          <h3>
+            행사명 입력
+          </h3>
+
+          <p>
+            공연이나 야간 행사처럼
+            여행 중 가볍게 들를 수 있는 이벤트를 넣으면 좋아요.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="festival-card">
+
+        <div class="festival-photo">
+          🎨
+        </div>
+
+        <div class="festival-body">
+
+          <span class="festival-label">
+            FESTIVAL 03
+          </span>
+
+          <h3>
+            행사명 입력
+          </h3>
+
+          <p>
+            전시, 마켓, 지역 축제처럼
+            시즌에 따라 달라지는 행사 정보를 넣어주세요.
+          </p>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <div class="instagram-box">
+
+      <h3>
+        👀 또 다른 대전 행사가 궁금하다면?
+      </h3>
+
+      <p>
+        축제부터 전시, 팝업, 주말 행사까지.<br>
+        여행 오기 전 한 번쯤 인스타그램에 놀러 와보세요.
+      </p>
+
+      <!-- 실제 인스타그램 주소를 href 안에 넣으면 됩니다. -->
+      <a
+        href="#"
+        class="instagram-button"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        📱 인스타그램 둘러보기 →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =====================================================
+     08. FINAL CTA
+===================================================== -->
+
+<section class="final-section">
+
+  <div class="section-inner">
+
+    <h2>
+      대전에는<br>
+      정해진 관광코스가 없습니다.
+    </h2>
+
+    <p>
+      꼭 봐야 하는 것도,
+      꼭 해야 하는 것도 없으니까.
+
+      <br><br>
+
+      혼자 온 오늘만큼은<br>
+      먹고 싶으면 먹고,
+      걷고 싶으면 걷고,
+      마음에 들면 조금 더 머물러도 됩니다.
+    </p>
+
+    <a href="#choose" class="final-cta">
+      오늘의 대전 다시 고르기 →
+    </a>
+
+  </div>
+
+</section>
+
+</body>
+</html>

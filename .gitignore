@@ -1,0 +1,24 @@
+# 의존성 · 빌드 산출물
+node_modules/
+dist/
+build/
+.cache/
+.vite/
+*.tsbuildinfo
+
+# 환경변수
+.env*
+
+# 로그
+*.log
+*-debug.log*
+logs/
+
+# 브랜드 가이드 원본 PDF (105MB · GitHub 100MB 제한 초과)
+# 코드에서 참조하지 않는다. 여기서 뽑아낸 PNG 만 src/imports/ 에 커밋된다.
+extracted/src/imports/guideline/
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini

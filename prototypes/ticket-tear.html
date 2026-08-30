@@ -1,0 +1,869 @@
+<title>승차권 절취 전환</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap">
+
+<style>
+:root{
+  --sky-1:#8fd0f4;
+  --sky-2:#6fb7e9;
+  --sky-3:#579fdb;
+  --ink:#292929;
+  --ink-soft:#8e7452;
+  --yellow:#ffd634;
+  --blue:#2869d8;
+
+  --bar-bg:rgba(255,255,255,.82);
+  --bar-ink:#1c2a35;
+  --bar-rule:rgba(28,42,53,.18);
+}
+
+:root[data-theme="dark"]{
+  --bar-bg:rgba(20,28,36,.86);
+  --bar-ink:#e7eef5;
+  --bar-rule:rgba(231,238,245,.22);
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bar-bg:rgba(20,28,36,.86);
+    --bar-ink:#e7eef5;
+    --bar-rule:rgba(231,238,245,.22);
+  }
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:"Noto Sans KR",system-ui,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 22% 15%, rgba(255,255,255,.28), transparent 32%),
+    linear-gradient(135deg, var(--sky-1) 0%, var(--sky-2) 52%, var(--sky-3) 100%);
+  background-attachment:fixed;
+  word-break:keep-all;
+  text-wrap:pretty;
+  overflow-x:hidden;
+}
+
+/* ============ 조작 바 ============ */
+
+.bar{
+  position:sticky;
+  top:0;
+  z-index:60;
+  backdrop-filter:blur(10px);
+  background:var(--bar-bg);
+  border-bottom:1px solid var(--bar-rule);
+  color:var(--bar-ink);
+}
+
+.bar-in{
+  width:min(1060px,100%);
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px 18px;
+}
+
+.bar h1{ margin:0; font-size:15px; font-weight:900; letter-spacing:-.01em; }
+
+.bar .tag{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.14em;
+  opacity:.62;
+}
+
+.spacer{ flex:1 1 auto; }
+
+.seg{ display:flex; border:1px solid var(--bar-rule); border-radius:8px; overflow:hidden; }
+
+.seg button{
+  padding:7px 12px;
+  min-height:36px;
+  background:transparent;
+  border:0;
+  border-right:1px solid var(--bar-rule);
+  color:inherit;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.seg button:last-child{ border-right:0; }
+.seg button[aria-pressed="true"]{ background:var(--yellow); color:#292929; }
+.seg button:focus-visible{ outline:2px solid var(--blue); outline-offset:-2px; }
+
+.replay{
+  padding:8px 15px;
+  min-height:36px;
+  background:var(--yellow);
+  border:2px solid var(--ink);
+  border-radius:8px;
+  color:var(--ink);
+  font-family:inherit;
+  font-size:13px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 3px 0 rgba(0,0,0,.18);
+}
+
+.replay:active{ transform:translateY(2px); box-shadow:0 1px 0 rgba(0,0,0,.18); }
+
+/* ============ 무대 ============ */
+
+.stage{
+  position:relative;
+  min-height:calc(100vh - 66px);
+  display:grid;
+  place-items:center;
+  padding:40px 20px 80px;
+  overflow:hidden;
+}
+
+.screen{ width:min(560px,100%); }
+.screen[hidden]{ display:none; }
+
+.panel{
+  position:relative;
+  padding:30px 32px;
+  background:#fff9ea;
+  border:3px solid #303030;
+  border-radius:22px;
+  box-shadow:10px 12px 0 #303030;
+  text-align:center;
+}
+
+.panel-label{
+  display:inline-block;
+  padding:7px 14px;
+  background:#ffd94a;
+  border:2px solid #303030;
+  font-size:13px;
+  font-weight:900;
+  transform:rotate(-2deg);
+}
+
+.dots{
+  position:absolute;
+  left:24px;
+  right:24px;
+  top:76px;
+  height:7px;
+  background-image:radial-gradient(circle, rgba(135,108,75,.34) 0 1px, transparent 1.45px);
+  background-size:12px 7px;
+  background-repeat:repeat-x;
+}
+
+.result-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:86px;
+  height:86px;
+  margin:30px 0 14px;
+  background:#ffd94a;
+  border:3px solid #303030;
+  border-radius:48% 52% 45% 55%;
+  box-shadow:6px 7px 0 rgba(0,0,0,.14);
+  font-size:42px;
+  transform:rotate(4deg);
+}
+
+.kicker{ display:block; font-size:13px; font-weight:900; letter-spacing:.16em; color:var(--ink-soft); }
+.result-title{ margin:6px 0 20px; font-size:29px; line-height:1.3; font-weight:900; text-wrap:balance; }
+
+.mini-ticket{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  padding:16px 14px;
+  background:#fff;
+  border:2px dashed #303030;
+  border-radius:12px;
+  text-align:left;
+}
+
+.mini-ticket .lab{ display:block; font-size:10px; font-weight:900; letter-spacing:.15em; color:var(--ink-soft); }
+.mini-ticket .val{ display:block; margin-top:3px; font-size:14px; font-weight:900; line-height:1.45; }
+
+.result-copy{ margin:18px 0 22px; font-size:15px; line-height:1.75; color:#5b5147; }
+
+.go{
+  width:100%;
+  padding:17px 18px;
+  background:var(--yellow);
+  border:3px solid #303030;
+  border-radius:12px;
+  box-shadow:5px 6px 0 #303030;
+  color:#292929;
+  font-family:inherit;
+  font-size:17px;
+  font-weight:900;
+  cursor:pointer;
+  transition:.15s;
+}
+
+.go:hover{ transform:translate(3px,3px); box-shadow:2px 3px 0 #303030; }
+
+.arrived{
+  padding:44px 34px 40px;
+  background:#fff9ec;
+  border:3px solid var(--ink);
+  border-radius:20px;
+  box-shadow:8px 10px 0 rgba(0,0,0,.18);
+}
+
+.arrived .eyebrow{
+  display:inline-block;
+  padding:8px 18px;
+  background:#ffc5cb;
+  border-radius:30% 45% 35% 40%;
+  font-size:14px;
+  font-weight:900;
+  transform:rotate(-2deg);
+}
+
+.arrived h2{
+  margin:22px 0 14px;
+  font-size:clamp(30px,5vw,44px);
+  line-height:1.1;
+  letter-spacing:-.05em;
+  text-wrap:balance;
+}
+
+.arrived p{ margin:0; color:#4b443c; font-size:16px; line-height:1.8; }
+
+.stops{ margin:26px 0 0; padding:0; list-style:none; display:grid; gap:9px; }
+
+.stops li{
+  padding:13px 15px;
+  background:#fff;
+  border:2px solid var(--ink);
+  border-radius:10px;
+  font-size:14px;
+  font-weight:800;
+}
+
+/* ============ 절취 캔버스 ============ */
+
+.tear{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  display:grid;
+  place-items:center;
+  pointer-events:none;
+}
+
+.tear[hidden]{ display:none; }
+
+#stageCanvas{
+  width:min(760px,92vw);
+  aspect-ratio:22/9;
+  filter:drop-shadow(0 20px 22px rgba(31,63,86,.28));
+}
+
+.note{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:55;
+  padding:12px 20px;
+  background:var(--bar-bg);
+  backdrop-filter:blur(10px);
+  border-top:1px solid var(--bar-rule);
+  color:var(--bar-ink);
+  font-size:13px;
+  line-height:1.7;
+  text-align:center;
+}
+
+.note b{ font-weight:900; }
+
+.note code{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:12px;
+  padding:1px 5px;
+  border-radius:4px;
+  background:rgba(41,105,216,.12);
+}
+
+/* 도착 페이지는 승차권이 완전히 빠진 뒤에 들어온다 */
+.screen-enter{
+  animation:screenIn 420ms cubic-bezier(.2,.8,.25,1) both;
+}
+
+@keyframes screenIn{
+  from{ opacity:0; transform:translateY(18px) scale(.985); }
+  to{ opacity:1; transform:none; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .go:hover{ transform:none; }
+  .screen-enter{ animation:none; }
+}
+
+@media (max-width:620px){
+  .bar-in{ padding:12px 14px; }
+  .bar h1{ font-size:14px; }
+  .panel{ padding:24px 20px; }
+  .stage{ padding:26px 14px 96px; }
+}
+</style>
+
+
+<header class="bar">
+  <div class="bar-in">
+    <div>
+      <span class="tag">PROTOTYPE / 적용 전</span>
+      <h1>승차권 절취 전환</h1>
+    </div>
+
+    <span class="spacer"></span>
+
+    <div class="seg" role="group" aria-label="연출 길이">
+      <button type="button" data-ms="1400" aria-pressed="false">1.4s</button>
+      <button type="button" data-ms="2000" aria-pressed="true">2.0s</button>
+      <button type="button" data-ms="3200" aria-pressed="false">3.2s</button>
+    </div>
+
+    <div class="seg" role="group" aria-label="취향 선택">
+      <button type="button" data-mood="photo" aria-pressed="true">📷</button>
+      <button type="button" data-mood="food" aria-pressed="false">🍽️</button>
+      <button type="button" data-mood="cafe" aria-pressed="false">☕</button>
+      <button type="button" data-mood="solo" aria-pressed="false">🌌</button>
+    </div>
+
+    <button type="button" class="replay" id="replay">↺ 처음부터</button>
+  </div>
+</header>
+
+
+<main class="stage">
+  <section class="screen" id="screen-result">
+    <div class="panel">
+      <span class="panel-label">★ 오늘의 대전행 티켓</span>
+      <div class="dots"></div>
+
+      <span class="result-icon" id="r-icon">📷</span>
+      <span class="kicker">오늘 당신은</span>
+      <h2 class="result-title" id="r-title">셔터부터 누르는 사람</h2>
+
+      <div class="mini-ticket" id="mini">
+        <div>
+          <span class="lab">MOOD</span>
+          <span class="val" id="r-mood">사진 왕창 찍고 싶은 날</span>
+        </div>
+        <div>
+          <span class="lab">DESTINATION</span>
+          <span class="val" id="r-dest">PHOTO SPOT</span>
+        </div>
+      </div>
+
+      <p class="result-copy" id="r-copy">오늘 하루가 카메라 롤에 남아야 직성이 풀리는 타입.</p>
+
+      <button type="button" class="go" id="go">이 코스 보러가기</button>
+    </div>
+  </section>
+
+  <section class="screen" id="screen-course" hidden>
+    <div class="arrived">
+      <span class="eyebrow" id="c-eyebrow">📸 사진 왕창 찍고 싶은 기분이에요</span>
+      <h2 id="c-title">대전에서 놓치기 아까운 추천 명소 4곳</h2>
+      <p id="c-lead">랜드마크부터 미술관, 오래된 건축과 야경까지.</p>
+      <ul class="stops" id="c-stops"></ul>
+    </div>
+  </section>
+</main>
+
+
+<div class="tear" id="tear" hidden aria-hidden="true">
+  <canvas id="stageCanvas"></canvas>
+</div>
+
+
+<p class="note">
+  절취선을 따라 잘린 반권이 옆으로 빠져나가며 <b>빛으로 부서져 흩어집니다.</b>
+  위에서 <code>속도</code>와 <code>취향</code>을 바꿔가며 눌러보세요.
+</p>
+
+
+<script>
+const MOODS = {
+  photo: {
+    icon:"📷", title:"셔터부터 누르는 사람", mood:"사진 왕창 찍고 싶은 날", dest:"PHOTO SPOT",
+    copy:"오늘 하루가 카메라 롤에 남아야 직성이 풀리는 타입.",
+    eyebrow:"📸 사진 왕창 찍고 싶은 기분이에요",
+    ctitle:"대전에서 놓치기 아까운 추천 명소 4곳",
+    lead:"랜드마크부터 미술관, 오래된 건축과 야경까지.",
+    stops:["🌉 엑스포다리","🎨 이응노미술관","✦ 엑스포과학공원 한빛탑","🏛️ 대전근현대사전시관"]
+  },
+  food: {
+    icon:"🍽️", title:"일단 먹고 보는 사람", mood:"맛집 다 뿌수고 싶은 날", dest:"EAT ALL DAY",
+    copy:"여행의 8할이 뭘 먹었느냐로 기억되는 타입.",
+    eyebrow:"🍽️ 맛있는 거 다 뿌수고 싶은 기분이에요",
+    ctitle:"대전 맛집 도장깨기",
+    lead:"오늘은 누구랑 메뉴를 맞출 필요 없이.",
+    stops:["🍣 토미야","🍝 트리니트 비스트로","🥢 희락반점"]
+  },
+  cafe: {
+    icon:"☕", title:"앉아있는 걸 잘하는 사람", mood:"느좋 카페 가고 싶은 날", dest:"CAFE HOPPING",
+    copy:"좋은 자리에 오래 앉아있는 게 취향인 타입.",
+    eyebrow:"☕ 느좋 카페 가고 싶은 기분이에요",
+    ctitle:"오늘은 어떤 카페 무드?",
+    lead:"같은 커피 한 잔이어도 오늘 원하는 시간은 다르니까.",
+    stops:["👽 궁동 소신","☕ 갈마동 톨드어스토리","📖 대흥동 쌍리"]
+  },
+  solo: {
+    icon:"🌌", title:"혼자 걷는 게 편한 사람", mood:"혼자 감수성 터지는 날", dest:"SOLO MOOD",
+    copy:"말 안 해도 되는 하루가 필요한 타입.",
+    eyebrow:"🌌 혼자 감수성 터지는 날",
+    ctitle:"혼자여서 더 좋은 대전 코스",
+    lead:"오래된 골목에서 시작해 노을과 야경으로 마무리.",
+    stops:["🚉 소제동 철도관사촌","📖 구모카페 · 구름책방","🌇 대동 하늘공원","🌄 식장산 해돋이전망대"]
+  }
+};
+
+const $ = (id) => document.getElementById(id);
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* 티켓 원본은 항상 이 크기로 그려두고, 화면에는 축소해서 올린다 */
+const W = 1100;
+const H = 450;
+const SPLITX = Math.round(W * 0.73);   // 절취선
+const PITCH = 15;                      // 미싱 구멍 간격
+const HOLE = 2.7;                      // 구멍 반지름
+
+let current = "photo";
+let totalMs = 2000;
+let busy = false;
+
+let front = null;                      // 승차권 원본 캔버스
+
+/* ---------- 화면 데이터 ---------- */
+
+function paint(){
+  const m = MOODS[current];
+  $("r-icon").textContent = m.icon;
+  $("r-title").textContent = m.title;
+  $("r-mood").textContent = m.mood;
+  $("r-dest").textContent = m.dest;
+  $("r-copy").textContent = m.copy;
+
+  $("c-eyebrow").textContent = m.eyebrow;
+  $("c-title").textContent = m.ctitle;
+  $("c-lead").textContent = m.lead;
+  $("c-stops").innerHTML = m.stops.map((s) => "<li>" + s + "</li>").join("");
+}
+
+/* ---------- 티켓 그리기 ---------- */
+
+function newCanvas(){
+  const c = document.createElement("canvas");
+  c.width = W;
+  c.height = H;
+  return c;
+}
+
+/* 종이 바탕 — 깔끔하게. 지저분한 결 표현은 넣지 않는다. */
+function paperBase(ctx, tone){
+  ctx.fillStyle = tone;
+  ctx.fillRect(0, 0, W, H);
+
+  const g = ctx.createLinearGradient(0, 0, W, H);
+  g.addColorStop(0, "rgba(255,255,255,.5)");
+  g.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, W, H);
+}
+
+function drawFront(){
+  const c = newCanvas(), ctx = c.getContext("2d");
+  const m = MOODS[current];
+
+  paperBase(ctx, "#f8efdc");
+
+  // 미싱선 — 실제로 뚫린 구멍들
+  for (let y = PITCH; y < H - PITCH * .5; y += PITCH){
+    ctx.beginPath();
+    ctx.arc(SPLITX, y, HOLE, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(150,120,80,.30)";
+    ctx.fill();
+    ctx.strokeStyle = "rgba(120,90,55,.22)";
+    ctx.lineWidth = .8;
+    ctx.stroke();
+  }
+
+  // 안쪽 얇은 테두리
+  ctx.strokeStyle = "rgba(159,126,81,.3)";
+  ctx.lineWidth = 1;
+  ctx.strokeRect(26, 26, W - 52, H - 52);
+
+  // 노란 라벨
+  ctx.save();
+  ctx.translate(64, 66);
+  ctx.rotate(-2 * Math.PI / 180);
+  ctx.fillStyle = "#ffd94a";
+  ctx.fillRect(0, 0, 232, 34);
+  ctx.fillStyle = "#292929";
+  ctx.font = "900 16px 'Noto Sans KR', sans-serif";
+  ctx.textBaseline = "middle";
+  ctx.fillText("★ 오늘의 대전행 티켓", 14, 18);
+  ctx.restore();
+
+  // 가운데 큰 문구
+  ctx.fillStyle = "#292929";
+  ctx.font = "900 44px 'Noto Sans KR', sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(m.mood, SPLITX / 2, H / 2 - 6);
+
+  // FROM -> TO
+  const ry = H - 92;
+  ctx.strokeStyle = "rgba(132,105,72,.32)";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(SPLITX / 2 - 190, ry);
+  ctx.lineTo(SPLITX / 2 + 190, ry);
+  ctx.stroke();
+
+  ctx.fillStyle = "#8e7452";
+  ctx.font = "900 12px 'IBM Plex Mono', monospace";
+  ctx.fillText("FROM", SPLITX / 2 - 128, ry + 22);
+  ctx.fillText("TO", SPLITX / 2 + 128, ry + 22);
+
+  ctx.fillStyle = "#292929";
+  ctx.font = "900 28px 'Noto Sans KR', sans-serif";
+  ctx.fillText("오늘 기분", SPLITX / 2 - 128, ry + 52);
+  ctx.fillText("DAEJEON", SPLITX / 2 + 128, ry + 52);
+
+  ctx.fillStyle = "#917757";
+  ctx.font = "400 28px 'Noto Sans KR', sans-serif";
+  ctx.fillText("→", SPLITX / 2, ry + 46);
+
+  // 반권
+  const sx = SPLITX + (W - SPLITX) / 2;
+  ctx.fillStyle = "#8e7452";
+  ctx.font = "900 12px 'IBM Plex Mono', monospace";
+  ctx.fillText("DESTINATION", sx, 66);
+
+  ctx.font = "400 54px 'Noto Sans KR', sans-serif";
+  ctx.fillText(m.icon, sx, H / 2 - 20);
+
+  ctx.fillStyle = "#292929";
+  ctx.font = "900 20px 'Noto Sans KR', sans-serif";
+  ctx.fillText(m.dest, sx, H / 2 + 46);
+
+  // 바코드
+  let bx = sx - 52;
+  for (let i = 0; i < 26; i++){
+    const w = 1 + Math.round(Math.random() * 3);
+    ctx.fillStyle = "#333";
+    ctx.fillRect(bx, H - 88, w, 34);
+    bx += w + 2 + Math.round(Math.random() * 2);
+  }
+
+  ctx.textAlign = "left";
+  return c;
+}
+
+/* ---------- 미싱선 단면 ----------
+   종이를 마구 찢은 게 아니라 뚫린 구멍을 따라 끊긴 것이므로,
+   가장자리는 거의 직선이고 구멍 자리마다 반원으로 파여 있다. */
+
+let edgeL = null, edgeR = null;
+
+function makeTear(){
+  edgeL = new Float32Array(H + 1);
+  edgeR = new Float32Array(H + 1);
+
+  for (let y = 0; y <= H; y++){
+    // 이 줄에서 가장 가까운 구멍까지의 거리
+    const dy = Math.abs(((y % PITCH) + PITCH) % PITCH - PITCH * .5);
+    const d = PITCH * .5 - dy;                       // 구멍 중심에 가까울수록 큼
+    const bite = d < HOLE ? Math.sqrt(HOLE * HOLE - d * d) : 0;
+
+    // 구멍 사이 다리는 거의 곧게 끊긴다 (아주 미세한 결만)
+    const fray = (Math.random() - .5) * .9;
+
+    edgeL[y] = SPLITX - bite + fray;
+    edgeR[y] = SPLITX + bite + fray;
+  }
+}
+
+/* ---------- 빛 알갱이 ----------
+   반권이 나가면서 찢긴 면부터 부서져 흩어진다.
+   알갱이는 스프라이트 한 장을 미리 구워두고 재사용한다 (프레임마다 그라디언트를 만들면 느리다). */
+
+const PARTS = 190;
+const D0 = .04, DSPAN = .70;     // 녹기 시작 / 다 녹는 데 걸리는 구간
+const LIFE = .34;                // 알갱이 수명
+
+let parts = null, spark = null;
+
+function makeSpark(){
+  const c = document.createElement("canvas");
+  c.width = c.height = 48;
+  const g = c.getContext("2d");
+  const rg = g.createRadialGradient(24, 24, 0, 24, 24, 24);
+  rg.addColorStop(0,   "rgba(255,248,225,1)");
+  rg.addColorStop(.35, "rgba(255,226,160,.55)");
+  rg.addColorStop(1,   "rgba(255,190,110,0)");
+  g.fillStyle = rg;
+  g.fillRect(0, 0, 48, 48);
+  return c;
+}
+
+function makeParts(){
+  parts = [];
+  const w = W - SPLITX;
+  for (let i = 0; i < PARTS; i++){
+    const rx = Math.pow(Math.random(), .82);          // 찢긴 면 쪽에 조금 더 몰리게
+    parts.push({
+      x: SPLITX + rx * w,
+      y: Math.random() * H,
+      rel: Math.max(.02, Math.min(.84, rx * .86 + (Math.random() - .5) * .12)),
+      vx: 30 + Math.random() * 110,
+      vy: -40 - Math.random() * 80,
+      r: 5 + Math.random() * 13
+    });
+  }
+}
+
+/* 반권이 그 시점에 어디까지 밀려나 있었는지 */
+const slideX = (q) => W * 1.15 * q * q;
+const slideY = (q) => H * .20 * q * q;
+
+/* ---------- 한 프레임 ----------
+   progress 0 = 붙어 있음, 1 = 반권이 화면 밖으로 떨어짐 */
+
+function render(ctx, progress, dpr){
+  const cw = ctx.canvas.width / dpr;
+  const k = cw / W;
+  ctx.setTransform(dpr * k, 0, 0, dpr * k, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+
+  if (progress <= 0){
+    ctx.drawImage(front, 0, 0);
+    return;
+  }
+
+  // 본권 — 절취선 단면까지
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  for (let y = 0; y <= H; y++) ctx.lineTo(edgeL[y], y);
+  ctx.lineTo(0, H);
+  ctx.closePath();
+  ctx.clip();
+  ctx.drawImage(front, 0, 0);
+  ctx.restore();
+
+  // 반권 — 오른쪽으로 빠져나가면서 찢긴 면부터 빛으로 부서진다
+  // 종이가 녹는 정도는 1 에서 멈추지만,
+  // 알갱이 수명은 그 뒤로도 계속 흘러야 한다 (안 그러면 다 녹은 뒤에 얼어붙는다)
+  const dRaw = (progress - D0) / DSPAN;
+  const d = Math.max(0, Math.min(1, dRaw));
+  const eat = d * (W - SPLITX);
+
+  if (d < 1){
+    ctx.save();
+    ctx.translate(SPLITX + slideX(progress), slideY(progress));
+    ctx.rotate(.10 * progress * progress);
+    ctx.translate(-SPLITX, 0);
+
+    ctx.beginPath();
+    ctx.moveTo(edgeR[0] + eat, 0);
+    for (let y = 0; y <= H; y++) ctx.lineTo(edgeR[y] + eat, y);
+    ctx.lineTo(W, H);
+    ctx.lineTo(W, 0);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(front, 0, 0);
+
+    // 녹아드는 경계의 빛
+    const gx = SPLITX + eat;
+    const gr = ctx.createLinearGradient(gx - 46, 0, gx + 14, 0);
+    gr.addColorStop(0,  "rgba(255,226,160,0)");
+    gr.addColorStop(.65,"rgba(255,232,175,.45)");
+    gr.addColorStop(1,  "rgba(255,252,238,.9)");
+    ctx.fillStyle = gr;
+    ctx.fillRect(gx - 46, 0, 62, H);
+    ctx.restore();
+  }
+
+  // 흩어지는 알갱이
+  ctx.save();
+  ctx.globalCompositeOperation = "lighter";
+  for (let i = 0; i < parts.length; i++){
+    const q = parts[i];
+    if (dRaw < q.rel) continue;
+    const age = (dRaw - q.rel) / LIFE;
+    if (age >= 1) continue;
+
+    const born = D0 + q.rel * DSPAN;              // 부서져 나온 시점
+    const ex = q.x + slideX(born);
+    const ey = q.y + slideY(born);
+
+    const px = ex + q.vx * age;
+    const py = ey + q.vy * age + 150 * age * age; // 살짝 떴다가 가라앉는다
+    const sz = q.r * (1.6 - age * .8);
+
+    ctx.globalAlpha = (1 - age) * (1 - age);
+    ctx.drawImage(spark, px - sz, py - sz, sz * 2, sz * 2);
+  }
+  ctx.restore();
+  ctx.globalAlpha = 1;
+}
+
+/* ---------- 전환 ---------- */
+
+function reset(){
+  $("screen-result").hidden = false;
+  $("screen-course").hidden = true;
+  $("screen-course").classList.remove("screen-enter");
+  $("tear").hidden = true;
+  $("stageCanvas").style.cssText = "";
+  busy = false;
+}
+
+async function run(){
+  if (busy) return;
+  busy = true;
+
+  await document.fonts.ready;
+  front = drawFront();
+  makeTear();
+  makeParts();
+  if (!spark) spark = makeSpark();
+
+  if (reduce){
+    $("screen-result").hidden = true;
+    $("screen-course").hidden = false;
+    busy = false;
+    return;
+  }
+
+  const cv = $("stageCanvas");
+  const tear = $("tear");
+  tear.hidden = false;
+
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const rect = cv.getBoundingClientRect();
+  cv.width = Math.round(rect.width * dpr);
+  cv.height = Math.round(rect.height * dpr);
+  const ctx = cv.getContext("2d");
+
+  const grow = Math.round(totalMs * .30);
+  const hold = Math.round(totalMs * .12);   // 승차권을 잠깐 보여준다
+  const slide = Math.round(totalMs * .40);  // 반권이 오른쪽으로 빠져나감
+  const handoff = totalMs - grow - hold - slide;
+
+  // 1) 결과창의 작은 티켓 자리에서 승차권으로
+  const from = $("mini").getBoundingClientRect();
+  const sx = from.width / rect.width;
+  const sy = from.height / rect.height;
+  const dx = (from.left + from.width / 2) - (rect.left + rect.width / 2);
+  const dy = (from.top + from.height / 2) - (rect.top + rect.height / 2);
+
+  render(ctx, 0, dpr);
+  cv.style.transition = "none";
+  cv.style.transform = "translate(" + dx + "px," + dy + "px) scale(" + sx + "," + sy + ")";
+  cv.style.opacity = "0";
+  cv.getBoundingClientRect();
+
+  cv.style.transition = "transform " + grow + "ms cubic-bezier(.2,.8,.25,1), opacity 130ms linear";
+  cv.style.transform = "none";
+  cv.style.opacity = "1";
+  $("screen-result").hidden = true;
+
+  await wait(grow + hold);
+
+  // 2) 반권이 오른쪽으로 잘려 나간다
+  await animate(slide, (p) => render(ctx, p, dpr));
+
+  // 3) 본권이 물러나고 나서야 도착 페이지가 들어온다.
+  //    미리 띄워두면 뒤에서 기다리고 있는 게 보인다.
+  const out = Math.round(handoff * .45);
+  cv.style.transition = "transform " + out + "ms ease-in, opacity " + out + "ms ease-in";
+  cv.style.transform = "translateY(-10px) scale(.975)";
+  cv.style.opacity = "0";
+  await wait(Math.round(out * .55));      // 완전히 사라지기 전에 살짝 겹쳐야 빈 화면이 안 뜬다
+
+  const course = $("screen-course");
+  course.hidden = false;
+  course.classList.remove("screen-enter");
+  void course.offsetWidth;
+  course.classList.add("screen-enter");
+  await wait(handoff - out);
+
+  tear.hidden = true;
+  busy = false;
+}
+
+function wait(ms){
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+/* rAF 는 배경 탭에서 멈춘다. 마감 시각을 넘기면 강제로 끝낸다. */
+function animate(ms, step){
+  return new Promise((resolve) => {
+    const t0 = performance.now();
+    let done = false;
+
+    function finish(){
+      if (done) return;
+      done = true;
+      clearTimeout(guard);
+      step(1);
+      resolve();
+    }
+
+    const guard = setTimeout(finish, ms + 500);
+
+    function frame(now){
+      if (done) return;
+      const p = Math.min(1, (now - t0) / ms);
+      step(p);
+      if (p < 1) requestAnimationFrame(frame);
+      else finish();
+    }
+
+    requestAnimationFrame(frame);
+  });
+}
+
+/* ---------- 조작 ---------- */
+
+document.querySelectorAll("[data-ms]").forEach((b) => {
+  b.addEventListener("click", () => {
+    totalMs = Number(b.dataset.ms);
+    document.querySelectorAll("[data-ms]").forEach((x) =>
+      x.setAttribute("aria-pressed", String(x === b)));
+  });
+});
+
+document.querySelectorAll("[data-mood]").forEach((b) => {
+  b.addEventListener("click", () => {
+    current = b.dataset.mood;
+    document.querySelectorAll("[data-mood]").forEach((x) =>
+      x.setAttribute("aria-pressed", String(x === b)));
+    paint();
+    reset();
+  });
+});
+
+$("go").addEventListener("click", run);
+$("replay").addEventListener("click", reset);
+
+paint();
+</script>
