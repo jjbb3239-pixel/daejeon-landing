@@ -53,14 +53,14 @@
   /* 본체와 스텁을 한 장의 종이로 붙인다 */
   .dj-page.dj-page .ticket-main{
     min-height:0;
-    padding:22px 20px 0;
+    padding:22px 20px 18px;
     border-radius:6px 6px 0 0;
     clip-path:none;
   }
 
   .dj-page.dj-page .ticket-stub{
     min-height:0;
-    padding:0 20px 20px;
+    padding:18px 20px 20px;
     border-radius:0 0 6px 6px;
     clip-path:none;
     text-align:center;
@@ -131,11 +131,20 @@
   }
 
   /* 꿈돌이는 흐름 안으로. 회전·왜곡 없음(가이드라인) */
+  .dj-page.dj-page .stub-top{
+    display:grid;
+    grid-template-columns:80px minmax(0,1fr);
+    align-items:end;
+    gap:12px;
+    text-align:left;
+  }
+
   .dj-page.dj-page .hero-kkumdori{
     position:static;
-    align-self:flex-start;
+    grid-column:1;
+    align-self:end;
     width:80px;
-    margin-top:14px;
+    margin:0;
   }
 
   .dj-page.dj-page .daejeon-stamp,
@@ -151,7 +160,8 @@
   }
 
   .dj-page.dj-page .ticket-info{
-    margin-top:18px;
+    grid-column:2;
+    margin-top:0;
     gap:14px 10px;
     justify-items:start;
     text-align:left;
@@ -634,8 +644,7 @@
     box-shadow:none;
   }
 
-  /* 탭한 순간에는 눌리는 반응이 있어야 한다 */
-  .dj-page.dj-page .quiz-choice:active{
+  /* 탭한 순간에는 눌리는 반응이 있어야 한다 */  .dj-page.dj-page .quiz-choice:active{
     background:#fff1ad;
     transform:translate(3px,3px);
     box-shadow:2px 3px 0 #303030;
@@ -648,4 +657,27 @@
     transform:translate(3px,3px);
     box-shadow:2px 3px 0 #303030;
   }
+}
+
+/* =========================================================
+   코스 페이지 진입 — 찢기 연출 대신 페이드인
+   QuizModal.tsx 에서 좁은 화면일 때 playTicketTear 를 건너뛰면
+   App.tsx 의 .page-enter 가 그대로 살아난다 (README 3번).
+   모바일에서는 조금 짧게, 살짝 올라오게.
+========================================================= */
+
+@media(max-width:620px){
+
+  .dj-page.page-enter{
+    animation:pageInMobile 420ms cubic-bezier(.22,.9,.28,1);
+  }
+
+  @keyframes pageInMobile{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:none; }
+  }
+}
+
+@media(max-width:620px) and (prefers-reduced-motion:reduce){
+  .dj-page.page-enter{ animation:none; }
 }
