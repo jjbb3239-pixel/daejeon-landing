@@ -607,6 +607,44 @@ npm run dev
 
 ---
 
+## 8-1. 저장소 · 배포 (2026-08-30)
+
+| 항목 | 값 |
+|---|---|
+| 저장소 | `jjbb3239-pixel/daejeon-landing` (**private**) |
+| 브랜치 | `main` |
+| 커밋 작성자 | `loco1497 <loco1497@naver.com>` (저장소 로컬 설정) |
+| 크기 | 62개 파일 · 3.4MB |
+
+### Vercel 설정 (이것만 틀리면 빌드 실패)
+
+```
+Framework Preset   Vite
+Root Directory     extracted     <- 앱이 저장소 루트가 아니다
+Build Command      npm run build
+Output Directory   dist
+Node.js Version    22            <- .mise.toml 기준
+```
+
+### 저장소에서 뺀 것
+
+`extracted/src/imports/guideline/` — 브랜드 가이드 PDF 2종.
+`꿈씨패밀리가이드.pdf` 가 105MB 라 GitHub 100MB 제한을 넘는다.
+코드에서 참조하지 않으며, 여기서 추출한 캐릭터 PNG 는 `src/imports/kkumssi/` 에 커밋돼 있다.
+
+### Git LFS 함정 (다시 걸리지 말 것)
+
+`extracted/.gitattributes` 는 Figma Make 가 자동 생성한 것으로 **모든 이미지 확장자를
+LFS 로 잡고 있었다.** Vercel 은 빌드 시 LFS 오브젝트를 받아오지 않아서, 그대로 두면
+사진 대신 131바이트 포인터 파일이 번들에 들어가 전부 깨진다.
+
+이미지 계열 확장자를 `git lfs untrack` 하고 `git rm --cached` 후 재커밋해서 일반 blob 으로
+되돌렸다. **이미지를 새로 추가할 때 `.gitattributes` 가 되살아나지 않았는지 확인할 것.**
+
+```bash
+git lfs ls-files    # 이미지가 잡히면 안 된다
+```
+
 ## 9. 다음 작업 시작 전에
 
 `LANDING_GUIDE.md` 0장 규칙대로 **관련 파일을 먼저 읽고 → 이해한 내용을 확인받은 뒤 → 수정**한다.
@@ -638,6 +676,7 @@ npm run dev
 | 15 | 팝업 보조 CTA 를 텍스트 링크로 (버튼 그림자 상속 제거) | `index.css` |
 | 16 | 승차권 절취 전환 프로토타입 제작 **(앱 미적용)** | `prototypes/ticket-tear.html` |
 | 17 | 히어로 CTA 위 클릭 유도 마크 (시안 6종 중 D안 채택) | `App.tsx` `index.css` `prototypes/click-hint.html` |
+| 18 | GitHub 저장소 생성 + 최초 커밋, 이미지 LFS 해제 | `.gitignore` `README.md` `extracted/.gitattributes` |
 
 ### 프로토타입 폴더
 
