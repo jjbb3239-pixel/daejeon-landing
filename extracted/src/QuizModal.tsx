@@ -36,18 +36,21 @@ export default function QuizModal({ onClose, onSelect }: QuizModalProps) {
     return () => document.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  function goToCourse(id: MoodId) {
-    // 승차권이 자라날 출발 위치. 팝업이 닫히기 전에 재둬야 한다.
-    const from = ticketRef.current?.getBoundingClientRect();
-    onClose();
+function goToCourse(id: MoodId) {
+  const from = ticketRef.current?.getBoundingClientRect();
+  onClose();
 
-    if (!from) {
-      onSelect(id);
-      return;
-    }
+  // 모바일에서는 승차권 찢기 연출을 생략한다.
+  // 코스 페이지는 App.tsx 의 page-enter 페이드인으로 들어온다.
+  const narrow = window.matchMedia("(max-width: 620px)").matches;
 
-    void playTicketTear({ from, mood: id, ms: 2000, onArrive: () => onSelect(id) });
+  if (!from || narrow) {
+    onSelect(id);
+    return;
   }
+
+  void playTicketTear({ from, mood: id, ms: 2000, onArrive: () => onSelect(id) });
+}
 
   return (
     <div className="quiz-overlay" onClick={onClose}>
