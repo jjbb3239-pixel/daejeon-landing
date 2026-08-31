@@ -244,6 +244,72 @@ body{...}
 #sosin .cafe-image img{ object-position:50% 100% }
 ```
 
+## 0-3. 축제 섹션 교체 (2026-08-31)
+
+`전체전체_수정2index.html` 의 **07 WHAT'S ON IN DAEJEON** 으로 통째로 바꿨다.
+클래스 이름이 `.festival-*` → `.festival-cph-*` 로 전부 달라졌다.
+
+| | 이전 | 현재 |
+|---|---|---|
+| 배경 | 남색 `#202c49` | 크림 `#fff3d9` |
+| 카드 | 사진 + 태그 + 버튼 | 그라데이션 + 이모지 + 핑크 월 배지 |
+| 구성 | 콘텐츠페어 / 빵축제 / 동구동락 + 유성온날 별도 블록 | 유성온날 / 동구동락 / **10월 추천 PICK**(콘텐츠페어→빵축제 한 카드) |
+| 하단 | 인스타 박스 | ALL EVENTS 링크(상단) + 인스타 버튼(하단) |
+
+**축제 사진 3장 문제가 사라졌다.** 새 디자인은 사진 대신 이모지 비주얼(✨ / 🎤 / 🐱🍞)을
+쓴다. `.festival-image.is-empty` 폴백 규칙도 같이 지웠다.
+
+### 옛 CSS 를 반드시 걷어내야 했던 이유
+
+`.festival-route` 가 양쪽에 다 있는데 **성격이 정반대**다.
+
+```css
+/* 옛것 */ .festival-route{ margin:0 0 55px; padding:30px 34px;
+                            background:#ffdc3e; border:3px solid #101624; }
+/* 새것 */ .festival-route{ margin-top:20px; padding-top:18px;
+                            border-top:1px dashed #cfc3b0; }
+```
+
+새 규칙은 background/border/box-shadow/transform 을 되돌리지 않아서, 옛 규칙을 남겨두면
+카드 안 코스 블록이 **노란 상자에 두꺼운 테두리**로 나온다. 옛 `07 FESTIVAL` 블록을
+통째로 지우고, 공용 반응형 목록(`1050px` / `760px`)의 `.festival-grid` 와
+`760px` 블록에 흩어져 있던 옛 축제 규칙도 같이 제거했다.
+
+### 원본 CSS 의 중괄호 오류 (고쳐서 넣었다)
+
+첨부 HTML 의 `@media(max-width:620px)` 는 닫는 중괄호가 너무 일찍 나온다.
+
+```css
+@media(max-width:620px){
+  .festival-month-badge{...}
+}                                     /* <- 여기서 닫힘 */
+.festival-month-badge strong{...}     /* 기본 규칙 (정상) */
+  .festival-cph-section{padding:75px 18px 85px}   /* 모바일 값이 전체 폭에 적용 */
+  .festival-cph-heading h2{font-size:44px}        /* 데스크톱 제목이 44px */
+  ...
+}                                     /* <- 짝 없는 } */
+```
+
+짝 없는 `}` 때문에 **Vite 빌드가 CssSyntaxError 로 실패**한다. 그대로 둘 수 없어서
+괄호 위치를 바로잡았다. 들여쓰기를 보면 원저자 의도도 이쪽이 맞다.
+
+바로잡은 결과 (측정값) :
+
+| | 데스크톱 1440px | 모바일 375px |
+|---|---|---|
+| 섹션 패딩 | `120px 30px 115px` | `75px 18px 85px` |
+| h2 | 77.76px | 44px |
+| 비주얼 높이 | 230px | 210px |
+| 그리드 | 3열 | 1열 |
+| 카드 회전 | 있음 | 없음 |
+
+> 고치지 않았다면 데스크톱 제목이 44px 로 나와 다른 섹션(72px)과 어긋났을 것이다.
+
+### 모바일 문장 붙음 보정
+
+리드 문단은 `.festival-cph-heading p br{display:none}` 으로 모바일에서 `<br>` 이
+사라지는데, JSX 가 줄바꿈 공백을 지워 `재미니까.지금` 처럼 붙었다. `{" "}` 를 넣었다.
+
 ## 1. 한눈에 보는 현재 동작
 
 ```
@@ -884,6 +950,7 @@ frame.counterAxisSizingMode = 'FIXED'
 | 19 | Vercel 배포 + Figma 디자인 시안 10화면 제작 (**폐기 — 팀에서 미사용 결정**) | (코드 변경 없음) |
 | 20 | **전면 개편** — 「최종 수정본.html」 디자인으로 한 페이지 재작성 | `App.tsx` `index.css` `sections/*` `MoodTest.tsx` `quiz.ts` |
 | 21 | Social Proof 섹션 추가 + 히어로 스탬프·소신 크롭 조정 | `sections/ProofSection.tsx` `App.tsx` `index.css` `imports/proof/` |
+| 22 | 축제 섹션을 「전체전체_수정2index.html」 디자인으로 교체 | `sections/FestivalSection.tsx` `index.css` |
 
 ### 프로토타입 폴더
 

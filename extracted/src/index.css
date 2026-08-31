@@ -1281,343 +1281,534 @@ button{font:inherit}
 
 
 /* =========================================================
-   07 FESTIVAL
+   07. WHAT'S ON IN DAEJEON CSS
 ========================================================= */
-.festival-section{
-  padding:105px 0 110px;
-  background:#202c49;
-  color:#fff;
+
+.festival-cph-section{
+  padding:120px 30px 115px;
+  background:#fff3d9;
 }
 
-.festival-top{margin-bottom:48px}
 
-.festival-kicker{
-  display:inline-block;
-  margin-bottom:10px;
-  color:#ffdc3e;
+/* =========================
+   TOP
+========================= */
+
+.festival-cph-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:60px;
+  margin-bottom:60px;
+}
+
+.festival-cph-heading{
+  max-width:900px;
+}
+
+.festival-cph-kicker{
+  display:block;
+  margin-bottom:18px;
+  color:#2869d8;
   font-size:12px;
   font-weight:900;
-  letter-spacing:.12em;
+  letter-spacing:.15em;
 }
 
-.festival-top h2{
+.festival-cph-heading h2{
   margin:0;
-  font-size:clamp(42px,4.5vw,66px);
-  line-height:1.12;
-  letter-spacing:-.055em;
+  font-size:clamp(50px,5.4vw,78px);
+  line-height:1.04;
+  letter-spacing:-.06em;
 }
 
-.yellow{color:#ffdb3b}
-
-.festival-top p{
-  color:#d2dae8;
-  font-size:16px;
+.festival-cph-heading h2 strong{
+  color:#2869d8;
 }
 
-.festival-route{
-  margin:0 0 55px;
-  padding:30px 34px;
-
-  background:#ffdc3e;
-  border:3px solid #101624;
-  border-radius:18px;
-  box-shadow:8px 9px 0 #101624;
-
-  color:#202020;
-  transform:rotate(-.5deg);
-}
-
-.festival-route-label{
+.festival-yellow-text{
+  position:relative;
   display:inline-block;
-  padding:6px 10px;
-  background:#fff;
-  border:2px solid #202020;
-  border-radius:999px;
-  font-size:12px;
+  color:#292929;
   font-weight:900;
+  z-index:1;
 }
 
-.festival-route h3{
-  margin:16px 0 10px;
-  font-size:clamp(30px,3vw,44px);
-  line-height:1.12;
-  letter-spacing:-.05em;
+.festival-yellow-text::after{
+  content:"";
+  position:absolute;
+  left:-3px;
+  right:-3px;
+  bottom:4px;
+  height:14px;
+  background:#ffd94a;
+  z-index:-1;
+  transform:rotate(-1deg);
 }
 
-.festival-route>p{
-  margin:0;
-  max-width:720px;
-  color:#544b39;
-  font-size:14px;
+.festival-cph-heading p{
+  margin:28px 0 0;
+  color:#62584d;
+  font-size:17px;
+  line-height:1.8;
 }
 
-.festival-route-flow{
+
+/* =========================
+   ALL EVENTS
+========================= */
+
+.festival-all-link{
   display:flex;
   align-items:center;
-  gap:12px;
-  margin-top:25px;
-}
+  gap:8px;
+  flex-shrink:0;
 
-.route-chip{
-  flex:1;
-  min-height:94px;
+  padding-bottom:5px;
 
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+  border-bottom:2px solid #292929;
 
-  padding:15px 18px;
+  color:#292929;
+  text-decoration:none;
 
-  background:#fff9e9;
-  border:2px solid #202020;
-  border-radius:13px;
-
-  font-size:21px;
-}
-
-.route-chip strong{
-  margin-top:2px;
-  font-size:14px;
-}
-
-.route-chip span{
-  color:#776b59;
-  font-size:11px;
-}
-
-.route-arrow{
-  font-size:25px;
+  font-size:12px;
   font-weight:900;
+  letter-spacing:.08em;
+
+  white-space:nowrap;
 }
 
-.festival-grid{
+.festival-all-link span{
+  font-size:17px;
+}
+
+
+/* =========================
+   CARD GRID
+========================= */
+
+.festival-cph-grid{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:23px;
+  gap:30px;
 }
 
-.festival-card{
-  overflow:hidden;
-  background:#fff;
-  border:3px solid #101624;
-  border-radius:17px;
-  box-shadow:7px 8px 0 #101624;
-  color:#262626;
-  transition:.25s ease;
-}
 
-.festival-card:nth-child(1){transform:rotate(-1deg)}
-.festival-card:nth-child(2){transform:rotate(1deg)}
-.festival-card:nth-child(3){transform:rotate(-.6deg)}
+/* =========================
+   CARD
+========================= */
 
-.festival-card:hover{
-  transform:rotate(0) translateY(-8px);
-}
-
-.festival-image{
+.festival-cph-card{
   position:relative;
-  display:block;
-  height:260px;
   overflow:hidden;
-  border-bottom:3px solid #101624;
-}
-
-.festival-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.festival-month{
-  position:absolute;
-  right:14px;
-  top:14px;
-
-  padding:6px 9px;
 
   background:#fff;
-  border:2px solid #101624;
+
+  border:3px solid #292929;
+  border-radius:22px;
+
+  box-shadow:10px 12px 0 #292929;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.festival-cph-card:nth-child(1){
+  transform:rotate(-1deg);
+}
+
+.festival-cph-card:nth-child(2){
+  transform:rotate(.8deg);
+}
+
+.festival-cph-card:nth-child(3){
+  transform:rotate(-.6deg);
+}
+
+.festival-cph-card:hover{
+  transform:translateY(-7px) rotate(0deg);
+  box-shadow:7px 9px 0 #292929;
+}
+
+
+/* =========================
+   CARD IMAGE AREA
+========================= */
+
+.festival-cph-visual{
+position:relative;
+
+  height:230px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-bottom:3px solid #292929;
+}
+
+.festival-cph-visual span{
+  font-size:67px;
+}
+/* =========================
+   MONTH STICKER
+========================= */
+/* =========================
+   FESTIVAL MONTH STICKER
+   6P 핑크 스티커 스타일
+========================= */
+
+.festival-month-badge{
+  position:absolute;
+  top:18px;
+  left:18px;
+  z-index:3;
+
+  display:inline-block;
+
+  padding:15px 20px;
+
+  background:#ffc5cb;
+
+  border-radius:30% 45% 35% 40%;
+
+  color:#292929;
+
+  font-size:23px;
+  line-height:1;
+  font-weight:900;
+
+  transform:rotate(-2deg);
+}
+
+
+/* 카드마다 살짝 각도 다르게 */
+
+.festival-cph-card:nth-child(2) .festival-month-badge{
+  transform:rotate(2deg);
+}
+
+.festival-cph-card:nth-child(3) .festival-month-badge{
+  transform:rotate(-1deg);
+}
+
+
+/* 10월 PICK만 조금 강조 */
+
+.festival-month-badge.month-pick{
+  background:#ffc5cb;
+  color:#2869d8;
+}
+
+.festival-blue .festival-cph-visual{
+  background:linear-gradient(145deg,#9bc8ed,#78a9d7);
+}
+
+.festival-yellow .festival-cph-visual{
+  background:linear-gradient(145deg,#f5d98e,#eab34c);
+}
+
+.festival-green .festival-cph-visual{
+  background:linear-gradient(145deg,#b7d0a8,#84a876);
+}
+
+
+/* =========================
+   CARD TEXT
+========================= */
+
+.festival-cph-body{
+  min-height:255px;
+  padding:28px 24px 27px;
+}
+
+.festival-cph-label{
+  display:inline-block;
+
+  margin-bottom:12px;
+  padding:5px 10px;
+
+  background:#ffd94a;
   border-radius:999px;
 
-  color:#101624;
-  font-size:10px;
-  font-weight:1000;
-}
-
-.festival-body{padding:24px 22px 25px}
-
-.festival-label{
-  color:#2869d8;
   font-size:10px;
   font-weight:900;
 }
 
-.festival-body h3{
-  margin:6px 0 9px;
-  font-size:25px;
+.festival-cph-body h3{
+  margin:0;
+
+  font-size:27px;
+  line-height:1.2;
+  letter-spacing:-.04em;
 }
 
-.festival-hook{
-  min-height:74px;
-  margin:9px 0 19px;
-  color:#544d45;
-  font-size:13px;
-  line-height:1.65;
-}
 
-.festival-info{
-  padding:14px 0;
-  border-top:1px dashed #c9bcaa;
-  border-bottom:1px dashed #c9bcaa;
-}
+/* 날짜 · 장소 */
 
-.festival-info div{
-  display:grid;
-  grid-template-columns:52px 1fr;
-  gap:8px;
-  margin:7px 0;
-}
+.festival-cph-meta{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
 
-.festival-info span{
-  color:#947f63;
-  font-size:9px;
-  font-weight:1000;
-}
+  gap:6px;
 
-.festival-info strong{
-  font-size:11px;
+  margin:13px 0 0;
+
+  color:#2869d8;
+
+  font-size:12px;
   line-height:1.5;
+  font-weight:850;
 }
+
+.festival-cph-meta .meta-divider{
+  color:#a59a88;
+}
+
+
+/* 행사 설명 */
+
+.festival-cph-description{
+  margin:14px 0 0;
+
+  color:#62584d;
+
+  font-size:14px;
+  line-height:1.7;
+}
+
+/* =========================
+   FESTIVAL TAGS
+========================= */
 
 .festival-tags{
   display:flex;
   flex-wrap:wrap;
-  gap:6px;
-  margin-top:16px;
+  gap:7px;
+  margin-top:17px;
 }
 
 .festival-tags span{
-  padding:5px 8px;
-  background:#f2ede4;
+  padding:5px 9px;
+  background:#f4f0e8;
   border-radius:999px;
-  font-size:9px;
+  font-size:10px;
   font-weight:900;
 }
 
-.festival-detail-button{
-  display:block;
-  margin-top:18px;
-  padding:12px 14px;
 
-  background:#397fd6;
-  border:2px solid #202020;
-  border-radius:8px;
-  box-shadow:3px 3px 0 #202020;
+/* =========================
+   DETAIL LINK
+========================= */
 
-  color:#fff;
-  text-align:center;
-  text-decoration:none;
-
-  font-size:11px;
-  font-weight:1000;
-}
-
-.yellow-button{
-  background:#ffda3d;
-  color:#202020;
-}
-
-.green-button{
-  background:#86bd6d;
-  color:#202020;
-}
-
-.festival-more-event{
-  margin-top:50px;
-
-  display:grid;
-  grid-template-columns:70px 1fr auto;
-  align-items:center;
-  gap:20px;
-
-  padding:22px 26px;
-
-  background:#fff9e9;
-  border:3px solid #101624;
-  border-radius:16px;
-  box-shadow:5px 6px 0 #101624;
-
-  color:#202020;
-}
-
-.more-event-icon{
-  width:60px;
-  height:60px;
-  display:grid;
-  place-items:center;
-
-  background:#78c9f7;
-  border:2px solid #202020;
-  border-radius:50%;
-
-  font-size:26px;
-}
-
-.more-event-copy span{
-  color:#397fd6;
-  font-size:9px;
-  font-weight:1000;
-  letter-spacing:.12em;
-}
-
-.more-event-copy h3{
-  margin:3px 0;
-  font-size:23px;
-}
-
-.more-event-copy p{
-  margin:0;
-  color:#706455;
-  font-size:12px;
-}
-
-.more-event-date{
-  padding-left:25px;
-  border-left:1px dashed #c6b79f;
-}
-
-.instagram-box{
-  max-width:760px;
-  margin:65px auto 0;
-  padding:30px;
-
-  background:#78c8f5;
-  border:3px solid #101624;
-  border-radius:18px;
-  box-shadow:6px 7px 0 #101624;
-
-  color:#202020;
-  text-align:center;
-
-  transform:rotate(-1deg);
-}
-
-.instagram-box h3{
-  margin:0;
-  font-size:28px;
-}
-
-.instagram-button{
+.festival-detail-link{
   display:inline-block;
-  padding:13px 18px;
 
-  background:#ffda3d;
-  border:3px solid #202020;
-  border-radius:8px;
-  box-shadow:4px 4px 0 #202020;
+  margin-top:20px;
+  padding-bottom:2px;
+
+  color:#292929;
+
+  border-bottom:1px solid #292929;
+
+  font-size:12px;
+  font-weight:900;
+  text-decoration:none;
+}
+
+.festival-detail-link:hover{
+  color:#2869d8;
+  border-color:#2869d8;
+}
+
+
+/* =========================
+   OCTOBER ROUTE
+========================= */
+
+.festival-route{
+  margin-top:20px;
+  padding-top:18px;
+
+  border-top:1px dashed #cfc3b0;
+}
+
+.festival-route-item{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.festival-route-item strong{
+  font-size:13px;
+}
+
+.festival-route-item span{
+  color:#756b60;
+  font-size:11px;
+}
+
+.festival-route-item a{
+  width:max-content;
+
+  margin-top:3px;
+
+  color:#2869d8;
+
+  font-size:10px;
+  font-weight:900;
 
   text-decoration:none;
+}
+
+.festival-route-item a:hover{
+  text-decoration:underline;
+}
+
+.festival-route-arrow{
+  margin:11px 0;
+
+  color:#2869d8;
+
+  font-size:10px;
   font-weight:900;
+}
+
+
+
+/* =========================
+   BOTTOM BUTTON
+========================= */
+
+.festival-cph-bottom{
+  display:flex;
+  justify-content:center;
+  margin-top:65px;
+}
+
+.festival-cph-button{
+  min-width:310px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:40px;
+
+  padding:17px 20px;
+
+  background:#ffd94a;
+
+  border:3px solid #292929;
+  border-radius:8px;
+
+  box-shadow:4px 5px 0 #292929;
+
+  color:#292929;
+  text-decoration:none;
+
+  font-size:15px;
+  font-weight:900;
+
+  transition:.15s;
+}
+
+.festival-cph-button:hover{
+  transform:translate(2px,2px);
+  box-shadow:2px 3px 0 #292929;
+}
+
+
+/* =========================
+   FESTIVAL RESPONSIVE
+========================= */
+
+@media(max-width:950px){
+
+  .festival-cph-top{
+    display:block;
+  }
+
+  .festival-all-link{
+    width:max-content;
+    margin-top:30px;
+  }
+
+  .festival-cph-grid{
+    grid-template-columns:1fr;
+    gap:35px;
+  }
+
+  .festival-cph-card:nth-child(1),
+  .festival-cph-card:nth-child(2),
+  .festival-cph-card:nth-child(3){
+    transform:none;
+  }
+
+  .festival-cph-visual{
+    height:280px;
+  }
+
+}
+
+
+/* 배지 안 글자 크기 - 폭과 상관없는 기본 규칙 */
+.festival-month-badge strong{
+  font-size:24px;
+}
+
+.festival-month-badge.month-range strong{
+  font-size:20px;
+}
+
+.festival-month-badge small{
+  font-size:11px;
+}
+
+
+/* 원본 HTML 은 이 미디어쿼리의 닫는 중괄호가 .festival-month-badge 뒤에 있어서
+   아래 모바일 값들이 데스크톱까지 적용되고(제목 44px, 섹션 패딩 75px), 끝에는
+   짝 없는 } 가 남아 빌드가 깨졌다. 괄호 위치만 바로잡았다. */
+@media(max-width:620px){
+
+  .festival-month-badge{
+    top:14px;
+    left:14px;
+
+    padding:10px 18px;
+    font-size:17px;
+  }
+
+  .festival-cph-section{
+    padding:75px 18px 85px;
+  }
+
+  .festival-cph-top{
+    margin-bottom:42px;
+  }
+
+  .festival-cph-heading h2{
+    font-size:44px;
+  }
+
+  .festival-cph-heading p br{
+    display:none;
+  }
+
+  .festival-cph-visual{
+    height:210px;
+  }
+
+  .festival-cph-body{
+    min-height:auto;
+  }
+
+  .festival-cph-button{
+    width:100%;
+    min-width:0;
+  }
+
 }
 
 
@@ -1959,8 +2150,7 @@ button{font:inherit}
   .mood-grid{grid-template-columns:1fr 1fr}
 
   .restaurant-grid,
-  .cafe-grid,
-  .festival-grid{
+  .cafe-grid{
     grid-template-columns:1fr 1fr;
   }
 
@@ -2024,7 +2214,6 @@ button{font:inherit}
   .place-grid,
   .restaurant-grid,
   .cafe-grid,
-  .festival-grid,
   .mission-grid{
     grid-template-columns:1fr;
   }
@@ -2052,31 +2241,6 @@ button{font:inherit}
   }
 
   .dual-place{grid-template-columns:1fr}
-
-  .festival-route{padding:25px 20px}
-
-  .festival-route-flow{
-    flex-direction:column;
-    align-items:stretch;
-  }
-
-  .route-arrow{
-    transform:rotate(90deg);
-    text-align:center;
-  }
-
-  .festival-card{transform:none!important}
-
-  .festival-more-event{
-    grid-template-columns:55px 1fr;
-  }
-
-  .more-event-date{
-    grid-column:1/-1;
-    padding:13px 0 0;
-    border-left:0;
-    border-top:1px dashed #c6b79f;
-  }
 
   .answer-grid{grid-template-columns:1fr}
 
@@ -2235,21 +2399,6 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
   font-size:11px;
   font-weight:1000;
   letter-spacing:.06em;
-}
-
-
-/* ------------------------------------------------------------
-   축제 - 아직 사진이 없는 카드
-   이미지를 넣으면 이 규칙은 저절로 안 보이게 된다.
------------------------------------------------------------- */
-.festival-image.is-empty{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:linear-gradient(145deg,#3d5a8f,#1b2740);
-  color:#ffdc3e;
-  font-size:52px;
 }
 
 
