@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 type NavLink = { href: string; label: string };
 
 const NAV: NavLink[] = [
@@ -40,7 +42,73 @@ const CREDITS = [
   },
 ];
 
+/**
+ * 링크 복사.
+ *
+ * Clipboard API 는 보안 컨텍스트가 아니거나 사용자 동작으로 인정받지 못하면 거부된다.
+ * 그럴 때를 위해 예전 방식(execCommand)을 한 번 더 시도한다.
+ */
+async function copyToClipboard(text: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    /* 아래 방식으로 한 번 더 */
+  }
+
+  const area = document.createElement("textarea");
+  area.value = text;
+  area.setAttribute("readonly", "");
+  // 화면 밖에 두되 포커스는 잡히게 한다
+  area.style.cssText = "position:fixed;top:0;left:-9999px;opacity:0";
+  document.body.appendChild(area);
+
+  try {
+    area.select();
+    return document.execCommand("copy");
+  } catch {
+    return false;
+  } finally {
+    area.remove();
+  }
+}
+
+const SHARE = {
+  title: "기분이 이끄는 대로, 일단 대전행.",
+  text: "오늘 기분에 맞는 대전 하루 코스를 찾아보세요.",
+};
+
 export default function SiteFooter() {
+  /** 공유 결과 안내. 잠깐 띄웠다가 지운다. */
+  const [notice, setNotice] = useState("");
+
+  useEffect(() => {
+    if (!notice) return;
+    const t = setTimeout(() => setNotice(""), 2600);
+    return () => clearTimeout(t);
+  }, [notice]);
+
+  async function share() {
+    const url = window.location.href;
+
+    // 모바일은 OS 공유 시트를 띄운다. 사용자가 취소해도 예외가 나므로 조용히 끝낸다.
+    if (navigator.share) {
+      try {
+        await navigator.share({ ...SHARE, url });
+      } catch {
+        /* 취소 */
+      }
+      return;
+    }
+
+    // PC 에는 공유 시트가 없다. 링크를 복사해준다.
+    if (await copyToClipboard(url)) {
+      setNotice("링크가 복사됐어요");
+    } else {
+      setNotice("복사가 막혀 있어요. 주소창의 링크를 직접 복사해 주세요");
+    }
+  }
+
   return (
     <footer className="site-footer">
       <div className="section-inner">
@@ -64,14 +132,24 @@ export default function SiteFooter() {
               세워도 괜찮으니까요.
             </p>
 
-            <a
-              className="footer-sns"
-              href={TEAM.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Instagram ↗
-            </a>
+            <div className="footer-actions">
+              <a
+                className="footer-sns"
+                href={TEAM.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Instagram ↗
+              </a>
+
+              <button type="button" className="footer-share" onClick={share}>
+                친구에게 공유
+              </button>
+            </div>
+
+            <p className="footer-share-notice" role="status">
+              {notice}
+            </p>
           </div>
 
           <nav className="footer-nav" aria-label="섹션 바로가기">

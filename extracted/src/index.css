@@ -1222,8 +1222,15 @@ button{font:inherit}
   font-weight:900;
 }
 
+/* 사진을 카드 위에 가로로 깔면 PC 에서 영역 비율이 4.2 까지 가서
+   정사각 사진의 24% 밖에 안 보인다. 좌우 4:6 으로 세우고 사진 칸을
+   정사각으로 잡아 사진이 통째로 보이게 한다. (모바일은 아래에서 되돌린다) */
 .stop-card{
   overflow:hidden;
+
+  display:grid;
+  grid-template-columns:4fr 6fr;
+
   background:#fff;
   border:2px solid #292929;
   border-radius:17px;
@@ -1231,8 +1238,14 @@ button{font:inherit}
 }
 
 .stop-photo{
-  height:210px;
-  border-bottom:2px solid #292929;
+  aspect-ratio:1/1;
+  border-right:2px solid #292929;
+}
+
+.stop-card .stop-content{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
 .stop-content{padding:24px 27px}
@@ -1947,14 +1960,47 @@ button{font:inherit}
   line-height:1.75;
 }
 
-.footer-sns{
-  display:inline-block;
+.footer-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+.footer-sns,
+.footer-share{
   padding:9px 15px;
-  background:#ffd94a;
   border-radius:999px;
-  color:#292929 !important;
+  font-family:inherit;
   font-size:12px;
   font-weight:900;
+  cursor:pointer;
+}
+
+.footer-sns{
+  display:inline-block;
+  background:#ffd94a;
+  border:2px solid #ffd94a;
+  color:#292929 !important;
+}
+
+.footer-share{
+  background:transparent;
+  border:2px solid rgba(244,236,224,.55);
+  color:#f4ece0;
+}
+
+.footer-share:hover{
+  background:rgba(244,236,224,.12);
+  border-color:#f4ece0;
+}
+
+/* 복사 결과 안내. 자리를 미리 잡아둬서 문구가 떠도 레이아웃이 안 밀린다. */
+.footer-share-notice{
+  min-height:18px;
+  margin:9px 0 0;
+  color:#ffd94a;
+  font-size:12px;
+  font-weight:700;
 }
 
 .footer-sns:hover{
@@ -2516,6 +2562,22 @@ button{font:inherit}
   .course-stop{
     grid-template-columns:65px 1fr;
     gap:12px;
+  }
+
+  /* 좁은 화면에서는 좌우로 나누면 사진 칸이 너무 좁다. 원래대로 위아래로. */
+  .stop-card{
+    grid-template-columns:1fr;
+  }
+
+  .stop-photo{
+    aspect-ratio:auto;
+    height:210px;
+    border-right:0;
+    border-bottom:2px solid #292929;
+  }
+
+  .stop-card .stop-content{
+    display:block;
   }
 
   .stop-number{
