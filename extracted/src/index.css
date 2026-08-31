@@ -1709,36 +1709,70 @@ button{font:inherit}
   margin-top:65px;
 }
 
+/* 섹션 배경(#fff3d9)과 예전 노란 버튼(#ffd94a)은 둘 다 노란 계열이라
+   명도 차가 거의 없었다. 이미 쓰고 있는 코발트를 배경으로 올려 대비를 만들고,
+   노란색은 그림자와 화살표에만 남겨 새 색을 들이지 않았다. */
 .festival-cph-button{
-  min-width:310px;
+  min-width:340px;
 
   display:flex;
   justify-content:space-between;
   align-items:center;
 
-  gap:40px;
+  gap:26px;
 
-  padding:17px 20px;
+  padding:21px 24px;
+
+  background:#2869d8;
+
+  border:3px solid #292929;
+  border-radius:10px;
+
+  /* 노란 판을 한 겹 깔고 그 위에 잉크 테두리를 덧대 두 겹으로 보이게 한다 */
+  box-shadow:
+    6px 7px 0 #ffd94a,
+    6px 7px 0 3px #292929;
+
+  color:#fff;
+  text-decoration:none;
+
+  font-size:17px;
+  font-weight:900;
+
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+
+.festival-cph-button .button-go{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  white-space:nowrap;
+}
+
+.festival-cph-button .button-arrow{
+  flex-shrink:0;
+
+  width:36px;
+  height:36px;
+
+  display:grid;
+  place-items:center;
 
   background:#ffd94a;
 
-  border:3px solid #292929;
-  border-radius:8px;
-
-  box-shadow:4px 5px 0 #292929;
+  border:2px solid #292929;
+  border-radius:50%;
 
   color:#292929;
-  text-decoration:none;
-
-  font-size:15px;
-  font-weight:900;
-
-  transition:.15s;
+  font-size:17px;
 }
 
 .festival-cph-button:hover{
-  transform:translate(2px,2px);
-  box-shadow:2px 3px 0 #292929;
+  transform:translate(3px,3px);
+  box-shadow:
+    3px 4px 0 #ffd94a,
+    3px 4px 0 3px #292929;
 }
 
 
@@ -2026,6 +2060,14 @@ button{font:inherit}
   font-size:11.5px;
 }
 
+/* 맨 위로 — 푸터 첫 줄 오른쪽.
+   푸터 맨 아래에 두면 고정된 「내 기분 알아보기」 버튼에 완전히 가린다. */
+.footer-jump{
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:22px;
+}
+
 .footer-top-link{
   flex-shrink:0;
   padding:8px 14px;
@@ -2033,6 +2075,16 @@ button{font:inherit}
   border-radius:999px;
   font-size:11.5px;
   font-weight:900;
+}
+
+.footer-top-link:hover{
+  background:rgba(244,236,224,.10);
+  text-decoration:none !important;
+}
+
+/* 저작권 줄이 플로팅 버튼 아래로 들어가지 않게 오른쪽을 비워둔다 */
+.footer-meta{
+  padding-right:190px;
 }
 
 
@@ -2049,7 +2101,7 @@ button{font:inherit}
 
 @media(max-width:620px){
   .site-footer{
-    padding:48px 18px 32px;
+    padding:48px 18px 88px;
   }
 
   .footer-top{
@@ -2065,6 +2117,10 @@ button{font:inherit}
     flex-direction:column;
     align-items:flex-start;
     gap:14px;
+
+    /* 모바일에선 한 줄이 좁아서 오른쪽을 비워둘 여유가 없다.
+       대신 푸터 아래를 넉넉히 띄워 플로팅 버튼이 글자를 덮지 않게 한다. */
+    padding-right:0;
   }
 }
 

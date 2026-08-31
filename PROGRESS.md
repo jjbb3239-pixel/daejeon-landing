@@ -391,6 +391,49 @@ const TEAM = {
 - **행사 포스터** : 각 주최 측 공식 홍보물 — 포스터에 주최 표기가 있음
 - **장소 사진 16장** : **출처 확인 중** ← 촬영자를 모른다. 임의로 적지 않았다
 
+## 0-5. 축제 CTA · 푸터 겹침 (2026-08-31)
+
+### 축제 하단 CTA — 시안 5종 중 D 채택
+
+안 보이던 원인은 색이다.
+
+```
+섹션 배경  #fff3d9   크림
+버튼      #ffd94a   노랑     <- 둘 다 노란 계열. 명도 차가 거의 없었다
+```
+
+이미 팔레트에 있는 **코발트(`#2869d8`)** 를 버튼 배경으로 올려 새 색을 들이지 않고
+대비를 만들었다. 노란색은 그림자와 화살표 원에만 남겼다.
+
+```css
+.festival-cph-button{
+  background:#2869d8;
+  color:#fff;
+  box-shadow:6px 7px 0 #ffd94a,     /* 노란 판 */
+             6px 7px 0 3px #292929; /* 그 위에 잉크 테두리 */
+}
+```
+
+시안 모음 : `prototypes/festival-cta.html`
+(A 잉크 블록 / B 와이드 배너 / C 인스타 그라디언트 / **D 코발트** / E 승차권 스텁)
+
+> 시안 D 에는 `Instagram` 글자가 화살표 원으로 대체돼 있었는데, 링크 목적지를 알려주는
+> 정보라 **글자를 살리고 화살표를 덧붙이는** 형태로 넣었다.
+
+### 푸터 「맨 위로」 가 플로팅 버튼에 가려지던 문제
+
+`.floating-mood` 는 `position:fixed; right:24px; bottom:24px` 다. 페이지 맨 아래까지
+내리면 푸터 오른쪽 아래에 있던 「맨 위로」가 **완전히 그 안에 들어가** 클릭도 안 됐다.
+
+측정값 (1440×900) : 맨 위로 `1296~1371 × 830~866` / 플로팅 `1263~1401 × 825~876`
+
+**맨 위로를 푸터 첫 줄 오른쪽으로 올렸다** (`.footer-jump`). 저작권 줄도 덮이지 않게
+데스크톱은 `padding-right:190px`, 모바일은 대신 `padding-bottom:88px` 을 줬다.
+
+고친 뒤 푸터에서 플로팅 버튼과 겹치는 요소 0개 (데스크톱·모바일 모두 확인).
+
+> **푸터에 무언가를 추가할 때는 오른쪽 아래를 비워둘 것.** 그 자리는 플로팅 버튼 몫이다.
+
 ## 1. 한눈에 보는 현재 동작
 
 ```
@@ -1033,6 +1076,7 @@ frame.counterAxisSizingMode = 'FIXED'
 | 21 | Social Proof 섹션 추가 + 히어로 스탬프·소신 크롭 조정 | `sections/ProofSection.tsx` `App.tsx` `index.css` `imports/proof/` |
 | 22 | 축제 섹션을 「전체전체_수정2index.html」 디자인으로 교체 | `sections/FestivalSection.tsx` `index.css` |
 | 23 | 축제 포스터 4장 · 최종 CTA 축소 · 푸터 신설 | `sections/SiteFooter.tsx` `FestivalSection.tsx` `App.tsx` `index.css` `imports/festival/` |
+| 24 | 축제 CTA 재구성(코발트) + 푸터 「맨 위로」 겹침 해결 | `index.css` `FestivalSection.tsx` `SiteFooter.tsx` |
 
 ### 프로토타입 폴더
 

@@ -44,6 +44,14 @@ export default function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="section-inner">
+        {/* 페이지 맨 아래에서는 플로팅 「내 기분 알아보기」 버튼과 겹치므로
+            푸터 맨 위 오른쪽에 둔다 */}
+        <div className="footer-jump">
+          <a className="footer-top-link" href="#top">
+            맨 위로 ↑
+          </a>
+        </div>
+
         <div className="footer-top">
           <div className="footer-brand">
             <strong>
@@ -115,10 +123,6 @@ export default function SiteFooter() {
 
           <div className="footer-meta">
             <small>© 2026 대전 여행 랜딩페이지 · 비상업 학습용 프로젝트</small>
-
-            <a className="footer-top-link" href="#top">
-              맨 위로 ↑
-            </a>
           </div>
         </div>
       </div>

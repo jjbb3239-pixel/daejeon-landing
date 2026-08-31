@@ -260,7 +260,10 @@ export default function FestivalSection() {
           >
             <span>또 다른 대전 행사 보러가기</span>
 
-            <span>Instagram ↗</span>
+            <span className="button-go">
+              Instagram
+              <span className="button-arrow" aria-hidden="true">↗</span>
+            </span>
           </a>
         </div>
       </div>
