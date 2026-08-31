@@ -1,4 +1,12 @@
+import yuseongYuon from "../imports/festival/yuseong-yuon.jpg";
+import dongguDongrak from "../imports/festival/donggu-dongrak.jpg";
+import contentFair from "../imports/festival/content-fair.jpg";
+import breadFestival from "../imports/festival/bread-festival.jpg";
+
 type MetaLine = { date: string; place: string };
+
+/** 포스터 한 장. 제목이 잘리지 않게 카드마다 크롭 위치를 따로 잡는다. */
+type Poster = { src: string; alt: string; position: string };
 
 type RouteStop = {
   title: string;
@@ -9,7 +17,8 @@ type RouteStop = {
 
 type Festival = {
   tone: string;
-  emoji: string;
+  /** 포스터가 둘이면 비주얼을 좌우로 나눈다 */
+  posters: Poster[];
   badge: string;
   /** 10월 추천 PICK 만 파란 글씨 */
   badgePick?: boolean;
@@ -26,7 +35,13 @@ type Festival = {
 const FESTIVALS: Festival[] = [
   {
     tone: "festival-blue",
-    emoji: "✨",
+    posters: [
+      {
+        src: yuseongYuon,
+        alt: "유성온날 YUON 포스터",
+        position: "50% 0%",
+      },
+    ],
     badge: "8–12월",
     label: "YUSEONG EVENT",
     title: ["유성온날 YUON"],
@@ -42,7 +57,13 @@ const FESTIVALS: Festival[] = [
   },
   {
     tone: "festival-yellow",
-    emoji: "🎤",
+    posters: [
+      {
+        src: dongguDongrak,
+        alt: "2026 대전 동구동락 축제 포스터",
+        position: "50% 50%",
+      },
+    ],
     badge: "10월",
     label: "CITY FESTIVAL",
     title: ["동구동락 축제"],
@@ -53,7 +74,18 @@ const FESTIVALS: Festival[] = [
   },
   {
     tone: "festival-green",
-    emoji: "🐱🍞",
+    posters: [
+      {
+        src: contentFair,
+        alt: "2026 대전콘텐츠페어 포스터",
+        position: "50% 45%",
+      },
+      {
+        src: breadFestival,
+        alt: "2026 대전빵축제 포스터",
+        position: "50% 20%",
+      },
+    ],
     badge: "10월 추천 PICK",
     badgePick: true,
     label: "OCTOBER PICK",
@@ -133,7 +165,13 @@ export default function FestivalSection() {
               key={festival.label}
               className={`festival-cph-card ${festival.tone}`}
             >
-              <div className="festival-cph-visual">
+              <div
+                className={
+                  festival.posters.length > 1
+                    ? "festival-cph-visual is-split"
+                    : "festival-cph-visual"
+                }
+              >
                 <div
                   className={
                     festival.badgePick
@@ -144,7 +182,14 @@ export default function FestivalSection() {
                   {festival.badge}
                 </div>
 
-                <span>{festival.emoji}</span>
+                {festival.posters.map((poster) => (
+                  <img
+                    key={poster.src}
+                    src={poster.src}
+                    alt={poster.alt}
+                    style={{ objectPosition: poster.position }}
+                  />
+                ))}
               </div>
 
               <div className="festival-cph-body">

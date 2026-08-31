@@ -7,11 +7,13 @@ import CafeSection from "./sections/CafeSection";
 import CourseSection from "./sections/CourseSection";
 import ProofSection from "./sections/ProofSection";
 import FestivalSection from "./sections/FestivalSection";
+import SiteFooter from "./sections/SiteFooter";
 import MoodTest from "./MoodTest";
 
 /**
  * 「최종 수정본.html」구조 그대로 한 페이지 앵커 스크롤.
  * 섹션 id 는 #choose #photo #food #cafe #course #proof #festival.
+ * 마지막은 푸터(SiteFooter).
  */
 export default function App() {
   const [testOpen, setTestOpen] = useState(false);
@@ -19,6 +21,8 @@ export default function App() {
 
   return (
     <>
+      <span id="top" />
+
       <Hero onOpenTest={openTest} />
 
       <MoodSelect />
@@ -56,6 +60,8 @@ export default function App() {
           내 기분 다시 알아보기 →
         </button>
       </section>
+
+      <SiteFooter />
 
       {/* FLOATING CTA */}
       <button type="button" className="floating-mood" onClick={openTest}>

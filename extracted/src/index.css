@@ -1437,18 +1437,40 @@ button{font:inherit}
 ========================= */
 
 .festival-cph-visual{
-position:relative;
+  position:relative;
 
-  height:230px;
+  /* 행사 포스터는 세로형(비율 0.7~0.8)이다. 가로로 납작한 영역에 cover 로 넣으면
+     제목이 잘려나가서, 정사각형으로 잡아 포스터 세로의 70% 가 보이게 했다. */
+  aspect-ratio:1/1;
 
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display:grid;
+  grid-template-columns:1fr;
+
+  overflow:hidden;
   border-bottom:3px solid #292929;
 }
 
-.festival-cph-visual span{
-  font-size:67px;
+/* 한 카드에 행사가 둘이면(콘텐츠페어 + 빵축제) 좌우로 나눈다 */
+.festival-cph-visual.is-split{
+  grid-template-columns:1fr 1fr;
+}
+
+.festival-cph-visual.is-split img + img{
+  border-left:3px solid #292929;
+}
+
+/* 반으로 나뉜 칸은 세로로 길쭉해서(비율 0.5) cover 로 넣으면 포스터 좌우가
+   크게 잘린다. 행사 이름이 온전히 보이는 게 우선이라 여기만 contain 을 쓴다.
+   남는 자리는 카드 색이 그대로 비친다. */
+.festival-cph-visual.is-split img{
+  object-fit:contain;
+  object-position:50% 50% !important;
+}
+
+.festival-cph-visual img{
+  width:100%;
+  height:100%;
+  object-fit:cover;   /* 크롭 위치는 포스터마다 style 로 지정 */
 }
 /* =========================
    MONTH STICKER
@@ -1746,8 +1768,9 @@ position:relative;
     transform:none;
   }
 
+  /* 1열이 되면 카드가 넓어진다. 포스터가 지나치게 커지지 않게 살짝 눕힌다 */
   .festival-cph-visual{
-    height:280px;
+    aspect-ratio:4/3;
   }
 
 }
@@ -1797,7 +1820,7 @@ position:relative;
   }
 
   .festival-cph-visual{
-    height:210px;
+    aspect-ratio:1/1;
   }
 
   .festival-cph-body{
@@ -1815,26 +1838,235 @@ position:relative;
 /* =========================================================
    08 FINAL
 ========================================================= */
+/* 문구는 그대로 두고 높이만 절반으로.
+   패딩과 글자 크기를 같이 줄여야 722px -> 400px 대로 내려온다. */
 .final-section{
-  padding:115px 25px 125px;
+  padding:32px 25px 38px;
   background:#78c9f7;
   text-align:center;
 }
 
 .final-section h2{
   margin:0;
-  font-size:clamp(48px,6vw,82px);
-  line-height:1.08;
-  letter-spacing:-.06em;
+  font-size:clamp(30px,3.2vw,46px);
+  line-height:1.14;
+  letter-spacing:-.05em;
 }
 
 .final-section p{
-  max-width:670px;
-  margin:25px auto 35px;
-  font-size:17px;
-  line-height:1.8;
+  max-width:620px;
+  margin:12px auto 18px;
+  font-size:15px;
+  line-height:1.7;
 }
 
+
+/* =========================================================
+   09 FOOTER
+========================================================= */
+.site-footer{
+  padding:52px 30px 34px;
+  background:#292929;
+  color:#f4ece0;
+}
+
+.site-footer h2{
+  margin:0 0 16px;
+  color:#ffd94a;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.14em;
+}
+
+.site-footer a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.site-footer a:hover{
+  text-decoration:underline;
+}
+
+
+/* 위쪽 3단 */
+
+.footer-top{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:44px;
+  padding-bottom:30px;
+  border-bottom:1px solid rgba(244,236,224,.18);
+}
+
+.footer-brand strong{
+  display:block;
+  font-size:23px;
+  line-height:1.32;
+  letter-spacing:-.03em;
+}
+
+.footer-brand p{
+  max-width:330px;
+  margin:14px 0 20px;
+  color:rgba(244,236,224,.62);
+  font-size:13.5px;
+  line-height:1.75;
+}
+
+.footer-sns{
+  display:inline-block;
+  padding:9px 15px;
+  background:#ffd94a;
+  border-radius:999px;
+  color:#292929 !important;
+  font-size:12px;
+  font-weight:900;
+}
+
+.footer-sns:hover{
+  text-decoration:none !important;
+  background:#ffe470;
+}
+
+.footer-nav ul{
+  margin:0;
+  padding:0;
+  list-style:none;
+  display:grid;
+  gap:9px;
+}
+
+.footer-nav a{
+  color:rgba(244,236,224,.78);
+  font-size:13.5px;
+  font-weight:700;
+}
+
+.footer-team dl{
+  margin:0;
+  display:grid;
+  grid-template-columns:44px 1fr;
+  gap:9px 12px;
+  align-items:baseline;
+}
+
+.footer-team dt{
+  color:rgba(244,236,224,.45);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.06em;
+}
+
+.footer-team dd{
+  margin:0;
+  font-size:13.5px;
+  font-weight:700;
+}
+
+/* 아직 안 정해진 값 — 그대로 배포되지 않게 눈에 띄게 둔다 */
+.footer-team dd.is-todo{
+  color:rgba(244,236,224,.42);
+  font-weight:500;
+  font-style:italic;
+}
+
+
+/* 출처 */
+
+.footer-credits{
+  padding:26px 0 24px;
+  border-bottom:1px solid rgba(244,236,224,.18);
+}
+
+.footer-credits dl{
+  margin:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px 40px;
+}
+
+.footer-credits dt{
+  margin-bottom:5px;
+  color:#75c8ff;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+
+.footer-credits dd{
+  margin:0;
+  color:rgba(244,236,224,.62);
+  font-size:12.5px;
+  line-height:1.7;
+}
+
+
+/* 아래쪽 */
+
+.footer-bottom{
+  padding-top:22px;
+}
+
+.footer-notice{
+  margin:0 0 18px;
+  color:rgba(244,236,224,.52);
+  font-size:12px;
+  line-height:1.7;
+}
+
+.footer-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.footer-meta small{
+  color:rgba(244,236,224,.42);
+  font-size:11.5px;
+}
+
+.footer-top-link{
+  flex-shrink:0;
+  padding:8px 14px;
+  border:1px solid rgba(244,236,224,.35);
+  border-radius:999px;
+  font-size:11.5px;
+  font-weight:900;
+}
+
+
+@media(max-width:900px){
+  .footer-top{
+    grid-template-columns:1fr 1fr;
+    gap:34px;
+  }
+
+  .footer-brand{
+    grid-column:1/-1;
+  }
+}
+
+@media(max-width:620px){
+  .site-footer{
+    padding:48px 18px 32px;
+  }
+
+  .footer-top{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .footer-credits dl{
+    grid-template-columns:1fr;
+  }
+
+  .footer-meta{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:14px;
+  }
+}
 
 /* =========================================================
    FLOATING BUTTON
