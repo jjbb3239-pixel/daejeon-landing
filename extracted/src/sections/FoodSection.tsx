@@ -89,7 +89,10 @@ export default function FoodSection() {
           {RESTAURANTS.map((place, i) => (
             <article key={place.name} className="restaurant-card">
               <div className="restaurant-image photo-frame">
-                <img src={place.photo} alt={place.alt} />
+                <img src={place.photo} alt={place.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
 
                 <div className="restaurant-badge">
                   <span className="badge-number">{String(i + 1).padStart(2, "0")}</span>

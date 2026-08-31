@@ -198,7 +198,10 @@ export default function ProofSection() {
                           : "proof-photo"
                       }
                     >
-                      <img src={review.photo} alt={review.alt} />
+                      <img src={review.photo} alt={review.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
                     </div>
 
                     <div className="proof-body">

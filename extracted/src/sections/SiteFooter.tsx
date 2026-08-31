@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { INSTAGRAM, isReady, notReadyProps } from "../links";
+import { share } from "../share";
 
 type NavLink = { href: string; label: string };
 
@@ -20,7 +22,6 @@ const TEAM = {
   name: "팀 이름 (확인 중)",
   members: "팀원 명단 (확인 중)",
   email: "문의 메일 (확인 중)",
-  instagram: "https://instagram.com/",
 };
 
 const CREDITS = [
@@ -42,37 +43,6 @@ const CREDITS = [
   },
 ];
 
-/**
- * 링크 복사.
- *
- * Clipboard API 는 보안 컨텍스트가 아니거나 사용자 동작으로 인정받지 못하면 거부된다.
- * 그럴 때를 위해 예전 방식(execCommand)을 한 번 더 시도한다.
- */
-async function copyToClipboard(text: string): Promise<boolean> {
-  try {
-    await navigator.clipboard.writeText(text);
-    return true;
-  } catch {
-    /* 아래 방식으로 한 번 더 */
-  }
-
-  const area = document.createElement("textarea");
-  area.value = text;
-  area.setAttribute("readonly", "");
-  // 화면 밖에 두되 포커스는 잡히게 한다
-  area.style.cssText = "position:fixed;top:0;left:-9999px;opacity:0";
-  document.body.appendChild(area);
-
-  try {
-    area.select();
-    return document.execCommand("copy");
-  } catch {
-    return false;
-  } finally {
-    area.remove();
-  }
-}
-
 const SHARE = {
   title: "기분이 이끄는 대로, 일단 대전행.",
   text: "오늘 기분에 맞는 대전 하루 코스를 찾아보세요.",
@@ -88,25 +58,10 @@ export default function SiteFooter() {
     return () => clearTimeout(t);
   }, [notice]);
 
-  async function share() {
-    const url = window.location.href;
-
-    // 모바일은 OS 공유 시트를 띄운다. 사용자가 취소해도 예외가 나므로 조용히 끝낸다.
-    if (navigator.share) {
-      try {
-        await navigator.share({ ...SHARE, url });
-      } catch {
-        /* 취소 */
-      }
-      return;
-    }
-
-    // PC 에는 공유 시트가 없다. 링크를 복사해준다.
-    if (await copyToClipboard(url)) {
-      setNotice("링크가 복사됐어요");
-    } else {
-      setNotice("복사가 막혀 있어요. 주소창의 링크를 직접 복사해 주세요");
-    }
+  async function onShare() {
+    const result = await share(SHARE);
+    if (result === "copied") setNotice("링크가 복사됐어요");
+    if (result === "failed") setNotice("복사가 막혀 있어요. 주소창의 링크를 직접 복사해 주세요");
   }
 
   return (
@@ -134,15 +89,15 @@ export default function SiteFooter() {
 
             <div className="footer-actions">
               <a
-                className="footer-sns"
-                href={TEAM.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
+                className={isReady(INSTAGRAM) ? "footer-sns" : "footer-sns is-pending"}
+                {...(isReady(INSTAGRAM)
+                  ? { href: INSTAGRAM, target: "_blank", rel: "noopener noreferrer" }
+                  : notReadyProps)}
               >
                 Instagram ↗
               </a>
 
-              <button type="button" className="footer-share" onClick={share}>
+              <button type="button" className="footer-share" onClick={onShare}>
                 친구에게 공유
               </button>
             </div>

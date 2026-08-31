@@ -64,8 +64,6 @@ export default function Hero({ onOpenTest }: HeroProps) {
               <button type="button" className="ticket-cta" onClick={onOpenTest}>
                 30초 만에 내 대전 여행 기분 찾기 →
               </button>
-
-              <span className="ticket-cta-hint">● 4개의 질문 · 바로 결과 확인</span>
             </div>
 
             <div className="ticket-serial">
@@ -110,7 +108,13 @@ export default function Hero({ onOpenTest }: HeroProps) {
 
           {/* 스탬프 뒤에 꿈돌이 */}
           <div className="stub-stamp-wrap">
-            <img className="stub-kkumdori" src={kkumdori} alt="" aria-hidden="true" />
+            <img
+              className="stub-kkumdori"
+              src={kkumdori}
+              alt=""
+              aria-hidden="true"
+              fetchPriority="high"
+            />
 
             <div className="ticket-stamp">
               <span>MOOD CHECK</span>

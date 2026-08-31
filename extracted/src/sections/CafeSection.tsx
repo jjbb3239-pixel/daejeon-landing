@@ -100,7 +100,10 @@ export default function CafeSection() {
           {CAFES.map((cafe) => (
             <article key={cafe.id} className="cafe-card" id={cafe.id}>
               <div className="cafe-image photo-frame">
-                <img src={cafe.photo} alt={cafe.alt} />
+                <img src={cafe.photo} alt={cafe.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
               </div>
 
               <div className="cafe-body">

@@ -91,7 +91,10 @@ export default function PhotoSection() {
           {PLACES.map((place, i) => (
             <article key={place.name} className="place-card">
               <div className="place-image photo-frame">
-                <img src={place.photo} alt={place.alt} />
+                <img src={place.photo} alt={place.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 <span className="place-number">{String(i + 1).padStart(2, "0")}</span>
               </div>
 

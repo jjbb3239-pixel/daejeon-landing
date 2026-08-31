@@ -3,6 +3,8 @@ import dongguDongrak from "../imports/festival/donggu-dongrak.jpg";
 import contentFair from "../imports/festival/content-fair.jpg";
 import breadFestival from "../imports/festival/bread-festival.jpg";
 
+import { INSTAGRAM, isReady, notReadyProps } from "../links";
+
 type MetaLine = { date: string; place: string };
 
 /** 포스터 한 장. 제목이 잘리지 않게 카드마다 크롭 위치를 따로 잡는다. */
@@ -149,10 +151,10 @@ export default function FestivalSection() {
           </div>
 
           <a
-            href="https://www.instagram.com/"
-            className="festival-all-link"
-            target="_blank"
-            rel="noopener noreferrer"
+            className={isReady(INSTAGRAM) ? "festival-all-link" : "festival-all-link is-pending"}
+            {...(isReady(INSTAGRAM)
+              ? { href: INSTAGRAM, target: "_blank", rel: "noopener noreferrer" }
+              : notReadyProps)}
           >
             ALL EVENTS
             <span>↗</span>
@@ -188,6 +190,8 @@ export default function FestivalSection() {
                     src={poster.src}
                     alt={poster.alt}
                     style={{ objectPosition: poster.position }}
+                    loading="lazy"
+                    decoding="async"
                   />
                 ))}
               </div>
@@ -253,10 +257,10 @@ export default function FestivalSection() {
 
         <div className="festival-cph-bottom">
           <a
-            href="https://www.instagram.com/"
-            className="festival-cph-button"
-            target="_blank"
-            rel="noopener noreferrer"
+            className={isReady(INSTAGRAM) ? "festival-cph-button" : "festival-cph-button is-pending"}
+            {...(isReady(INSTAGRAM)
+              ? { href: INSTAGRAM, target: "_blank", rel: "noopener noreferrer" }
+              : notReadyProps)}
           >
             <span>또 다른 대전 행사 보러가기</span>
 

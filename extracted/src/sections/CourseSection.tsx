@@ -79,7 +79,10 @@ export default function CourseSection() {
 
               <article className="stop-card">
                 <div className="stop-photo photo-frame">
-                  <img src={stop.photo} alt={stop.alt} />
+                  <img src={stop.photo} alt={stop.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
 
                 <div className="stop-content">

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { MOODS, QUESTIONS, resolveMood, type MoodId } from "./quiz";
+import { share } from "./share";
 
 type MoodTestProps = {
   open: boolean;
@@ -12,6 +13,7 @@ type MoodTestProps = {
  */
 export default function MoodTest({ open, onClose }: MoodTestProps) {
   const [answers, setAnswers] = useState<number[]>([]);
+  const [notice, setNotice] = useState("");
   const dialogRef = useRef<HTMLDivElement>(null);
 
   const step = answers.length;
@@ -20,8 +22,18 @@ export default function MoodTest({ open, onClose }: MoodTestProps) {
 
   // 열릴 때마다 처음부터. 닫는 동안 결과가 스쳐 보이지 않게 열림에 맞춰 초기화한다.
   useEffect(() => {
-    if (open) setAnswers([]);
+    if (open) {
+      setAnswers([]);
+      setNotice("");
+    }
   }, [open]);
+
+  // 공유 안내는 잠깐 띄웠다 지운다
+  useEffect(() => {
+    if (!notice) return;
+    const t = setTimeout(() => setNotice(""), 2600);
+    return () => clearTimeout(t);
+  }, [notice]);
 
   // 열려 있는 동안 뒤 배경 스크롤을 막는다.
   useEffect(() => {
@@ -40,6 +52,15 @@ export default function MoodTest({ open, onClose }: MoodTestProps) {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [open, onClose]);
+
+  async function onShare(mood: MoodId) {
+    const result = await share({
+      title: "기분이 이끄는 대로, 일단 대전행.",
+      text: `오늘 내 대전 여행 기분은 「${MOODS[mood].title}」. 당신은요?`,
+    });
+    if (result === "copied") setNotice("결과 링크가 복사됐어요");
+    if (result === "failed") setNotice("복사가 막혀 있어요. 주소창의 링크를 직접 복사해 주세요");
+  }
 
   function goToSection(target: string) {
     onClose();
@@ -110,6 +131,16 @@ export default function MoodTest({ open, onClose }: MoodTestProps) {
                 </button>
               ))}
             </div>
+
+            {i > 0 && (
+              <button
+                type="button"
+                className="test-back"
+                onClick={() => setAnswers(answers.slice(0, -1))}
+              >
+                ← 이전 질문
+              </button>
+            )}
           </div>
         ))}
 
@@ -146,9 +177,17 @@ export default function MoodTest({ open, onClose }: MoodTestProps) {
               이 기분으로 대전 보기 →
             </button>
 
+            <button type="button" className="result-share" onClick={() => onShare(mood)}>
+              결과 공유하기
+            </button>
+
             <button type="button" className="result-retry" onClick={() => setAnswers([])}>
               ↻ 다시 테스트하기
             </button>
+
+            <p className="result-notice" role="status">
+              {notice}
+            </p>
           </div>
         )}
       </div>

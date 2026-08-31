@@ -1,4 +1,4 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import "./fonts/pretendard.css";
 
 /* ============================================================
    「최종 수정본.html」의 스타일을 그대로 옮긴 것.
@@ -1960,6 +1960,13 @@ button{font:inherit}
   line-height:1.75;
 }
 
+/* 링크가 아직 없는 CTA. 인스타그램 주소가 들어오면 저절로 정상 상태가 된다. */
+.is-pending{
+  opacity:.5;
+  cursor:not-allowed;
+  pointer-events:none;
+}
+
 .footer-actions{
   display:flex;
   flex-wrap:wrap;
@@ -2031,7 +2038,7 @@ button{font:inherit}
 }
 
 .footer-team dt{
-  color:rgba(244,236,224,.45);
+  color:rgba(244,236,224,.66);
   font-size:11px;
   font-weight:900;
   letter-spacing:.06em;
@@ -2045,7 +2052,7 @@ button{font:inherit}
 
 /* 아직 안 정해진 값 — 그대로 배포되지 않게 눈에 띄게 둔다 */
 .footer-team dd.is-todo{
-  color:rgba(244,236,224,.42);
+  color:rgba(244,236,224,.66);
   font-weight:500;
   font-style:italic;
 }
@@ -2089,7 +2096,7 @@ button{font:inherit}
 
 .footer-notice{
   margin:0 0 18px;
-  color:rgba(244,236,224,.52);
+  color:rgba(244,236,224,.66);
   font-size:12px;
   line-height:1.7;
 }
@@ -2102,7 +2109,7 @@ button{font:inherit}
 }
 
 .footer-meta small{
-  color:rgba(244,236,224,.42);
+  color:rgba(244,236,224,.66);
   font-size:11.5px;
 }
 
@@ -2465,8 +2472,60 @@ button{font:inherit}
   cursor:pointer;
 }
 
-.result-retry{
+/* 이전 질문 — 선택지 아래 조용한 텍스트 링크 */
+.test-back{
   margin-top:18px;
+  padding:8px 4px;
+  background:none;
+  border:0;
+  color:#756a5b;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.test-back:hover{
+  color:#292929;
+  text-decoration:underline;
+}
+
+/* 결과 공유 — 「이 기분으로 대전 보기」 다음가는 무게 */
+.result-share{
+  width:100%;
+  margin-top:11px;
+  padding:14px 20px;
+
+  background:#fff;
+  border:2px solid #292929;
+  border-radius:10px;
+  box-shadow:3px 3px 0 #292929;
+
+  color:#292929;
+  font-family:inherit;
+  font-size:15px;
+  font-weight:900;
+
+  cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+
+.result-share:hover{
+  transform:translate(2px,2px);
+  box-shadow:1px 1px 0 #292929;
+}
+
+/* 공유 결과 안내. 자리를 미리 잡아 레이아웃이 안 밀리게 한다. */
+.result-notice{
+  min-height:17px;
+  margin:10px 0 0;
+  color:#2869d8;
+  font-size:12px;
+  font-weight:800;
+}
+
+.result-retry{
+  margin-top:14px;
   background:none;
   border:0;
   color:#716759;
@@ -2782,11 +2841,11 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
 .proof-photo::after{content:'VISITOR SHOT';position:absolute;left:10px;bottom:10px;padding:4px 7px;background:rgba(255,255,255,.88);border-radius:999px;font-size:8px;font-weight:900;letter-spacing:.08em}
 .proof-body{padding:19px 20px 16px;display:flex;flex-direction:column;min-width:0}
 .proof-place{font-size:11px;font-weight:900;color:#2869d8;letter-spacing:.06em;margin-bottom:6px}
-.proof-score{display:flex;align-items:center;gap:8px;margin-bottom:9px}.proof-stars{color:#f1b91d;letter-spacing:1px;font-size:15px}.proof-rating{font-size:15px;font-weight:900}.proof-count{font-size:11px;color:#968b7f}
+.proof-score{display:flex;align-items:center;gap:8px;margin-bottom:9px}.proof-stars{color:#f1b91d;letter-spacing:1px;font-size:15px}.proof-rating{font-size:15px;font-weight:900}.proof-count{font-size:11px;color:#6f675d}
 .proof-user{font-size:12px;font-weight:900;color:#4f4a44;margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .proof-quote{margin:0;color:#34312d;font-size:13px;line-height:1.55;font-weight:700}
-.proof-source{margin-top:auto;padding-top:8px;color:#9a9086;font-size:9px;font-weight:800;letter-spacing:.04em}
-.proof-note{margin-top:26px;text-align:right;color:#8b8176;font-size:10px;line-height:1.6}
+.proof-source{margin-top:auto;padding-top:8px;color:#6f675d;font-size:10px;font-weight:800;letter-spacing:.04em}
+.proof-note{margin-top:26px;text-align:right;color:#6f675d;font-size:10px;line-height:1.6}
 @media(max-width:980px){.proof-head{display:block}.proof-head p{margin-top:18px}.proof-group{grid-template-columns:1fr}.proof-group-label{min-height:auto}.proof-group-label h3{margin-top:8px}.proof-row{grid-template-columns:1fr 1fr}}
 @media(max-width:700px){.proof-section{padding:70px 18px 80px}.proof-row{grid-template-columns:1fr}.proof-card{grid-template-columns:115px 1fr;min-height:145px}.proof-photo{min-height:145px}.proof-body{padding:16px 16px 13px}.proof-head h2{font-size:42px}}
 @media(max-width:430px){.proof-card{grid-template-columns:100px 1fr}.proof-quote{font-size:12px}.proof-count{display:none}}

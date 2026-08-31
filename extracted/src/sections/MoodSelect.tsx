@@ -80,7 +80,10 @@ export default function MoodSelect() {
           {CARDS.map((card) => (
             <a key={card.href} href={card.href} className="mood-card">
               <div className={`card-photo photo-frame is-character ${card.tone}`}>
-                <img src={card.art} alt={card.alt} />
+                <img src={card.art} alt={card.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
               </div>
 
               <div className="card-body">
