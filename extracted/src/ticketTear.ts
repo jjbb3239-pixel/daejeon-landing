@@ -4,7 +4,21 @@
 
    프로토타입: prototypes/ticket-tear.html */
 
-import { MOODS, type MoodId } from "./quiz";
+import { type MoodId } from "./quiz";
+
+/**
+ * 승차권에 새길 문구.
+ *
+ * quiz.ts 의 MOODS 를 직접 읽지 않고 여기서 따로 들고 있는다.
+ * 이 전환 효과는 지금 화면에 연결돼 있지 않은 보관용 코드라,
+ * 결과 화면 문구가 바뀔 때마다 같이 깨지지 않게 떼어놨다.
+ */
+const TICKET_LABEL: Record<MoodId, { name: string; destination: string; icon: string }> = {
+  photo: { name: "사진 왕창 찍고 싶은 날", destination: "PHOTO SPOT", icon: "📸" },
+  food: { name: "맛집 다 뿌수고 싶은 날", destination: "EAT ALL DAY", icon: "🍜" },
+  cafe: { name: "느좋 카페 가고 싶은 날", destination: "CAFE HOPPING", icon: "☕" },
+  course: { name: "아무 생각 하기 싫은 날", destination: "EASY COURSE", icon: "🗺️" },
+};
 
 /* 승차권 원본은 항상 이 크기로 그려두고 화면에는 축소해서 올린다 */
 const W = 1100;
@@ -82,7 +96,7 @@ function drawTicket(mood: MoodId) {
   c.height = Math.round(H * RES);
   const ctx = c.getContext("2d")!;
   ctx.scale(RES, RES); // 이후 좌표는 그대로 W×H 기준으로 쓴다
-  const m = MOODS[mood];
+  const m = TICKET_LABEL[mood];
 
   // 윤곽 안쪽에만 종이를 채운다
   ctx.save();

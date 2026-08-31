@@ -67,6 +67,110 @@
 
 ---
 
+## 0. 전면 개편 (2026-08-31) — 여기부터 읽을 것
+
+팀 회의 결과 **「최종 수정본.html」(Downloads) 디자인으로 전면 교체**했다.
+그 전까지의 내용(1~7절)은 **개편 전 기록**이다. 지금 코드와 다르므로 참고용으로만 본다.
+
+### 무엇이 바뀌었나
+
+```
+개편 전                              개편 후
+────────────────────────────         ────────────────────────────
+뷰 전환 라우팅 (view state)            한 페이지 앵커 스크롤
+홈 + 별도 페이지 4개                   #choose #photo #food #cafe #course #festival
+                                     전부 한 화면에 이어붙임
+```
+
+| | 개편 전 | 개편 후 |
+|---|---|---|
+| 히어로 | 손글씨 승차권 (아이보리) | 파란 배경 + 회전 승차권, `TODAY → DAEJEON` |
+| 기분 카드 | 흰 카드 4장 | 사진 영역 220px + 카드별 회전·액센트 컬러 |
+| 퀴즈 | 4문항 2지선다 | **그대로 유지.** 화면만 새 디자인(4지선다 그리드 아님) |
+| 4번째 취향 | `solo` 혼자 감수성 | **`course` 아무 생각 하기 싫은 날** (카드·섹션과 이름 일치) |
+| 결과 후 | 승차권 찢기 2초 → 페이지 전환 | 해당 섹션으로 스크롤 |
+| 축제 섹션 | 없음 | **신규** (콘텐츠페어·빵축제·동구동락 + 유성온날 + 인스타 박스) |
+| 최종 CTA | 없음 | **신규** |
+| 플로팅 버튼 | 없음 | **신규** |
+
+### 파일 구조
+
+```
+src/
+  App.tsx              8개 섹션 조립 + 모달 상태
+  index.css            최종 수정본.html 의 CSS 그대로 + ADDITIONS 구역
+  MoodTest.tsx         기분 테스트 모달 (새 디자인 + 기존 퀴즈)
+  quiz.ts              문항·판정 로직 그대로. solo → course 로만 개명
+  quiz.check.ts        16조합 검증 + target 이 섹션 id 와 맞는지도 확인
+  ticketTear.ts        **연결 안 함.** 보관용 (사용자 요청)
+  sections/
+    Hero · MoodSelect · PhotoSection · FoodSection
+    CafeSection · CourseSection · FestivalSection
+```
+
+삭제한 파일 : `PhotoPage` `FoodPage` `CafePage` `MoodCoursePage` `QuizModal`
+
+### 내용을 어디서 가져왔나
+
+**원칙 : 디자인은 새 HTML 을 그대로. 내용은 새 HTML 이 비었거나 빈약하면 기존 페이지 것.**
+
+| 섹션 | 본문 출처 | 이유 |
+|---|---|---|
+| 사진 | **기존 페이지** | 새 HTML 설명이 요약본이라 기존이 더 충실 |
+| 맛집 | **기존 페이지** | 새 HTML 은 `확인 후 입력` 상태였다 |
+| 카페 | **기존 페이지** | 사용자 지시 |
+| 코스 | 새 HTML | 이 디자인에 맞게 쓰였고 내용도 충분 |
+| 히어로·축제·최종 | 새 HTML | 기존에 없던 내용 |
+
+### 이미지
+
+새 HTML 의 `images/*.jpg` 21곳은 전부 실제 파일이 없었다. 기존 자산으로 연결했다.
+
+| 새 HTML | 실제 파일 |
+|---|---|
+| leeungno-museum | `photo/ungno-museum.jpg` |
+| trinit-bistro / heerak | `food/trinite.jpg` / `food/huirak.jpg` |
+| sosin / ssangri | `.jpeg` 확장자 |
+| soje-dong / gumo-cloudbook / daedong-skypark / sikjangsan | `imports/` 의 한글명 4장 |
+| mood-photo/food/cafe/course | **사진 대신 꿈씨패밀리 캐릭터** |
+
+**아직 없는 것 — 축제 사진 3장.** 사용자가 직접 넣기로 했다.
+넣는 곳은 `sections/FestivalSection.tsx` 의 `FESTIVAL` 배열에 `photo` 필드 추가:
+
+```tsx
+import contentFair from "../imports/festival/daejeon-content-fair.jpg";
+// ...
+{ href: "https://dcfair.co.kr/", photo: contentFair, ... }
+```
+
+`photo` 가 없으면 `.festival-image.is-empty` 로 어두운 그라데이션 + 이모지가 나온다.
+넣는 순간 자동으로 사진으로 바뀐다.
+
+### 꿈돌이 · 꿈씨패밀리 배치
+
+| 자리 | 캐릭터 | |
+|---|---|---|
+| 히어로 스탬프 뒤 | 꿈돌이 (`.stub-kkumdori`) | 168px, 살짝 회전, 스탬프가 반투명하게 덮음 |
+| 사진 카드 | 셀카봉 든 꿈누리 | 요청과 정확히 일치 |
+| 맛집 카드 | 빵 봉지 안은 온솔 | 가장 근접 |
+| 카페 카드 | 화분 든 캐릭터 | **커피 포즈가 가이드에 없음** |
+| 귀찮아 카드 | **엎드려 누운 꿈동이** (`kkumssi/lazy.png`) | 가이드 p42 에서 새로 추출 |
+
+> 공식 가이드(120쪽)에 있는 응용 동작은 셀카봉·빵·망원경·쇼핑백·현미경·돈자루·
+> 태블릿·화분·훌라후프·원반·주사기·안전모, 그리고 엎드려 누운 포즈뿐이다.
+> **커피 마시는 / 음식 먹는 포즈는 없다.** 없는 포즈를 합성하면 브랜드 가이드 위반이라
+> 만들지 않았다.
+
+### 주의할 점
+
+- **Tailwind 를 불러오지 않는다.** `@import 'tailwindcss'` 를 뺐다.
+  preflight 리셋이 원본 h1/h2/h3 기본값을 덮어써서 디자인이 달라지기 때문.
+  Tailwind 유틸리티 클래스는 이 프로젝트에서 안 쓴다.
+- `index.css` 의 **ADDITIONS 구역 위쪽은 원본 CSS 그대로**다. 원본을 다시 받으면
+  그 구역만 교체하면 된다.
+- 부드러운 스크롤은 **브라우저 도구 창에서 안 움직인다** (rAF 정지). 실제 브라우저에서는
+  정상. 즉시 스크롤로 바꿔 확인한 결과 목적지 좌표는 정확했다.
+
 ## 1. 한눈에 보는 현재 동작
 
 ```
@@ -718,6 +822,7 @@ frame.counterAxisSizingMode = 'FIXED'
 | 17 | 히어로 CTA 위 클릭 유도 마크 (시안 6종 중 D안 채택) | `App.tsx` `index.css` `prototypes/click-hint.html` |
 | 18 | GitHub 저장소 생성 + 최초 커밋, 이미지 LFS 해제 | `.gitignore` `README.md` `extracted/.gitattributes` |
 | 19 | Vercel 배포 + Figma 디자인 시안 10화면 제작 | (코드 변경 없음) |
+| 20 | **전면 개편** — 「최종 수정본.html」 디자인으로 한 페이지 재작성 | `App.tsx` `index.css` `sections/*` `MoodTest.tsx` `quiz.ts` |
 
 ### 프로토타입 폴더
 

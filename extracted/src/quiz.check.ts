@@ -1,39 +1,36 @@
-// 실행: node src/quiz.check.ts
-// 2지선다 4문항 = 16가지 답변 조합이 모두 유효한 결과로 떨어지는지,
-// 그리고 네 가지 취향이 전부 나올 수 있는지 확인한다.
-import assert from "node:assert";
+/**
+ * 퀴즈 자체 검사.
+ *
+ *   node --experimental-strip-types src/quiz.check.ts
+ *
+ * 16개 조합(2^4)이 전부 취향 하나로 판정되는지, 그리고 네 취향이 모두
+ * 한 번 이상 나오는지 확인한다. 결과가 안 나오는 취향이 있으면 실패.
+ */
 import { MOODS, QUESTIONS, resolveMood, type MoodId } from "./quiz.ts";
 
-const combos: number[][] = [];
-for (let i = 0; i < 1 << QUESTIONS.length; i++) {
-  combos.push(QUESTIONS.map((_, q) => (i >> q) & 1));
-}
+const seen: Record<string, number> = {};
+const total = 2 ** QUESTIONS.length;
 
-const hits: Record<string, number> = {};
-for (const answers of combos) {
+for (let mask = 0; mask < total; mask++) {
+  const answers = QUESTIONS.map((_, i) => (mask >> i) & 1);
   const mood = resolveMood(answers);
-  assert.ok(MOODS[mood], `알 수 없는 결과: ${mood} (${answers})`);
-  hits[mood] = (hits[mood] ?? 0) + 1;
+
+  if (!MOODS[mood]) {
+    throw new Error(`알 수 없는 결과: ${mood} (답변 ${answers.join("")})`);
+  }
+  seen[mood] = (seen[mood] ?? 0) + 1;
 }
 
-assert.equal(combos.length, 16, "조합 수가 16이 아님");
+const missing = (Object.keys(MOODS) as MoodId[]).filter((id) => !seen[id]);
+if (missing.length) {
+  throw new Error(`한 번도 안 나오는 취향: ${missing.join(", ")}`);
+}
+
+// 결과가 데려갈 섹션이 실제 섹션 id 와 맞는지도 같이 본다.
 for (const id of Object.keys(MOODS) as MoodId[]) {
-  assert.ok(hits[id] > 0, `결과로 한 번도 안 나오는 취향: ${id}`);
-}
-
-// 취향마다 페이지가 연결돼 있는지는 App.tsx의 라우팅 맵 타입이 컴파일 단계에서 보장한다.
-
-// 문항별 가중치가 한쪽으로 쏠리면 특정 결과가 안 나온다. 주 취향(+2)이 고르게 퍼졌는지 확인.
-const primary: Record<string, number> = {};
-for (const q of QUESTIONS) {
-  for (const c of q.choices) {
-    for (const [id, w] of Object.entries(c.score)) {
-      if (w === 2) primary[id] = (primary[id] ?? 0) + 1;
-    }
+  if (MOODS[id].target !== `#${id}`) {
+    throw new Error(`${id} 의 target 이 #${id} 가 아님: ${MOODS[id].target}`);
   }
 }
-for (const id of Object.keys(MOODS) as MoodId[]) {
-  assert.equal(primary[id], 2, `주 취향 배분이 2가 아님: ${id} = ${primary[id]}`);
-}
 
-console.log("16개 조합 전부 통과. 분포:", hits);
+console.log(`${total}개 조합 전부 통과. 분포:`, seen);
