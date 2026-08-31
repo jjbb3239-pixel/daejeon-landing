@@ -749,30 +749,17 @@ LFS 로 잡고 있었다.** Vercel 은 빌드 시 LFS 오브젝트를 받아오�
 git lfs ls-files    # 이미지가 잡히면 안 된다
 ```
 
-## 8-2. 공유 채널 (2026-08-30)
+## 8-2. 공유 채널
 
 | 무엇 | 어디 | 용도 |
 |---|---|---|
-| 라이브 | https://extracted-mu.vercel.app/ | **인터랙션 확인용.** 퀴즈·찢기 모션은 여기서만 볼 수 있다 |
-| 코드 | https://github.com/jjbb3239-pixel/daejeon-landing | private. main 에 push 하면 Vercel 자동 재배포 |
-| 디자인 | https://www.figma.com/design/je1rN5ppbHZ63rEvECk2d7 | 팀원이 직접 수정. gbsa5의 팀 |
+| 라이브 | https://extracted-mu.vercel.app/ | 팀 공유용. main 에 push 하면 자동 재배포 |
+| 코드 | https://github.com/jjbb3239-pixel/daejeon-landing | private. 팀원은 Collaborator 초대 필요 |
 
-### Figma 파일 구성
-
-```
-＊ 읽어주세요        안내 (폰트 대체 · 모션은 링크 · 변수 위치)
-01 홈               히어로 승차권 / 기분 카드 4 / 인스타그램 / 푸터
-02~05 퀴즈 Q1~Q4    팝업 4문항
-06 결과             결과 승차권 + 이 코스 보러가기
-07~10 코스 4종      사진 / 맛집 / 카페 / 혼자
-```
-
-- 색은 로컬 변수 **「대전 팔레트」** 9개로 묶여 있다. 한 번에 바꾸면 전체 반영.
-- 사진 19장은 실제 이미지로 채워 넣었다 (`upload_assets`).
-- **폰트 대체** : Figma 에 Pretendard·나눔 펜 스크립트가 없어서
-  `Noto Sans KR` + `Gaegu` 로 대체했다. Gaegu 는 CSS 폴백에 이미 걸어둔 폰트.
-- **모션은 Figma 에 없다.** 캔버스로 매 프레임 그리는 방식이라 레이어로 표현 불가.
-  파일 안내 프레임에 Vercel 링크를 적어뒀다.
+> **Figma 는 쓰지 않기로 했다 (2026-08-31).**
+> 2026-08-30 에 시안 파일(`je1rN5ppbHZ63rEvECk2d7`)을 만들었지만 전면 개편 전
+> 디자인이고, 팀에서 안 쓰기로 정했다. **다시 만들거나 갱신하지 말 것.**
+> 아래는 그때 겪은 함정만 남겨둔다 — 나중에 Figma 를 다시 쓸 일이 생기면 참고.
 
 ### 되풀이하지 말 것 — auto-layout 프레임의 resize()
 
@@ -821,7 +808,7 @@ frame.counterAxisSizingMode = 'FIXED'
 | 16 | 승차권 절취 전환 프로토타입 제작 **(앱 미적용)** | `prototypes/ticket-tear.html` |
 | 17 | 히어로 CTA 위 클릭 유도 마크 (시안 6종 중 D안 채택) | `App.tsx` `index.css` `prototypes/click-hint.html` |
 | 18 | GitHub 저장소 생성 + 최초 커밋, 이미지 LFS 해제 | `.gitignore` `README.md` `extracted/.gitattributes` |
-| 19 | Vercel 배포 + Figma 디자인 시안 10화면 제작 | (코드 변경 없음) |
+| 19 | Vercel 배포 + Figma 디자인 시안 10화면 제작 (**폐기 — 팀에서 미사용 결정**) | (코드 변경 없음) |
 | 20 | **전면 개편** — 「최종 수정본.html」 디자인으로 한 페이지 재작성 | `App.tsx` `index.css` `sections/*` `MoodTest.tsx` `quiz.ts` |
 
 ### 프로토타입 폴더
