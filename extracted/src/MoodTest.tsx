@@ -5,13 +5,15 @@ import { share } from "./share";
 type MoodTestProps = {
   open: boolean;
   onClose: () => void;
+  /** 결과에서 코스로 보낼 때. 접혀 있는 섹션을 펼치고 스크롤까지 처리한다. */
+  onGoToMood: (id: MoodId) => void;
 };
 
 /**
  * 「최종 수정본.html」의 기분 테스트 모달.
  * 화면은 새 디자인 그대로, 문항과 판정은 기존 퀴즈(4문항 × 2지선다)를 쓴다.
  */
-export default function MoodTest({ open, onClose }: MoodTestProps) {
+export default function MoodTest({ open, onClose, onGoToMood }: MoodTestProps) {
   const [answers, setAnswers] = useState<number[]>([]);
   const [notice, setNotice] = useState("");
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -62,15 +64,10 @@ export default function MoodTest({ open, onClose }: MoodTestProps) {
     if (result === "failed") setNotice("복사가 막혀 있어요. 주소창의 링크를 직접 복사해 주세요");
   }
 
-  function goToSection(target: string) {
+  function goToSection(id: MoodId) {
     onClose();
     // 모달이 닫히고 body 스크롤 잠금이 풀린 뒤에 이동해야 실제로 스크롤된다.
-    setTimeout(() => {
-      document.querySelector(target)?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 250);
+    setTimeout(() => onGoToMood(id), 250);
   }
 
   return (
@@ -172,7 +169,7 @@ export default function MoodTest({ open, onClose }: MoodTestProps) {
             <button
               type="button"
               className="result-go"
-              onClick={() => goToSection(MOODS[mood].target)}
+              onClick={() => goToSection(mood)}
             >
               이 기분으로 대전 보기 →
             </button>
