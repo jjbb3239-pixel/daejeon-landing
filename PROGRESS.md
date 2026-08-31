@@ -105,7 +105,7 @@ src/
   ticketTear.ts        **연결 안 함.** 보관용 (사용자 요청)
   sections/
     Hero · MoodSelect · PhotoSection · FoodSection
-    CafeSection · CourseSection · FestivalSection
+    CafeSection · CourseSection · ProofSection · FestivalSection
 ```
 
 삭제한 파일 : `PhotoPage` `FoodPage` `CafePage` `MoodCoursePage` `QuizModal`
@@ -170,6 +170,79 @@ import contentFair from "../imports/festival/daejeon-content-fair.jpg";
   그 구역만 교체하면 된다.
 - 부드러운 스크롤은 **브라우저 도구 창에서 안 움직인다** (rAF 정지). 실제 브라우저에서는
   정상. 즉시 스크롤로 바꿔 확인한 결과 목적지 좌표는 정확했다.
+
+## 0-1. Social Proof 섹션 (2026-08-31)
+
+`daejeon_compact_proof_only.html` 을 옮긴 것. **코스와 축제 사이**에 들어간다.
+
+```
+⑥ 코스  →  ⑦ SOCIAL PROOF (#proof)  →  ⑧ 축제  →  ⑨ 최종 CTA
+```
+
+4개 그룹(PHOTO / EAT / CAFE / COURSE) × 카드 2장 = 8장.
+그룹 라벨은 기분 카드 이름과 같은 문구를 쓴다.
+
+### 리뷰는 고정 데이터다
+
+별점·리뷰 수·인용문·작성자는 **첨부 HTML 에 적혀 있던 값을 그대로 옮긴 상수**다.
+API 연동이 아니므로 수치가 바뀌면 `ProofSection.tsx` 의 `GROUPS` 에서 직접 고친다.
+하단 주석(`* 별점·리뷰 수는 …`)도 원문 그대로 두었다.
+
+### 이미지 — 외부 URL 을 전부 끊었다
+
+원본은 8장 중 **6장이 외부 핫링크**(위키미디어·네이버 블로그 썸네일·CloudFront·S3)였다.
+언제든 깨지고 저작권도 불분명해서 기존 자산으로 바꿨다.
+
+| 카드 | 원본 | 바꾼 것 |
+|---|---|---|
+| 엑스포다리 | 위키미디어 | `photo/expo-bridge.jpg` |
+| 이응노미술관 | 네이버 블로그 | `photo/ungno-museum.jpg` |
+| 톨드 어 스토리 | 네이버 블로그 | `cafe/told-a-story.jpg` |
+| 쌍리 | CloudFront | `cafe/ssangri.jpeg` |
+| 대동 하늘공원 | S3 | `imports/_______.jpg` |
+| 식장산 | 위키미디어 | `imports/______.jpg` |
+| 토미야 | base64 645KB | `imports/proof/tomiya.jpg` (90KB) |
+| 희락반점 | base64 194KB | `imports/proof/heerak.jpg` (33KB) |
+
+토미야·희락반점 두 장은 맛집 카드와 **다른 사진**(실제 방문 사진)이라 그대로 살렸다.
+base64 로 두면 JSX 가 1.1MB 가 되므로 파일로 빼고 JPEG 으로 줄였다.
+`.tomiya-photo` / `.heerak-photo` 의 `object-position` 미세조정도 같이 옮겼다.
+
+### CSS 에서 뺀 것
+
+첨부 HTML 의 전역 규칙은 **가져오지 않았다.** 기존 페이지를 깨뜨린다.
+
+```css
+img{height:100%;object-fit:cover}      /* 다른 섹션 이미지가 전부 늘어남 */
+.section-inner{width:min(1400px,100%)} /* 컨테이너 폭이 달라짐 */
+body{...}
+```
+
+`.proof-` 로 시작하는 규칙만 옮겼고, 삽입 스크립트에 이 두 가지가 섞여 들어오면
+실패하도록 assert 를 걸어뒀다.
+
+## 0-2. 히어로 스탬프 · 궁동 소신 크롭 (2026-08-31)
+
+**히어로** : 스탬프가 꿈돌이 얼굴을 덮고 있었다. 스탬프를 아래로 내렸다.
+
+```css
+.stub-kkumdori{ top:0 }                        /* bottom -> top 기준으로 변경 */
+.stub-stamp-wrap .ticket-stamp{ margin:105px 0 18px }   /* 28px -> 105px */
+```
+
+> 꿈돌이를 `bottom` 으로 잡아두면 스탬프 마진을 키울 때 같이 내려가서 간격이 그대로다.
+> `top` 기준으로 바꿔야 스탬프만 내려간다.
+
+측정 결과 : 꿈돌이 얼굴 끝 452px, 스탬프 윗변 460px → 얼굴이 완전히 드러난다.
+바코드(626px)와 스텁 바닥(708px)은 그대로. `.ticket-barcode{margin-top:auto}` 가
+남는 공간을 흡수한다.
+
+**궁동 소신** : 원본 512×512, 카드 440×255(가로로 넓음). `object-fit:cover` 기본
+중앙 크롭이면 **꿈돌이 케이크 얼굴(사진 세로 82% 지점)이 잘린다.**
+
+```css
+#sosin .cafe-image img{ object-position:50% 100% }
+```
 
 ## 1. 한눈에 보는 현재 동작
 
@@ -810,6 +883,7 @@ frame.counterAxisSizingMode = 'FIXED'
 | 18 | GitHub 저장소 생성 + 최초 커밋, 이미지 LFS 해제 | `.gitignore` `README.md` `extracted/.gitattributes` |
 | 19 | Vercel 배포 + Figma 디자인 시안 10화면 제작 (**폐기 — 팀에서 미사용 결정**) | (코드 변경 없음) |
 | 20 | **전면 개편** — 「최종 수정본.html」 디자인으로 한 페이지 재작성 | `App.tsx` `index.css` `sections/*` `MoodTest.tsx` `quiz.ts` |
+| 21 | Social Proof 섹션 추가 + 히어로 스탬프·소신 크롭 조정 | `sections/ProofSection.tsx` `App.tsx` `index.css` `imports/proof/` |
 
 ### 프로토타입 폴더
 

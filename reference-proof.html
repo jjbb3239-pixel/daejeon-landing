@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!-- 참고본: 원본에 인라인돼 있던 base64 이미지 2장은 파일로 추출해
+     extracted/src/imports/proof/ 에 두고, 경로로 바꿔놨습니다.
+     구조와 CSS 는 원본 그대로입니다. -->
+
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>대전 실제 방문객 리뷰</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Pretendard","Noto Sans KR",Arial,sans-serif;color:#292929;background:#f7fbff;line-height:1.6}
+img{display:block;width:100%;height:100%;object-fit:cover}
+.section-inner{width:min(1400px,100%);margin:auto}
+/* =========================================================
+   COMPACT PROOF
+========================================================= */
+.proof-section{padding:92px 30px 105px;background:#f7fbff;border-top:1px solid rgba(41,41,41,.08);border-bottom:1px solid rgba(41,41,41,.08)}
+.proof-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:44px}
+.proof-kicker{display:inline-block;margin-bottom:12px;padding:6px 12px;background:#ffd94a;font-size:12px;font-weight:900;transform:rotate(-2deg)}
+.proof-head h2{margin:0;font-size:clamp(40px,4.6vw,64px);line-height:1.08;letter-spacing:-.055em}
+.proof-head h2 strong{color:#2869d8}
+.proof-head p{max-width:420px;margin:0;color:#665e54;font-size:15px;line-height:1.7}
+.proof-groups{display:grid;gap:28px}
+.proof-group{display:grid;grid-template-columns:210px 1fr;gap:24px;align-items:stretch}
+.proof-group-label{padding:24px 22px;border:2px solid #292929;border-radius:16px;background:#fff7cf;box-shadow:4px 5px 0 rgba(41,41,41,.12);display:flex;flex-direction:column;justify-content:space-between}
+.proof-group:nth-child(2) .proof-group-label{background:#fff0e8}.proof-group:nth-child(3) .proof-group-label{background:#eef6e8}.proof-group:nth-child(4) .proof-group-label{background:#edf4ff}
+.proof-group-label span{font-size:11px;font-weight:900;letter-spacing:.1em;color:#86745c}
+.proof-group-label h3{margin:14px 0 0;font-size:24px;line-height:1.28;letter-spacing:-.04em}
+.proof-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.proof-card{min-height:165px;display:grid;grid-template-columns:145px 1fr;background:#fff;border:1px solid #e5ded3;border-radius:16px;overflow:hidden;box-shadow:0 10px 24px rgba(41,41,41,.07);transition:.2s ease}
+.proof-card:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(41,41,41,.10)}
+.proof-photo{position:relative;min-height:165px;background:#ddd;overflow:hidden}
+.proof-photo img{width:100%;height:100%;object-fit:cover}
+.proof-photo.tomiya-photo img{object-position:52% 50%}
+.proof-photo.heerak-photo img{object-position:50% 52%}
+.proof-photo::after{content:'VISITOR SHOT';position:absolute;left:10px;bottom:10px;padding:4px 7px;background:rgba(255,255,255,.88);border-radius:999px;font-size:8px;font-weight:900;letter-spacing:.08em}
+.proof-body{padding:19px 20px 16px;display:flex;flex-direction:column;min-width:0}
+.proof-place{font-size:11px;font-weight:900;color:#2869d8;letter-spacing:.06em;margin-bottom:6px}
+.proof-score{display:flex;align-items:center;gap:8px;margin-bottom:9px}.proof-stars{color:#f1b91d;letter-spacing:1px;font-size:15px}.proof-rating{font-size:15px;font-weight:900}.proof-count{font-size:11px;color:#968b7f}
+.proof-user{font-size:12px;font-weight:900;color:#4f4a44;margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.proof-quote{margin:0;color:#34312d;font-size:13px;line-height:1.55;font-weight:700}
+.proof-source{margin-top:auto;padding-top:8px;color:#9a9086;font-size:9px;font-weight:800;letter-spacing:.04em}
+.proof-note{margin-top:26px;text-align:right;color:#8b8176;font-size:10px;line-height:1.6}
+@media(max-width:980px){.proof-head{display:block}.proof-head p{margin-top:18px}.proof-group{grid-template-columns:1fr}.proof-group-label{min-height:auto}.proof-group-label h3{margin-top:8px}.proof-row{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.proof-section{padding:70px 18px 80px}.proof-row{grid-template-columns:1fr}.proof-card{grid-template-columns:115px 1fr;min-height:145px}.proof-photo{min-height:145px}.proof-body{padding:16px 16px 13px}.proof-head h2{font-size:42px}}
+@media(max-width:430px){.proof-card{grid-template-columns:100px 1fr}.proof-quote{font-size:12px}.proof-count{display:none}}
+
+
+</style>
+</head>
+<body>
+<!-- =====================================================
+     07. COMPACT PROOF
+===================================================== -->
+<section class="proof-section" id="proof">
+  <div class="section-inner">
+    <header class="proof-head">
+      <div>
+        <span class="proof-kicker">REAL REVIEWS</span>
+        <h2>대전, 우리만 좋다고<br><strong>하는 거 아닙니다.</strong></h2>
+      </div>
+      <p>앞에서 추천한 곳들, 실제로 다녀온 사람들은 어떻게 느꼈을까요? 긴 설명 대신 사진 한 장과 솔직한 한 줄만 모았습니다.</p>
+    </header>
+
+    <div class="proof-groups">
+      <section class="proof-group">
+        <div class="proof-group-label"><span>01 · PHOTO</span><h3>사진 왕창<br>찍고 싶은 날</h3></div>
+        <div class="proof-row">
+          <article class="proof-card">
+            <div class="proof-photo"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Expo%20Bridge%20in%20Daejeon.jpg" alt="엑스포다리 방문 사진"></div>
+            <div class="proof-body"><div class="proof-place">엑스포다리</div><div class="proof-score"><span class="proof-stars">★★★★★</span><span class="proof-rating">4.5</span><span class="proof-count">1,282 reviews</span></div><div class="proof-user">@H C</div><p class="proof-quote">“야경이 아름답고, 차가 다니지 않아 산책하기 좋아요.”</p><div class="proof-source">Google review · via Wanderlog</div></div>
+          </article>
+          <article class="proof-card">
+            <div class="proof-photo"><img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMDFfMzUg/MDAxNjM4MzQ1NTQyNzky.THC0KchI6cG4ZvthTpuG3QV9typg53hsJE0gsYTtmKsg.WWPxiVw02aE0ZMWdwjsc4B6UBUkF1KY0xXQy3VdLOnIg.JPEG.madeinshin/26._must_do_it_7_%282%29.JPG?type=w800" alt="이응노미술관 방문 사진"></div>
+            <div class="proof-body"><div class="proof-place">이응노미술관</div><div class="proof-score"><span class="proof-stars">★★★★☆</span><span class="proof-rating">4.3</span><span class="proof-count">586 reviews</span></div><div class="proof-user">@Leonar S</div><p class="proof-quote">“미술관 건물이 예뻤어요. 그림도 괜찮고 공간 자체가 좋았어요.”</p><div class="proof-source">Google review · via Wanderlog</div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="proof-group">
+        <div class="proof-group-label"><span>02 · EAT</span><h3>맛집 다<br>뿌수고 싶은 날</h3></div>
+        <div class="proof-row">
+          <article class="proof-card">
+            <div class="proof-photo tomiya-photo"><img src="extracted/src/imports/proof/tomiya.jpg" alt="토미야 우동과 튀김 메뉴 사진"></div>
+            <div class="proof-body"><div class="proof-place">토미야</div><div class="proof-score"><span class="proof-stars">★★★★★</span><span class="proof-rating">4.5</span><span class="proof-count">50 reviews</span></div><div class="proof-user">@룡이보호자</div><p class="proof-quote">“면발이 쫄깃하고 냉우동 육수와 튀김까지 정말 훌륭했어요.”</p><div class="proof-source">DiningCode visitor review</div></div>
+          </article>
+          <article class="proof-card">
+            <div class="proof-photo heerak-photo"><img src="extracted/src/imports/proof/heerak.jpg" alt="희락반점 짜장면과 탕수육이 함께 놓인 음식 사진"></div>
+            <div class="proof-body"><div class="proof-place">희락반점</div><div class="proof-score"><span class="proof-stars">★★★★★</span><span class="proof-rating">4.5</span><span class="proof-count">20 reviews</span></div><div class="proof-user">@플레인리스</div><p class="proof-quote">“유니짜장은 확실히 다르고, 탕수육도 쫄깃해서 맛있어요.”</p><div class="proof-source">DiningCode visitor review</div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="proof-group">
+        <div class="proof-group-label"><span>03 · CAFE</span><h3>느좋 카페<br>가고 싶은 날</h3></div>
+        <div class="proof-row">
+          <article class="proof-card">
+            <div class="proof-photo"><img src="https://blogthumb.pstatic.net/MjAyNTAxMzFfNTMg/MDAxNzM4Mjk2NzYxNjc4.Rivr-BuEnXYl29W9CsQWvqisQ9uGUAsSkvWbCKXzg9og.7vVM7cU72S6GR4mWif2iH9O9iztpC_4bbicXCHje5sIg.JPEG/D0B625E7-1D37-4D25-B84B-6A2F5AEDB571-12204-00001671FF47E3EB.jpg?type=w2" alt="톨드 어 스토리 카페 내부 분위기 사진"></div>
+            <div class="proof-body"><div class="proof-place">톨드 어 스토리</div><div class="proof-score"><span class="proof-stars">★★★★★</span><span class="proof-rating">5.0</span><span class="proof-count">Polle review</span></div><div class="proof-user">@fascinoya</div><p class="proof-quote">“깔끔함의 극치. 대전에서 근본 있는 곳이라 불리는 이유를 알겠던 곳.”</p><div class="proof-source">Polle visitor review</div></div>
+          </article>
+          <article class="proof-card">
+            <div class="proof-photo"><img src="https://d12zq4w4guyljn.cloudfront.net/750_750_20231210080358_photo1_8a3f9b0758ae.jpg" alt="쌍리 갤러리형 카페 내부 사진"></div>
+            <div class="proof-body"><div class="proof-place">쌍리</div><div class="proof-score"><span class="proof-stars">★★★★☆</span><span class="proof-rating">4.2</span><span class="proof-count">23 reviews</span></div><div class="proof-user">@dungeon</div><p class="proof-quote">“커피도 맛있고 공간과 인테리어가 너무 좋았어요. 가까우면 자주 갈 듯.”</p><div class="proof-source">Polle visitor review</div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="proof-group">
+        <div class="proof-group-label"><span>04 · COURSE</span><h3>아무 생각<br>하기 싫은 날</h3></div>
+        <div class="proof-row">
+          <article class="proof-card">
+            <div class="proof-photo"><img src="https://tripperk-web.s3.ap-northeast-2.amazonaws.com/file/files/2024/02/27/eca3aeff-a85f-4d85-9275-4eba2346d9201709027134952_0.jpg" alt="대동 하늘공원 방문 사진"></div>
+            <div class="proof-body"><div class="proof-place">대동 하늘공원</div><div class="proof-score"><span class="proof-stars">★★★★☆</span><span class="proof-rating">4.1</span><span class="proof-count">1,544 reviews</span></div><div class="proof-user">@안승현</div><p class="proof-quote">“일몰 시간에 맞춰 오면 좋아요.”</p><div class="proof-source">Google review · via Wanderlog</div></div>
+          </article>
+          <article class="proof-card">
+            <div class="proof-photo"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/%EC%8B%9D%EC%9E%A5%EC%82%B0%20%EC%A0%95%EC%83%81%EC%97%90%20%EC%A1%B0%EC%84%B1%ED%95%9C%20%EC%A0%84%EB%A7%9D%EB%8C%80%20%EC%95%BC%EA%B2%BD.jpg" alt="식장산 해돋이전망대 야경"></div>
+            <div class="proof-body"><div class="proof-place">식장산 해돋이전망대</div><div class="proof-score"><span class="proof-stars">★★★★★</span><span class="proof-rating">4.6</span><span class="proof-count">3,037 reviews</span></div><div class="proof-user">@Mi M</div><p class="proof-quote">“주차도 무료고 올라가는 길도 재미있고, 야경이 정말 너무 예뻐요.”</p><div class="proof-source">Google review · via Wanderlog</div></div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <p class="proof-note">* 별점·리뷰 수는 확인 가능한 공개 플랫폼의 현재 표시값을 사용했으며, 플랫폼별 집계 기준은 서로 다를 수 있습니다.</p>
+  </div>
+</section>
+</body>
+</html>

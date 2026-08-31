@@ -5,12 +5,13 @@ import PhotoSection from "./sections/PhotoSection";
 import FoodSection from "./sections/FoodSection";
 import CafeSection from "./sections/CafeSection";
 import CourseSection from "./sections/CourseSection";
+import ProofSection from "./sections/ProofSection";
 import FestivalSection from "./sections/FestivalSection";
 import MoodTest from "./MoodTest";
 
 /**
  * 「최종 수정본.html」구조 그대로 한 페이지 앵커 스크롤.
- * 섹션 id 는 #choose #photo #food #cafe #course #festival.
+ * 섹션 id 는 #choose #photo #food #cafe #course #proof #festival.
  */
 export default function App() {
   const [testOpen, setTestOpen] = useState(false);
@@ -29,6 +30,8 @@ export default function App() {
       <CafeSection />
 
       <CourseSection />
+
+      <ProofSection />
 
       <FestivalSection />
 

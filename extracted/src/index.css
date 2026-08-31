@@ -2152,7 +2152,7 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
 
 .stub-kkumdori{
   position:absolute;
-  bottom:-18px;
+  top:0;                 /* 스탬프 마진과 따로 놀도록 위쪽 기준 */
   left:50%;
   z-index:1;
 
@@ -2164,10 +2164,12 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
   user-select:none;
 }
 
+/* 스탬프를 아래로 내려 꿈돌이 얼굴이 위로 드러나게 한다.
+   위 여백은 꿈돌이 얼굴(이미지 세로 38~56% 지점)이 스탬프 위로 나오는 값. */
 .stub-stamp-wrap .ticket-stamp{
   position:relative;
   z-index:2;
-  margin:28px 0 18px;
+  margin:105px 0 18px;
   background:rgba(255,252,242,.72);
   backdrop-filter:blur(1.5px);
 }
@@ -2222,6 +2224,12 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
 /* ------------------------------------------------------------
    카페 - 기존 페이지의 추천 기분 / POINT 블록
 ------------------------------------------------------------ */
+/* 궁동 소신 - 꿈돌이 케이크 얼굴이 사진 아래쪽 82% 지점에 있다.
+   기본 중앙 크롭이면 얼굴이 잘려서 아래쪽 기준으로 맞춘다. */
+#sosin .cafe-image img{
+  object-position:50% 100%;
+}
+
 .cafe-point strong{
   color:#71945b;
   font-size:11px;
@@ -2243,6 +2251,46 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
   color:#ffdc3e;
   font-size:52px;
 }
+
+
+/* ------------------------------------------------------------
+   07 SOCIAL PROOF
+   daejeon_compact_proof_only.html 의 .proof-* 규칙만 그대로 옮겼다.
+   전역 리셋(body / img / .section-inner)은 기존 페이지를 깨뜨려서 제외.
+------------------------------------------------------------ */
+/* =========================================================
+   COMPACT PROOF
+========================================================= */
+.proof-section{padding:92px 30px 105px;background:#f7fbff;border-top:1px solid rgba(41,41,41,.08);border-bottom:1px solid rgba(41,41,41,.08)}
+.proof-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:44px}
+.proof-kicker{display:inline-block;margin-bottom:12px;padding:6px 12px;background:#ffd94a;font-size:12px;font-weight:900;transform:rotate(-2deg)}
+.proof-head h2{margin:0;font-size:clamp(40px,4.6vw,64px);line-height:1.08;letter-spacing:-.055em}
+.proof-head h2 strong{color:#2869d8}
+.proof-head p{max-width:420px;margin:0;color:#665e54;font-size:15px;line-height:1.7}
+.proof-groups{display:grid;gap:28px}
+.proof-group{display:grid;grid-template-columns:210px 1fr;gap:24px;align-items:stretch}
+.proof-group-label{padding:24px 22px;border:2px solid #292929;border-radius:16px;background:#fff7cf;box-shadow:4px 5px 0 rgba(41,41,41,.12);display:flex;flex-direction:column;justify-content:space-between}
+.proof-group:nth-child(2) .proof-group-label{background:#fff0e8}.proof-group:nth-child(3) .proof-group-label{background:#eef6e8}.proof-group:nth-child(4) .proof-group-label{background:#edf4ff}
+.proof-group-label span{font-size:11px;font-weight:900;letter-spacing:.1em;color:#86745c}
+.proof-group-label h3{margin:14px 0 0;font-size:24px;line-height:1.28;letter-spacing:-.04em}
+.proof-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.proof-card{min-height:165px;display:grid;grid-template-columns:145px 1fr;background:#fff;border:1px solid #e5ded3;border-radius:16px;overflow:hidden;box-shadow:0 10px 24px rgba(41,41,41,.07);transition:.2s ease}
+.proof-card:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(41,41,41,.10)}
+.proof-photo{position:relative;min-height:165px;background:#ddd;overflow:hidden}
+.proof-photo img{width:100%;height:100%;object-fit:cover}
+.proof-photo.tomiya-photo img{object-position:52% 50%}
+.proof-photo.heerak-photo img{object-position:50% 52%}
+.proof-photo::after{content:'VISITOR SHOT';position:absolute;left:10px;bottom:10px;padding:4px 7px;background:rgba(255,255,255,.88);border-radius:999px;font-size:8px;font-weight:900;letter-spacing:.08em}
+.proof-body{padding:19px 20px 16px;display:flex;flex-direction:column;min-width:0}
+.proof-place{font-size:11px;font-weight:900;color:#2869d8;letter-spacing:.06em;margin-bottom:6px}
+.proof-score{display:flex;align-items:center;gap:8px;margin-bottom:9px}.proof-stars{color:#f1b91d;letter-spacing:1px;font-size:15px}.proof-rating{font-size:15px;font-weight:900}.proof-count{font-size:11px;color:#968b7f}
+.proof-user{font-size:12px;font-weight:900;color:#4f4a44;margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.proof-quote{margin:0;color:#34312d;font-size:13px;line-height:1.55;font-weight:700}
+.proof-source{margin-top:auto;padding-top:8px;color:#9a9086;font-size:9px;font-weight:800;letter-spacing:.04em}
+.proof-note{margin-top:26px;text-align:right;color:#8b8176;font-size:10px;line-height:1.6}
+@media(max-width:980px){.proof-head{display:block}.proof-head p{margin-top:18px}.proof-group{grid-template-columns:1fr}.proof-group-label{min-height:auto}.proof-group-label h3{margin-top:8px}.proof-row{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.proof-section{padding:70px 18px 80px}.proof-row{grid-template-columns:1fr}.proof-card{grid-template-columns:115px 1fr;min-height:145px}.proof-photo{min-height:145px}.proof-body{padding:16px 16px 13px}.proof-head h2{font-size:42px}}
+@media(max-width:430px){.proof-card{grid-template-columns:100px 1fr}.proof-quote{font-size:12px}.proof-count{display:none}}
 
 
 /* ------------------------------------------------------------
