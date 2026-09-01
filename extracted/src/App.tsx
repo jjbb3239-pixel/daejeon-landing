@@ -45,7 +45,22 @@ export default function App() {
     }, 0);
   }, []);
 
-  const toggleMood = (id: MoodId) => setOpenMood((now) => (now === id ? null : id));
+  /**
+   * 헤더를 눌러 펼칠 때는 스크롤까지 해줘야 한다.
+   *
+   * 위에 있던 섹션이 닫히면서 아래 내용이 그만큼 딸려 올라가는데,
+   * 브라우저는 스크롤 위치를 그대로 두기 때문에 목적지를 지나쳐버린다.
+   * (카페를 닫고 코스를 열면 3,159px 이 올라가 리뷰 섹션이 보였다)
+   *
+   * 접을 때는 헤더 위쪽이 안 변하므로 스크롤이 필요 없다.
+   */
+  const toggleMood = (id: MoodId) => {
+    if (openMood === id) {
+      setOpenMood(null);
+      return;
+    }
+    revealMood(id);
+  };
 
   // 기분 카드(#photo 같은 앵커)를 누르면 해당 섹션을 펼친다
   useEffect(() => {

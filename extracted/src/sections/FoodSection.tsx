@@ -82,7 +82,9 @@ export default function FoodSection() {
 
         <p className="detail-lead">
           혼밥 난이도는 낮게, 만족도는 높게.<br />
-          <strong>혼자여도 제대로 즐길 수 있는 대전 맛집 3곳을 골랐어요.</strong>
+          <strong>
+            혼자여도 제대로 즐길 수 있는 대전 맛집 3곳을 골랐어요. 전부 블루리본 맛집만 찾아왔어요.
+          </strong>
         </p>
 
         <div className="restaurant-grid">

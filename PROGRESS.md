@@ -646,6 +646,21 @@ export const COLLAPSE_MOOD_SECTIONS_ON_MOBILE = true;   // ← false 로 바꾸�
 > `App.tsx` 의 `revealMood()` 가 `setOpenMood` → `setTimeout(0)` → 스크롤 순서로 처리한다.
 > `requestAnimationFrame` 은 배경 탭에서 멈춰서 타이머를 쓴다.
 
+> **⚠️ 헤더를 눌러 펼칠 때도 반드시 스크롤해야 한다.** (2026-08-31 버그)
+> 처음에 `toggleMood` 가 상태만 바꾸고 스크롤을 안 했다. 위에 있던 섹션이 닫히면서
+> 아래 내용이 그만큼 딸려 올라가는데 브라우저는 스크롤 위치를 그대로 두기 때문에
+> **목적지를 지나쳐 리뷰 섹션이 보였다.**
+>
+> ```
+> 카페(3,159px) 펼친 상태에서 코스 헤더 클릭
+>   → 코스 헤더 top  200 → -2959   (내용이 위로 딸려 올라감)
+>   → scrollY 는 6967 그대로
+>   → 화면 중앙에 proof 섹션이 들어옴
+> ```
+>
+> `toggleMood` 가 **펼치는 경우에만** `revealMood()` 를 부르게 고쳤다.
+> 접을 때는 헤더 위쪽이 안 변하므로 스크롤이 필요 없다.
+
 ### 터치 타겟 20곳 — 보이는 건 안 바뀜
 
 `::after` 로 투명한 판을 깔아 손가락 영역만 넓혔다. 화면상 변화 없음.
@@ -1314,6 +1329,7 @@ frame.counterAxisSizingMode = 'FIXED'
 | 26 | 전반 점검 반영 — SEO/OG·인스타 링크 비움·퀴즈 이전/공유·lazy·명도대비·폰트 자체호스팅 | `index.html` `site.json` `links.ts` `share.ts` `MoodTest.tsx` `sections/*` `index.css` `public/` `src/fonts/` |
 | 27 | 모바일 기분 섹션 접기 + 터치 타겟 20곳 확대 | `features.ts` `MoodFold.tsx` `App.tsx` `MoodTest.tsx` `index.css` |
 | 28 | 히어로 발권 정보 3줄 삭제 | `sections/Hero.tsx` `index.css` |
+| 29 | 접기 토글 스크롤 버그 수정 + 맛집 리드에 블루리본 문구 | `App.tsx` `sections/FoodSection.tsx` |
 
 ### 프로토타입 폴더
 
