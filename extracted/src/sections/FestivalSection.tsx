@@ -53,7 +53,7 @@ const FESTIVALS: Festival[] = [
       "자세한 행사 내용은 정리 페이지에서 확인해보세요.",
     ],
     link: {
-      href: "https://app.notion.com/p/YUON-2026-08-14-3ccf917d03de80599f90d9004e25ce93?pvs=21",
+      href: "https://yu-on.com/",
       text: "자세히 보기 ↗",
     },
   },
