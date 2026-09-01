@@ -65,12 +65,6 @@ export default function Hero({ onOpenTest }: HeroProps) {
                 30초 만에 내 대전 여행 기분 찾기 →
               </button>
             </div>
-
-            <div className="ticket-serial">
-              ISSUE · TODAY<br />
-              VALID · ONE DAY<br />
-              SEAT · FREE
-            </div>
           </div>
         </div>
 

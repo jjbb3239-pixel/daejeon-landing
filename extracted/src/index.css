@@ -370,15 +370,6 @@ button{font:inherit}
   letter-spacing:.05em;
 }
 
-.ticket-serial{
-  margin-left:auto;
-  color:#838071;
-  font-family:monospace;
-  font-size:9px;
-  line-height:1.6;
-}
-
-
 /* =========================================================
    PERFORATION
 ========================================================= */
@@ -2584,8 +2575,6 @@ button{font:inherit}
     align-items:flex-start;
     flex-direction:column;
   }
-
-  .ticket-serial{margin-left:0}
 
   .stub-info-grid{
     grid-template-columns:repeat(4,1fr);

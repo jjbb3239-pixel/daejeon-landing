@@ -576,9 +576,19 @@ KS X 1001 상용 한글 2,350자 + 소스에 실제로 쓰인 글자 = 2,553자.
 | 리뷰 수 | 3.34 | **5.56** |
 | 푸터 저작권 · 자리표시자 · 라벨 · 고지 | 3.45~4.49 | **6.28** |
 
-### 히어로
+### 히어로에서 지운 것
 
-CTA 아래 `● 4개의 질문 · 바로 결과 확인` 문구를 제거했다.
+| 문구 | 지운 이유 |
+|---|---|
+| `● 4개의 질문 · 바로 결과 확인` | 사용자 요청 |
+| `ISSUE · TODAY / VALID · ONE DAY / SEAT · FREE` | 9px · 명도 대비 3.78:1 로 모바일 가독성 미달 |
+
+발권 정보 3줄(`.ticket-serial`)은 PC 에서는 CTA 오른쪽 끝 장식으로 읽히는데,
+모바일에서 `flex-direction:column` 이 되면서 CTA 바로 아래로 떨어져
+**읽으라고 있는 글처럼** 보였다. 크기(9px)와 대비(3.78:1) 둘 다 기준 미달이라 지웠다.
+
+지운 뒤 모바일 히어로 1,238 → 1,176px. `.ticket-action` 은 자식이
+`.ticket-cta-wrap` 하나만 남았지만 레이아웃은 그대로다.
 
 ### 아직 안 한 것 (점검에서 나왔지만 보류)
 
@@ -1303,6 +1313,7 @@ frame.counterAxisSizingMode = 'FIXED'
 | 25 | 코스 카드 좌우 4:6 전환 + 푸터 공유 버튼 | `index.css` `SiteFooter.tsx` |
 | 26 | 전반 점검 반영 — SEO/OG·인스타 링크 비움·퀴즈 이전/공유·lazy·명도대비·폰트 자체호스팅 | `index.html` `site.json` `links.ts` `share.ts` `MoodTest.tsx` `sections/*` `index.css` `public/` `src/fonts/` |
 | 27 | 모바일 기분 섹션 접기 + 터치 타겟 20곳 확대 | `features.ts` `MoodFold.tsx` `App.tsx` `MoodTest.tsx` `index.css` |
+| 28 | 히어로 발권 정보 3줄 삭제 | `sections/Hero.tsx` `index.css` |
 
 ### 프로토타입 폴더
 
