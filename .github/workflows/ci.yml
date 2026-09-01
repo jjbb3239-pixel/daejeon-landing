@@ -1,0 +1,39 @@
+name: 빌드 검사
+
+# main 에 합치기 전에 깨진 코드가 들어가는 걸 막는다.
+# Vercel 이 main 을 자동 배포하므로, 여기서 걸러야 라이브가 안 깨진다.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    name: 타입 · 퀴즈 · 빌드
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: extracted
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: extracted/package-lock.json
+
+      - name: 의존성 설치
+        run: npm ci
+
+      - name: 타입 검사
+        run: npx tsc --noEmit
+
+      - name: 퀴즈 16개 조합 검증
+        run: node --experimental-strip-types src/quiz.check.ts
+
+      - name: 빌드
+        run: npm run build

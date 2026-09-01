@@ -1,0 +1,500 @@
+<title>대전 랜딩페이지 남은 결정</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+
+<style>
+:root{
+  --ground:#fff9ed;
+  --card:#ffffff;
+  --ink:#292929;
+  --muted:#6f675d;      /* 크림 쪽으로 살짝 기운 회색 */
+  --line:#e6ddcb;
+  --cobalt:#2869d8;
+  --yellow:#ffd94a;
+  --coral:#ef6475;
+  --olive:#71925e;
+  --chip-ink:#292929;
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#1c1a17;
+    --card:#262320;
+    --ink:#f3ece0;
+    --muted:#a79c8c;
+    --line:#3a352f;
+    --cobalt:#7fa9f0;
+    --yellow:#ffd94a;
+    --coral:#f4919d;
+    --olive:#9dbb88;
+    --chip-ink:#1c1a17;
+  }
+}
+
+:root[data-theme="dark"]{
+  --ground:#1c1a17;
+  --card:#262320;
+  --ink:#f3ece0;
+  --muted:#a79c8c;
+  --line:#3a352f;
+  --cobalt:#7fa9f0;
+  --yellow:#ffd94a;
+  --coral:#f4919d;
+  --olive:#9dbb88;
+  --chip-ink:#1c1a17;
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  padding:48px 22px 96px;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"Noto Sans KR",system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.75;
+
+  word-break:keep-all;
+  overflow-wrap:break-word;
+  text-wrap:pretty;
+}
+
+body :is(h1,h2,h3){ text-wrap:balance; }
+
+.wrap{
+  max-width:840px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:40px;
+}
+
+/* ── 머리말 ─────────────────────────────── */
+
+.head{ display:flex; flex-direction:column; gap:14px; }
+
+.eyebrow{
+  align-self:flex-start;
+  padding:6px 13px;
+  background:var(--yellow);
+  color:var(--chip-ink);
+  border-radius:999px;
+  font-size:11.5px;
+  font-weight:900;
+  letter-spacing:.1em;
+}
+
+h1{
+  margin:0;
+  font-size:clamp(30px,4.6vw,44px);
+  font-weight:900;
+  line-height:1.18;
+  letter-spacing:-.035em;
+}
+
+.head p{
+  max-width:62ch;
+  margin:0;
+  color:var(--muted);
+  font-size:15px;
+}
+
+/* 현황 스트립 */
+.tally{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.tally div{
+  padding:16px 18px;
+  background:var(--card);
+  border:2px solid var(--ink);
+  border-radius:14px;
+}
+
+.tally b{
+  display:block;
+  font-size:30px;
+  font-weight:900;
+  line-height:1.1;
+  font-variant-numeric:tabular-nums;
+}
+
+.tally span{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:12.5px;
+  font-weight:700;
+}
+
+/* ── 그룹 ───────────────────────────────── */
+
+.group{ display:flex; flex-direction:column; gap:16px; }
+
+.group > header{
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  flex-wrap:wrap;
+  padding-bottom:10px;
+  border-bottom:2px solid var(--ink);
+}
+
+.group h2{
+  margin:0;
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:-.02em;
+}
+
+.group header p{
+  margin:0;
+  color:var(--muted);
+  font-size:13.5px;
+}
+
+/* ── 항목 ───────────────────────────────── */
+
+.item{
+  padding:22px 24px;
+  background:var(--card);
+  border:2px solid var(--line);
+  border-radius:16px;
+
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.item.is-blocking{ border-color:var(--coral); }
+
+.item-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.sev{
+  flex:none;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:10.5px;
+  font-weight:900;
+  letter-spacing:.06em;
+}
+
+.sev.block{ background:var(--coral); color:var(--chip-ink); }
+.sev.decide{ background:var(--cobalt); color:var(--chip-ink); }
+.sev.later{ background:var(--line); color:var(--ink); }
+
+.item h3{
+  margin:0;
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:-.02em;
+}
+
+.item p{ margin:0; font-size:14.5px; }
+.item p.detail{ color:var(--muted); }
+
+.facts{
+  margin:0;
+  padding:14px 16px;
+  background:var(--ground);
+  border-radius:10px;
+  font-size:13px;
+  line-height:1.7;
+  font-variant-numeric:tabular-nums;
+  overflow-x:auto;
+}
+
+.facts code{
+  font-family:ui-monospace,"SFMono-Regular",Menlo,monospace;
+  font-size:12.5px;
+}
+
+.ask{
+  margin:0;
+  padding-left:14px;
+  border-left:4px solid var(--yellow);
+  font-size:14.5px;
+  font-weight:700;
+}
+
+.who{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.who span{
+  padding:3px 9px;
+  background:var(--ground);
+  border:1px solid var(--line);
+  border-radius:999px;
+  font-weight:700;
+}
+
+/* ── 완료 ───────────────────────────────── */
+
+.done{
+  padding:22px 24px;
+  background:var(--card);
+  border:2px dashed var(--line);
+  border-radius:16px;
+}
+
+.done h2{
+  margin:0 0 12px;
+  color:var(--olive);
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.1em;
+}
+
+.done ul{
+  margin:0;
+  padding-left:18px;
+  color:var(--muted);
+  font-size:13.5px;
+  line-height:1.9;
+}
+
+.done b{ color:var(--ink); }
+
+.foot{
+  margin:0;
+  color:var(--muted);
+  font-size:12.5px;
+  text-align:center;
+}
+
+@media(max-width:620px){
+  .tally{ grid-template-columns:1fr; }
+  .item{ padding:18px 18px; }
+}
+</style>
+
+<div class="wrap">
+
+  <header class="head">
+    <span class="eyebrow">2026.08.31 기준</span>
+
+    <h1>랜딩페이지에 남은 결정</h1>
+
+    <p>
+      기능은 다 돌아갑니다. 남은 건 <strong>팀이 정보를 주거나 방향을 정해야 하는 것들</strong>입니다.
+      아래 숫자는 배포된 페이지에서 직접 측정한 값입니다.
+    </p>
+
+    <div class="tally">
+      <div><b>3</b><span>값만 채우면 되는 것</span></div>
+      <div><b>3</b><span>팀이 정해야 하는 것</span></div>
+      <div><b>2</b><span>나중에 봐도 되는 것</span></div>
+    </div>
+  </header>
+
+  <!-- ─────────────────────────────── -->
+  <section class="group">
+    <header>
+      <h2>값만 주시면 바로 끝납니다</h2>
+      <p>코드는 준비돼 있고 값이 비어 있습니다</p>
+    </header>
+
+    <article class="item is-blocking">
+      <div class="item-top">
+        <span class="sev block">막힘</span>
+        <h3>팀 인스타그램 주소</h3>
+      </div>
+
+      <p>페이지에서 가장 눈에 띄는 CTA 3개가 <strong>지금 아무 데도 안 갑니다.</strong></p>
+
+      <div class="facts">
+        비어 있는 링크 3곳<br>
+        · 축제 섹션 오른쪽 위 <code>ALL EVENTS ↗</code><br>
+        · 축제 섹션 하단 파란 버튼 <code>또 다른 대전 행사 보러가기</code><br>
+        · 푸터 <code>Instagram ↗</code><br><br>
+        현재 반투명 + 클릭 불가 상태로 표시 중
+      </div>
+
+      <p class="ask">계정 주소 하나만 주시면 3곳이 동시에 살아납니다.</p>
+
+      <div class="who"><span>필요: 인스타 계정 URL</span><span>작업: 1분</span></div>
+    </article>
+
+    <article class="item is-blocking">
+      <div class="item-top">
+        <span class="sev block">막힘</span>
+        <h3>팀 정보 3줄</h3>
+      </div>
+
+      <p>푸터 「만든 사람」이 비어 있습니다. 흐린 이탤릭체라 지금도 눈에 띕니다.</p>
+
+      <div class="facts">
+        팀 이름 (확인 중)<br>
+        팀원 명단 (확인 중)<br>
+        문의 메일 (확인 중)
+      </div>
+
+      <p class="ask">팀 이름 · 팀원 명단 · 연락받을 메일 주소가 필요합니다.</p>
+
+      <div class="who"><span>필요: 팀 정보</span><span>작업: 5분</span></div>
+    </article>
+
+    <article class="item is-blocking">
+      <div class="item-top">
+        <span class="sev block">막힘</span>
+        <h3>장소 사진 16장 출처</h3>
+      </div>
+
+      <p>
+        명소 4 · 카페 3 · 맛집 3 · 코스 4 · 리뷰용 2장의 <strong>촬영자를 모릅니다.</strong>
+        모르는 걸 지어내면 저작권 표기가 틀리게 되므로 비워뒀습니다.
+      </p>
+
+      <div class="facts">
+        푸터 출처란 현재 표기<br>
+        「출처 확인 중 — 명소 · 카페 · 맛집 · 코스 사진 16장의 촬영·이용 정보를 정리하고 있습니다.」
+      </div>
+
+      <p class="ask">팀원이 직접 찍은 사진인가요? 아니면 어디서 받아온 건가요?</p>
+
+      <div class="who"><span>필요: 촬영·출처 확인</span><span>공개 페이지라 중요</span></div>
+    </article>
+  </section>
+
+  <!-- ─────────────────────────────── -->
+  <section class="group">
+    <header>
+      <h2>팀이 방향을 정해야 합니다</h2>
+      <p>어느 쪽도 정답은 아닙니다</p>
+    </header>
+
+    <article class="item">
+      <div class="item-top">
+        <span class="sev decide">결정</span>
+        <h3>저장소가 공개로 바뀌어 있습니다</h3>
+      </div>
+
+      <p>
+        처음엔 비공개로 만들었는데 지금은 <strong>public</strong> 입니다.
+        의도한 것이면 그대로 두면 되지만, 비공개를 권했던 이유가 아직 남아 있습니다.
+      </p>
+
+      <div class="facts">
+        저장소에 들어 있는 것<br>
+        · 팀 인포그래픽에서 크롭한 맛집 사진 3장<br>
+        · 뉴시스 보도 이미지 (유성온날 포스터)<br>
+        · 출처가 아직 정리 안 된 장소 사진 16장
+      </div>
+
+      <p class="ask">공개 유지할까요, 비공개로 되돌릴까요?</p>
+    </article>
+
+    <article class="item">
+      <div class="item-top">
+        <span class="sev decide">결정</span>
+        <h3>모바일 CSS 699줄이 잠들어 있습니다</h3>
+      </div>
+
+      <p>
+        팀원이 만든 「시안 2a」 모바일 스타일입니다. 전면 개편으로 마크업이 바뀌면서
+        <strong>겨냥하던 클래스가 전부 사라졌습니다.</strong> 지우지 않고 남겨뒀습니다.
+      </p>
+
+      <div class="facts">
+        <code>src/mobile-2a.css</code> · 699줄 · 현재 불러오지 않음<br><br>
+        겨냥하는 클래스 <code>.dj-page .card .hero-title .mood-place</code><br>
+        → 새 구조에 하나도 없음. 불러와도 한 줄도 적용 안 됨
+      </div>
+
+      <p class="ask">새 구조에 맞게 선택자를 옮겨 되살릴까요, 아니면 지울까요?</p>
+    </article>
+
+    <article class="item">
+      <div class="item-top">
+        <span class="sev decide">결정</span>
+        <h3>페이지 중간에 퀴즈 진입점이 없습니다</h3>
+      </div>
+
+      <p>
+        각 섹션을 다 읽고 나온 사람에게 <strong>다음 행동을 안 줍니다.</strong>
+        플로팅 버튼이 받쳐주고는 있지만 그게 전부입니다.
+      </p>
+
+      <div class="facts">
+        623px &nbsp;&nbsp; 히어로 CTA<br>
+        &nbsp;&nbsp; ↓ &nbsp; 11,802px 구간에 진입점 없음<br>
+        12,425px &nbsp; 최종 CTA
+      </div>
+
+      <p class="ask">섹션 끝마다 「다른 기분도 볼래요?」 같은 재진입을 넣을까요?</p>
+    </article>
+  </section>
+
+  <!-- ─────────────────────────────── -->
+  <section class="group">
+    <header>
+      <h2>나중에 봐도 되는 것</h2>
+      <p>지금 당장 문제가 되진 않습니다</p>
+    </header>
+
+    <article class="item">
+      <div class="item-top">
+        <span class="sev later">확인</span>
+        <h3>「전부 블루리본 맛집」 문구가 사실인지</h3>
+      </div>
+
+      <p>
+        맛집 섹션 리드에 방금 넣은 문구입니다. 공개 페이지에 올라가는 주장이라
+        <strong>토미야 · 트리니트 비스트로 · 희락반점 세 곳 모두</strong> 해당되는지
+        한 번만 확인해주세요.
+      </p>
+    </article>
+
+    <article class="item">
+      <div class="item-top">
+        <span class="sev later">확인</span>
+        <h3>모바일에서 기분 섹션을 접어놨습니다</h3>
+      </div>
+
+      <p>
+        모바일이 30화면이라 접기를 넣었습니다. 팀에서 「전부 펼쳐 보이는 게 낫다」고 하면
+        <strong>스위치 한 줄로 되돌립니다.</strong>
+      </p>
+
+      <div class="facts">
+        모바일 24,490px (30.2화면) → 11,611px (14.3화면)<br>
+        PC 는 그대로 · 되돌리기 <code>features.ts</code> 한 줄
+      </div>
+    </article>
+  </section>
+
+  <!-- ─────────────────────────────── -->
+  <section class="done">
+    <h2>이미 처리된 것 — 다시 논의 안 하셔도 됩니다</h2>
+
+    <ul>
+      <li><b>검색 노출</b> — <code>noindex</code> 해제. 검색에 안 잡히던 상태였습니다</li>
+      <li><b>공유 썸네일</b> — 승차권 디자인으로 OG 이미지 제작, 파비콘 추가</li>
+      <li><b>퀴즈</b> — 「이전 질문」 · 「결과 공유하기」 추가</li>
+      <li><b>성능</b> — 이미지 지연 로딩 30/31, 폰트 3.9MB → 886KB</li>
+      <li><b>접근성</b> — 명도 대비 7곳 수정, 터치 타겟 34개 전부 44px 이상</li>
+      <li><b>축제 포스터</b> — 4장 모두 고해상도로 교체 완료</li>
+      <li><b>접기 버그</b> — 헤더 눌렀을 때 리뷰 섹션으로 튀던 문제 수정</li>
+    </ul>
+  </section>
+
+  <p class="foot">
+    수치는 모두 https://extracted-mu.vercel.app/ 에서 직접 측정했습니다.
+  </p>
+
+</div>

@@ -1,0 +1,67 @@
+name: 동시 작업 알림
+
+# 4명이 각자 작업하다 같은 파일을 건드리면, 합칠 때 충돌이 난다.
+# 특히 src/index.css 는 2,900줄에 모든 섹션 스타일이 들어 있어 위험하다.
+# PR 이 열릴 때 다른 열린 PR 과 겹치는 파일이 있으면 댓글로 알려준다.
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  overlap:
+    name: 겹치는 파일 확인
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 다른 PR 과 겹치는 파일 찾기
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+
+          mine=$(gh pr view "$PR" --repo "$REPO" --json files -q '.files[].path' | sort)
+
+          report=""
+          for other in $(gh pr list --repo "$REPO" --state open --json number -q '.[].number'); do
+            [ "$other" = "$PR" ] && continue
+
+            theirs=$(gh pr view "$other" --repo "$REPO" --json files -q '.files[].path' | sort)
+            common=$(comm -12 <(printf '%s\n' "$mine") <(printf '%s\n' "$theirs") || true)
+
+            if [ -n "$common" ]; then
+              who=$(gh pr view "$other" --repo "$REPO" --json author -q '.author.login')
+              title=$(gh pr view "$other" --repo "$REPO" --json title -q '.title')
+              report="${report}"$'\n'"**#${other} · @${who}** — ${title}"$'\n'
+              report="${report}$(printf '%s\n' "$common" | sed 's/^/- `/; s/$/`/')"$'\n'
+            fi
+          done
+
+          if [ -z "$report" ]; then
+            echo "겹치는 파일 없음"
+            exit 0
+          fi
+
+          # 같은 PR 에 같은 알림을 반복해서 달지 않는다
+          marker="<!-- overlap-check -->"
+          if gh pr view "$PR" --repo "$REPO" --json comments \
+               -q '.comments[].body' | grep -qF "$marker"; then
+            echo "이미 알림이 달려 있음"
+            exit 0
+          fi
+
+          {
+            echo "$marker"
+            echo "### ⚠️ 다른 PR 과 같은 파일을 고치고 있습니다"
+            echo
+            echo "합치기 전에 서로 확인해 주세요. 먼저 합쳐진 쪽 기준으로"
+            echo "\`git pull origin main\` 한 뒤 이어서 작업하는 게 안전합니다."
+            echo "$report"
+          } > body.md
+
+          gh pr comment "$PR" --repo "$REPO" --body-file body.md

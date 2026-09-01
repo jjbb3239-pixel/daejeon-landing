@@ -682,6 +682,54 @@ export const COLLAPSE_MOOD_SECTIONS_ON_MOBILE = true;   // ← false 로 바꾸�
 > `← 기분 다시 고르기` 의 노란 밑줄은 **자식 span 의 `::after`** 라서
 > 부모에 `::after` 를 새로 써도 부딪히지 않는다.
 
+## 0-9. 팀 협업 설정 (2026-08-31)
+
+4명이 각자 작업하기로 해서 저장소 설정을 손봤다.
+
+### 협업자
+
+| 계정 | 권한 |
+|---|---|
+| `jjbb3239-pixel` | admin (소유자) |
+| `saaaajy-boop` · `Dh7979` · `sunga8994` | write (초대 발송) |
+
+### main 브랜치 보호
+
+| 설정 | 값 | 이유 |
+|---|---|---|
+| PR 필수 | O | main 직접 push 차단 |
+| 필요 승인 수 | **0** | 4명뿐이라 승인을 필수로 하면 서로 기다리다 막힌다 |
+| force push | 금지 | 남의 커밋이 사라지는 사고 방지 |
+| 브랜치 삭제 | 금지 | |
+| 리뷰 코멘트 해결 | 필수 | |
+| **관리자에게도 적용** | **X** | 소유자는 급할 때 직접 push 가능 (탈출구) |
+
+> 승인 0명이어도 **PR 은 반드시 거쳐야 한다.** PR 을 거치는 것만으로
+> Vercel 미리보기 · 자동 검사 · 충돌 알림이 전부 붙는다.
+
+### 자동 검사 두 가지
+
+**`.github/workflows/ci.yml`** — PR 과 main push 마다
+타입 검사 → 퀴즈 16조합 검증 → 빌드. **Vercel 이 main 을 자동 배포하므로
+여기서 걸러야 라이브가 안 깨진다.**
+
+**`.github/workflows/overlap.yml`** — PR 이 열리면 **다른 열린 PR 과 겹치는 파일**을
+찾아 댓글로 알려준다. 같은 PR 에 중복으로 달리지 않게 마커(`<!-- overlap-check -->`)로 막는다.
+
+```
+⚠️ 다른 PR 과 같은 파일을 고치고 있습니다
+#12 · @sunga8994 — 카페 사진 교체
+- `extracted/src/index.css`
+```
+
+가장 위험한 파일은 `src/index.css` (2,900줄, 모든 섹션 스타일)와 `src/App.tsx` 다.
+실제로 한 번 사고가 났던 파일이다 (0절의 병합 이력 참고).
+
+### PR 템플릿
+
+`.github/pull_request_template.md` — 작업 전 `git pull` 했는지,
+PC·모바일 확인했는지, `PROGRESS.md` 갱신했는지 체크리스트.
+
 ## 1. 한눈에 보는 현재 동작 (개편 전)
 
 ```
@@ -1330,6 +1378,7 @@ frame.counterAxisSizingMode = 'FIXED'
 | 27 | 모바일 기분 섹션 접기 + 터치 타겟 20곳 확대 | `features.ts` `MoodFold.tsx` `App.tsx` `MoodTest.tsx` `index.css` |
 | 28 | 히어로 발권 정보 3줄 삭제 | `sections/Hero.tsx` `index.css` |
 | 29 | 접기 토글 스크롤 버그 수정 + 맛집 리드에 블루리본 문구 | `App.tsx` `sections/FoodSection.tsx` |
+| 30 | 팀원 3명 초대 + main 보호 규칙 + 자동 검사 워크플로 | `.github/workflows/*` `.github/pull_request_template.md` |
 
 ### 프로토타입 폴더
 
