@@ -19,9 +19,8 @@ const NAV: NavLink[] = [
  * 값이 정해지면 이 상수만 바꾸면 된다.
  */
 const TEAM = {
-  name: "팀 이름 (확인 중)",
-  members: "팀원 명단 (확인 중)",
-  email: "문의 메일 (확인 중)",
+  name: "마술사",
+  email: "loco1497@naver.com",
 };
 
 type Credit = {
@@ -79,7 +78,7 @@ const CREDITS: Credit[] = [
   },
   {
     label: "맛집 사진",
-    body: "토미야 · 트리니트 비스트로 · 희락반점의 메뉴 이미지는 AI 로 만든 것입니다. 실제 매장에서 찍은 사진이 아닙니다.",
+    body: "토미야 · 트리니트 비스트로 · 희락반점의 음식 사진은 맛집 섹션과 리뷰 섹션 모두 AI 로 만든 것입니다. 실제 매장에서 찍은 사진이 아닙니다.",
   },
 ];
 
@@ -164,13 +163,12 @@ export default function SiteFooter() {
 
             <dl>
               <dt>팀</dt>
-              <dd className="is-todo">{TEAM.name}</dd>
-
-              <dt>팀원</dt>
-              <dd className="is-todo">{TEAM.members}</dd>
+              <dd>{TEAM.name}</dd>
 
               <dt>문의</dt>
-              <dd className="is-todo">{TEAM.email}</dd>
+              <dd>
+                <a href={`mailto:${TEAM.email}`}>{TEAM.email}</a>
+              </dd>
             </dl>
           </div>
         </div>
