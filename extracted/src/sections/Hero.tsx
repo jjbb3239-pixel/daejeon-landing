@@ -1,4 +1,4 @@
-import kkumdori from "../imports/kkumdori.png";
+import kkumdori from "../imports/kkumdori.webp";
 import { HERO } from "../copy/hero";
 import { useCopy } from "../i18n";
 
@@ -111,7 +111,6 @@ export default function Hero({ onOpenTest }: HeroProps) {
               src={kkumdori}
               alt=""
               aria-hidden="true"
-              fetchPriority="high"
             />
 
             <div className="ticket-stamp">

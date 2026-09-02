@@ -1,11 +1,11 @@
-import ssiPhoto from "../imports/kkumssi/photo.png";
+import ssiPhoto from "../imports/kkumssi/photo.webp";
 import { MOOD_SELECT } from "../copy/moodSelect";
 import { MOOD_LABEL } from "../copy/moods";
 import { useCopy } from "../i18n";
 import type { MoodId } from "../quiz";
-import ssiFood from "../imports/kkumssi/food.png";
-import ssiCafe from "../imports/kkumssi/cafe.png";
-import ssiLazy from "../imports/kkumssi/lazy.png";
+import ssiFood from "../imports/kkumssi/food.webp";
+import ssiCafe from "../imports/kkumssi/cafe.webp";
+import ssiLazy from "../imports/kkumssi/lazy.webp";
 
 /** 문구는 copy/ 로 나갔다. 여기 남는 건 언어와 상관없는 것뿐이다. */
 type Card = {
