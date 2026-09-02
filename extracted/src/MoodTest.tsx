@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { MOODS, QUESTIONS, resolveMood, type MoodId } from "./quiz";
 import { share } from "./share";
+import { QUIZ } from "./copy/quiz";
+import { useCopy } from "./i18n";
 
 type MoodTestProps = {
   open: boolean;
@@ -14,6 +16,7 @@ type MoodTestProps = {
  * 화면은 새 디자인 그대로, 문항과 판정은 기존 퀴즈(4문항 × 2지선다)를 쓴다.
  */
 export default function MoodTest({ open, onClose, onGoToMood }: MoodTestProps) {
+  const t = useCopy(QUIZ);
   const [answers, setAnswers] = useState<number[]>([]);
   const [notice, setNotice] = useState("");
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -57,11 +60,11 @@ export default function MoodTest({ open, onClose, onGoToMood }: MoodTestProps) {
 
   async function onShare(mood: MoodId) {
     const result = await share({
-      title: "기분이 이끄는 대로, 일단 대전행.",
-      text: `오늘 내 대전 여행 기분은 「${MOODS[mood].title}」. 당신은요?`,
+      title: t.shareTitle,
+      text: t.shareText.replace("{mood}", t.moods[mood].title),
     });
-    if (result === "copied") setNotice("결과 링크가 복사됐어요");
-    if (result === "failed") setNotice("복사가 막혀 있어요. 주소창의 링크를 직접 복사해 주세요");
+    if (result === "copied") setNotice(t.copied);
+    if (result === "failed") setNotice(t.copyFailed);
   }
 
   function goToSection(id: MoodId) {
@@ -83,7 +86,7 @@ export default function MoodTest({ open, onClose, onGoToMood }: MoodTestProps) {
         className="mood-dialog"
         role="dialog"
         aria-modal="true"
-        aria-label="오늘의 기분 테스트"
+        aria-label={t.dialogLabel}
         tabIndex={-1}
         ref={dialogRef}
       >
@@ -91,7 +94,7 @@ export default function MoodTest({ open, onClose, onGoToMood }: MoodTestProps) {
           type="button"
           className="modal-close"
           onClick={onClose}
-          aria-label="기분 테스트 닫기"
+          aria-label={t.closeLabel}
         >
           ×
         </button>
@@ -102,17 +105,20 @@ export default function MoodTest({ open, onClose, onGoToMood }: MoodTestProps) {
           ))}
         </div>
 
-        {QUESTIONS.map((question, i) => (
+        {QUESTIONS.map((question, i) => {
+          const q = t.questions[i];
+
+          return (
           <div key={i} className={i === step ? "test-step active" : "test-step"}>
-            <span className="test-kicker">TODAY&apos;S MOOD TEST</span>
+            <span className="test-kicker">{t.kicker}</span>
 
             <span className="question-number">
-              QUESTION {String(i + 1).padStart(2, "0")}
+              {t.questionWord} {String(i + 1).padStart(2, "0")}
             </span>
 
-            <h2 className="question-title">{question.q}</h2>
+            <h2 className="question-title">{q.q}</h2>
 
-            <p className="question-copy">{question.hint}</p>
+            <p className="question-copy">{q.hint}</p>
 
             <div className="answer-grid">
               {question.choices.map((choice, c) => (
@@ -123,8 +129,8 @@ export default function MoodTest({ open, onClose, onGoToMood }: MoodTestProps) {
                   onClick={() => setAnswers([...answers, c])}
                 >
                   <span className="answer-icon">{choice.icon}</span>
-                  <span className="answer-title">{choice.label}</span>
-                  <span className="answer-sub">{choice.sub}</span>
+                  <span className="answer-title">{q.choices[c].label}</span>
+                  <span className="answer-sub">{q.choices[c].sub}</span>
                 </button>
               ))}
             </div>
@@ -135,26 +141,27 @@ export default function MoodTest({ open, onClose, onGoToMood }: MoodTestProps) {
                 className="test-back"
                 onClick={() => setAnswers(answers.slice(0, -1))}
               >
-                ← 이전 질문
+                {t.back}
               </button>
             )}
           </div>
-        ))}
+          );
+        })}
 
         {mood && (
           <div className="result-screen active">
-            <span className="result-label">MOOD CHECK COMPLETE ✓</span>
+            <span className="result-label">{t.resultLabel}</span>
 
             <div className="result-emoji">{MOODS[mood].emoji}</div>
 
-            <div className="result-small">TODAY&apos;S DAEJEON MOOD</div>
+            <div className="result-small">{t.resultSmall}</div>
 
-            <h2 className="result-title">{MOODS[mood].title}</h2>
+            <h2 className="result-title">{t.moods[mood].title}</h2>
 
-            <p className="result-description">{MOODS[mood].description}</p>
+            <p className="result-description">{t.moods[mood].description}</p>
 
             <div className="result-tags">
-              {MOODS[mood].tags.map((tag) => (
+              {t.moods[mood].tags.map((tag) => (
                 <span key={tag} className="result-tag">
                   {tag}
                 </span>
@@ -162,8 +169,8 @@ export default function MoodTest({ open, onClose, onGoToMood }: MoodTestProps) {
             </div>
 
             <div className="result-card">
-              <span className="result-card-title">TODAY&apos;S RECOMMENDATION</span>
-              <strong>{MOODS[mood].recommendation}</strong>
+              <span className="result-card-title">{t.recommendationLabel}</span>
+              <strong>{t.moods[mood].recommendation}</strong>
             </div>
 
             <button
@@ -171,15 +178,15 @@ export default function MoodTest({ open, onClose, onGoToMood }: MoodTestProps) {
               className="result-go"
               onClick={() => goToSection(mood)}
             >
-              이 기분으로 대전 보기 →
+              {t.go}
             </button>
 
             <button type="button" className="result-share" onClick={() => onShare(mood)}>
-              결과 공유하기
+              {t.shareButton}
             </button>
 
             <button type="button" className="result-retry" onClick={() => setAnswers([])}>
-              ↻ 다시 테스트하기
+              {t.retry}
             </button>
 
             <p className="result-notice" role="status">

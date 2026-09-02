@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { INSTAGRAM, isReady, notReadyProps } from "../links";
 import { share } from "../share";
+import { FOOTER } from "../copy/footer";
+import { COMMON } from "../copy/common";
+import { useCopy } from "../i18n";
 
-type NavLink = { href: string; label: string };
-
-const NAV: NavLink[] = [
-  { href: "#choose", label: "오늘의 기분 고르기" },
-  { href: "#photo", label: "사진 왕창 찍고 싶은 날" },
-  { href: "#food", label: "맛집 다 뿌수고 싶은 날" },
-  { href: "#cafe", label: "느좋 카페 가고 싶은 날" },
-  { href: "#course", label: "아무 생각 하기 싫은 날" },
-  { href: "#proof", label: "실제 방문객 리뷰" },
-  { href: "#festival", label: "지금 열리는 행사" },
+/** 문구는 copy/footer.ts. 여기 남는 건 주소뿐이다. */
+const NAV_HREFS = [
+  "#choose",
+  "#photo",
+  "#food",
+  "#cafe",
+  "#course",
+  "#proof",
+  "#festival",
 ];
 
 const TEAM = {
@@ -19,70 +21,24 @@ const TEAM = {
   email: "loco1497@naver.com",
 };
 
-type Credit = {
-  label: string;
-  body?: string;
-  /** 사진마다 출처가 다를 때. [장소, 출처, 원문 주소(선택)] */
-  items?: [string, string, string?][];
-  link?: { href: string; text: string };
+/** 출처 항목의 원문 주소. copy/footer.ts 의 credits 순서와 맞춘다. */
+const CREDIT_HREFS: Record<string, string> = {
+  "spot100x100": "https://spot100x100.kr/",
+  "sikjangsan": "https://commons.wikimedia.org/wiki/File:%EC%8B%9D%EC%9E%A5%EC%82%B0_%EC%A0%95%EC%83%81%EC%97%90_%EC%A1%B0%EC%84%B1%ED%95%9C_%EC%A0%84%EB%A7%9D%EB%8C%80_%EC%95%BC%EA%B2%BD.jpg",
+  "sosin": "https://blog.naver.com/pan03184/224139136491",
+  "told": "https://www.toldastory.com/article/coffee-letter/13/857/",
 };
 
-const CREDITS: Credit[] = [
-  {
-    label: "캐릭터",
-    body: "꿈돌이 · 꿈씨패밀리 — 대전광역시 공식 캐릭터. 「꿈씨패밀리 캐릭터 디자인 및 활용 가이드라인」의 기본형·응용 동작을 그대로 사용했습니다.",
-  },
-  {
-    label: "리뷰",
-    body: "Google 리뷰(via Wanderlog) · 다이닝코드 · 폴레. 별점과 리뷰 수는 각 플랫폼에 공개된 표시값이며, 집계 기준은 서로 다를 수 있습니다.",
-  },
-  {
-    label: "행사 포스터",
-    body: "유성온날 · 동구동락 축제 · 대전콘텐츠페어 · 대전빵축제 각 주최 측 공식 홍보물. 유성온날 포스터는 뉴시스 보도 이미지를 사용했습니다.",
-  },
-  {
-    label: "명소 사진",
-    body: "엑스포다리 · 이응노미술관 · 엑스포과학공원 한빛탑 · 대전근현대사전시관 — 한국관광공사 「대한민국 명소발굴 100×100」에서 가져왔습니다. 사이트에 이용조건 표시가 없어 재이용 범위는 확인 중입니다.",
-    link: { href: "https://spot100x100.kr/", text: "spot100x100.kr ↗" },
-  },
-  {
-    label: "코스 사진",
-    items: [
-      ["소제동 철도관사촌", "스마트관광신문"],
-      ["구모카페 · 구름책방", "K-books trends"],
-      ["대동 하늘공원", "대전관광공사"],
-      // 대전 동구청 게시물이 위키미디어에 올라온 것. 제1유형이라 상업 이용·변형 모두 가능하다.
-      ["식장산 해돋이전망대", "대전광역시 동구 (공공누리 제1유형)", "https://commons.wikimedia.org/wiki/File:%EC%8B%9D%EC%9E%A5%EC%82%B0_%EC%A0%95%EC%83%81%EC%97%90_%EC%A1%B0%EC%84%B1%ED%95%9C_%EC%A0%84%EB%A7%9D%EB%8C%80_%EC%95%BC%EA%B2%BD.jpg"],
-    ],
-  },
-  {
-    label: "카페 사진",
-    items: [
-      [
-        "궁동 소신",
-        "pan03184, 「대전 유성 궁동 충남대 유명한 파티세리소신 꿈돌이 디저트 카페」, 졍졍졍블로그 (2026.08.30)",
-        "https://blog.naver.com/pan03184/224139136491",
-      ],
-      [
-        "갈마동 톨드어스토리",
-        "톨드어스토리 공식 홈페이지 「COFFEE LETTER — 하리오 V60 드리퍼 브루잉 가이드」",
-        "https://www.toldastory.com/article/coffee-letter/13/857/",
-      ],
-      ["대흥동 쌍리", "출처 정리 중"],
-    ],
-  },
-  {
-    label: "맛집 사진",
-    body: "토미야 · 트리니트 비스트로 · 희락반점의 음식 사진은 맛집 섹션과 리뷰 섹션 모두 AI 로 만든 것입니다. 실제 매장에서 찍은 사진이 아닙니다.",
-  },
-];
-
-const SHARE = {
-  title: "기분이 이끄는 대로, 일단 대전행.",
-  text: "오늘 기분에 맞는 대전 하루 코스를 찾아보세요.",
+/** 항목 링크는 [출처 그룹 index][항목 index] 로 찾는다. */
+const CREDIT_ITEM_HREFS: Record<number, Record<number, string>> = {
+  4: { 3: CREDIT_HREFS.sikjangsan },
+  5: { 0: CREDIT_HREFS.sosin, 1: CREDIT_HREFS.told },
 };
 
 export default function SiteFooter() {
+  const t = useCopy(FOOTER);
+  const common = useCopy(COMMON);
+
   /** 공유 결과 안내. 잠깐 띄웠다가 지운다. */
   const [notice, setNotice] = useState("");
 
@@ -93,9 +49,9 @@ export default function SiteFooter() {
   }, [notice]);
 
   async function onShare() {
-    const result = await share(SHARE);
-    if (result === "copied") setNotice("링크가 복사됐어요");
-    if (result === "failed") setNotice("복사가 막혀 있어요. 주소창의 링크를 직접 복사해 주세요");
+    const result = await share({ title: t.shareTitle, text: t.shareText });
+    if (result === "copied") setNotice(t.copied);
+    if (result === "failed") setNotice(t.copyFailed);
   }
 
   return (
@@ -105,34 +61,31 @@ export default function SiteFooter() {
             푸터 맨 위 오른쪽에 둔다 */}
         <div className="footer-jump">
           <a className="footer-top-link" href="#top">
-            맨 위로 ↑
+            {t.toTop}
           </a>
         </div>
 
         <div className="footer-top">
           <div className="footer-brand">
             <strong>
-              기분이 이끄는 대로,<br />
-              일단 대전행.
+              {t.brandLine1}<br />
+              {t.brandLine2}
             </strong>
 
-            <p>
-              오늘 내 기분에 맞는 대전 하루를 찾아주는 페이지입니다. 계획은 도착해서
-              세워도 괜찮으니까요.
-            </p>
+            <p>{t.brandCopy}</p>
 
             <div className="footer-actions">
               <a
                 className={isReady(INSTAGRAM) ? "footer-sns" : "footer-sns is-pending"}
                 {...(isReady(INSTAGRAM)
                   ? { href: INSTAGRAM, target: "_blank", rel: "noopener noreferrer" }
-                  : notReadyProps)}
+                  : { ...notReadyProps, title: common.linkPending })}
               >
-                Instagram ↗
+                {t.instagram}
               </a>
 
               <button type="button" className="footer-share" onClick={onShare}>
-                친구에게 공유
+                {t.shareButton}
               </button>
             </div>
 
@@ -141,26 +94,26 @@ export default function SiteFooter() {
             </p>
           </div>
 
-          <nav className="footer-nav" aria-label="섹션 바로가기">
-            <h2>바로가기</h2>
+          <nav className="footer-nav" aria-label={t.navTitle}>
+            <h2>{t.navTitle}</h2>
 
             <ul>
-              {NAV.map((item) => (
-                <li key={item.href}>
-                  <a href={item.href}>{item.label}</a>
+              {NAV_HREFS.map((href, i) => (
+                <li key={href}>
+                  <a href={href}>{t.nav[i]}</a>
                 </li>
               ))}
             </ul>
           </nav>
 
           <div className="footer-team">
-            <h2>만든 사람</h2>
+            <h2>{t.teamTitle}</h2>
 
             <dl>
-              <dt>팀</dt>
+              <dt>{t.teamLabel}</dt>
               <dd>{TEAM.name}</dd>
 
-              <dt>문의</dt>
+              <dt>{t.contactLabel}</dt>
               <dd>
                 <a href={`mailto:${TEAM.email}`}>{TEAM.email}</a>
               </dd>
@@ -168,34 +121,37 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <section className="footer-credits" aria-label="출처">
-          <h2>사진 · 콘텐츠 출처</h2>
+        <section className="footer-credits" aria-label={t.creditsTitle}>
+          <h2>{t.creditsTitle}</h2>
 
           <dl>
-            {CREDITS.map((credit) => (
+            {t.credits.map((credit, ci) => (
               <div key={credit.label}>
                 <dt>{credit.label}</dt>
 
                 <dd>
                   {credit.body}
 
-                  {credit.link && (
+                  {credit.linkText && (
                     <>
                       {" "}
                       <a
                         className="credit-link"
-                        href={credit.link.href}
+                        href={CREDIT_HREFS.spot100x100}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {credit.link.text}
+                        {credit.linkText}
                       </a>
                     </>
                   )}
 
                   {credit.items && (
                     <ul className="credit-list">
-                      {credit.items.map(([place, source, href]) => (
+                      {credit.items.map(([place, source], ii) => {
+                        const href = CREDIT_ITEM_HREFS[ci]?.[ii];
+
+                        return (
                         <li key={place}>
                           <b>{place}</b>
 
@@ -214,7 +170,8 @@ export default function SiteFooter() {
                             )}
                           </span>
                         </li>
-                      ))}
+                        );
+                      })}
                     </ul>
                   )}
                 </dd>
@@ -224,13 +181,10 @@ export default function SiteFooter() {
         </section>
 
         <div className="footer-bottom">
-          <p className="footer-notice">
-            행사 일정과 메뉴·가격은 바뀔 수 있습니다. 방문 전에 각 공식 채널에서 한 번 더
-            확인해 주세요.
-          </p>
+          <p className="footer-notice">{t.notice}</p>
 
           <div className="footer-meta">
-            <small>© 2026 대전 여행 랜딩페이지 · 비상업 학습용 프로젝트</small>
+            <small>{t.meta}</small>
           </div>
         </div>
       </div>

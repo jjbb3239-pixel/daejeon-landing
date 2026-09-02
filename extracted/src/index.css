@@ -3142,3 +3142,13 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
     font-size:12px;
   }
 }
+
+
+/* 리뷰 인용문이 한국어를 옮긴 것이라는 안내 (영문에서만 나온다) */
+.proof-head .proof-translated{
+  display:block;
+  margin-top:8px;
+  font-size:13px;
+  font-weight:700;
+  opacity:.72;
+}

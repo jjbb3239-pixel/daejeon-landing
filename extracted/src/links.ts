@@ -11,9 +11,8 @@ export const INSTAGRAM = "";
 
 export const isReady = (url: string) => url.trim().length > 0;
 
-/** 링크가 준비되지 않았을 때 요소에 얹는 속성 */
+/** 링크가 준비되지 않았을 때 요소에 얹는 속성. 툴팁 문구는 copy/common.ts */
 export const notReadyProps = {
   "aria-disabled": true as const,
   tabIndex: -1,
-  title: "링크 준비 중입니다",
 };
