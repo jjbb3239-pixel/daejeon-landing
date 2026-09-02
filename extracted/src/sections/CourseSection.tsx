@@ -1,7 +1,7 @@
 import sojedong from "../imports/__________.jpg";
 import gumo from "../imports/____.jpg";
 import daedong from "../imports/_______.jpg";
-import sikjangsan from "../imports/______.jpg";
+import sikjangsan from "../imports/photo/sikjangsan-night.jpg";
 
 type Stop = {
   photo: string;
@@ -41,7 +41,7 @@ const STOPS: Stop[] = [
   },
   {
     photo: sikjangsan,
-    alt: "구름 위로 해가 떠오르는 식장산 정상 전망대",
+    alt: "저녁 하늘 아래 불이 켜진 식장산 정상 팔각정과 멀리 보이는 대전 시내",
     kicker: "FINISH · NIGHT VIEW",
     name: "식장산 해돋이 전망대",
     copy: "오늘 하루의 마지막 장면. 대전의 풍경을 바라보며 오늘 여행을 천천히 마무리해보세요.",

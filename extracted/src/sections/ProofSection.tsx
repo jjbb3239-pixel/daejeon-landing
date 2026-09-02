@@ -5,7 +5,7 @@ import heerak from "../imports/proof/heerak.jpg";
 import toldAStory from "../imports/cafe/told-a-story.jpg";
 import ssangri from "../imports/cafe/ssangri.jpeg";
 import daedong from "../imports/_______.jpg";
-import sikjangsan from "../imports/______.jpg";
+import sikjangsan from "../imports/photo/sikjangsan-night.jpg";
 
 type Review = {
   photo: string;
@@ -140,7 +140,7 @@ const GROUPS: Group[] = [
       },
       {
         photo: sikjangsan,
-        alt: "식장산 해돋이전망대 야경",
+        alt: "식장산 해돋이전망대에서 내려다본 대전 야경",
         place: "식장산 해돋이전망대",
         stars: "★★★★★",
         rating: "4.6",
