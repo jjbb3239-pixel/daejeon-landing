@@ -2,7 +2,7 @@ import type { Copy } from "../i18n";
 
 type CreditCopy = {
   label: string;
-  body?: string;
+  body?: string | string[];
   /** [장소, 출처] — 원문 주소는 SiteFooter 에 코드로 있다 */
   items?: [string, string][];
   linkText?: string;
@@ -66,7 +66,12 @@ export const FOOTER: Copy<FooterCopy> = {
       },
       {
         label: "행사 포스터",
-        body: "유성온날 · 동구동락 축제 · 대전콘텐츠페어 · 대전빵축제 각 주최 측 공식 홍보물. 유성온날 포스터는 뉴시스 보도 이미지를 사용했습니다.",
+        body: [
+          "[동구동락]: 대전 동구청,「다가오는 10월, 대전 동구 큰 거 온다! 2026년 동구동락 축제 커밍순✨」, 대전 동구청 블로그, 2026.08.27.",
+          "[유성온날]: 공식 홈페이지,(https://blog.naver.com/djdonggu/224391972520",
+          "[대전콘텐츠페어]: 공식 홈페이지,(https://dcfair.co.kr/)",
+          "[대전빵축제]: 공식 인스타그램(@bakery_festival_daejeon),2026. 8. 21. 게시물",
+        ],
       },
       {
         label: "명소 사진",
@@ -142,7 +147,12 @@ export const FOOTER: Copy<FooterCopy> = {
       },
       {
         label: "Event posters",
-        body: "Official promotional material from the organisers of Yuseong Yuon, the Donggu Dongrak Festival, the Daejeon Content Fair and the Daejeon Bread Festival. The Yuseong Yuon poster is a Newsis press image.",
+        body: [
+          "[Donggu Dongrak]: Dong-gu Office, Daejeon, “Something big is coming to Dong-gu this October — the 2026 Donggu Dongrak Festival ✨”, Dong-gu Office blog, 27 Aug 2026.",
+          "[Yuseong Yuon]: official page, https://blog.naver.com/djdonggu/224391972520",
+          "[Daejeon Content Fair]: official site, https://dcfair.co.kr/",
+          "[Daejeon Bread Festival]: official Instagram (@bakery_festival_daejeon), post of 21 Aug 2026",
+        ],
       },
       {
         label: "Landmark photos",

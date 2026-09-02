@@ -121,64 +121,77 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <section className="footer-credits" aria-label={t.creditsTitle}>
-          <h2>{t.creditsTitle}</h2>
+        <details className="footer-credits">
+          <summary>
+            <span className="footer-credits-title">{t.creditsTitle}</span>
+            <span className="footer-credits-toggle" aria-hidden="true">
+              +
+            </span>
+          </summary>
 
-          <dl>
-            {t.credits.map((credit, ci) => (
-              <div key={credit.label}>
-                <dt>{credit.label}</dt>
+          <div className="footer-credits-content">
+            <dl>
+              {t.credits.map((credit, ci) => (
+                <div key={credit.label}>
+                  <dt>{credit.label}</dt>
 
-                <dd>
-                  {credit.body}
-
-                  {credit.linkText && (
-                    <>
-                      {" "}
-                      <a
-                        className="credit-link"
-                        href={CREDIT_HREFS.spot100x100}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {credit.linkText}
-                      </a>
-                    </>
-                  )}
-
-                  {credit.items && (
-                    <ul className="credit-list">
-                      {credit.items.map(([place, source], ii) => {
-                        const href = CREDIT_ITEM_HREFS[ci]?.[ii];
-
-                        return (
-                        <li key={place}>
-                          <b>{place}</b>
-
-                          <span>
-                            {href ? (
-                              <a
-                                className="credit-link"
-                                href={href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {source}
-                              </a>
-                            ) : (
-                              source
-                            )}
+                  <dd>
+                    {Array.isArray(credit.body)
+                      ? credit.body.map((line) => (
+                          <span className="footer-credit-line" key={line}>
+                            {line}
                           </span>
-                        </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
+                        ))
+                      : credit.body}
+
+                    {credit.linkText && (
+                      <>
+                        {" "}
+                        <a
+                          className="credit-link"
+                          href={CREDIT_HREFS.spot100x100}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {credit.linkText}
+                        </a>
+                      </>
+                    )}
+
+                    {credit.items && (
+                      <ul className="credit-list">
+                        {credit.items.map(([place, source], ii) => {
+                          const href = CREDIT_ITEM_HREFS[ci]?.[ii];
+
+                          return (
+                            <li key={place}>
+                              <b>{place}</b>
+
+                              <span>
+                                {href ? (
+                                  <a
+                                    className="credit-link"
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {source}
+                                  </a>
+                                ) : (
+                                  source
+                                )}
+                              </span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </details>
 
         <div className="footer-bottom">
           <p className="footer-notice">{t.notice}</p>
