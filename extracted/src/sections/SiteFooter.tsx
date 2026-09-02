@@ -21,7 +21,7 @@ const TEAM = {
 
 type Credit = {
   label: string;
-  body?: string;
+  body?: string | string[];
   /** 사진마다 출처가 다를 때. [장소, 출처, 원문 주소(선택)] */
   items?: [string, string, string?][];
   link?: { href: string; text: string };
@@ -38,7 +38,12 @@ const CREDITS: Credit[] = [
   },
   {
     label: "행사 포스터",
-    body: "유성온날 · 동구동락 축제 · 대전콘텐츠페어 · 대전빵축제 각 주최 측 공식 홍보물. 유성온날 포스터는 뉴시스 보도 이미지를 사용했습니다.",
+    body: [
+      "[동구동락]: 대전 동구청,「다가오는 10월, 대전 동구 큰 거 온다! 2026년 동구동락 축제 커밍순✨」, 대전 동구청 블로그, 2026.08.27.",
+      "[유성온날]: 공식 홈페이지,(https://blog.naver.com/djdonggu/224391972520",
+      "[대전콘텐츠페어]: 공식 홈페이지,(https://dcfair.co.kr/)",
+      "[대전빵축제]: 공식 인스타그램(@bakery_festival_daejeon),2026. 8. 21. 게시물",
+    ],
   },
   {
     label: "명소 사진",
@@ -168,60 +173,73 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <section className="footer-credits" aria-label="출처">
-          <h2>사진 · 콘텐츠 출처</h2>
+        <details className="footer-credits">
+          <summary>
+            <span className="footer-credits-title">사진 · 콘텐츠 출처</span>
+            <span className="footer-credits-toggle" aria-hidden="true">
+              +
+            </span>
+          </summary>
 
-          <dl>
-            {CREDITS.map((credit) => (
-              <div key={credit.label}>
-                <dt>{credit.label}</dt>
+          <div className="footer-credits-content">
+            <dl>
+              {CREDITS.map((credit) => (
+                <div key={credit.label}>
+                  <dt>{credit.label}</dt>
 
-                <dd>
-                  {credit.body}
-
-                  {credit.link && (
-                    <>
-                      {" "}
-                      <a
-                        className="credit-link"
-                        href={credit.link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {credit.link.text}
-                      </a>
-                    </>
-                  )}
-
-                  {credit.items && (
-                    <ul className="credit-list">
-                      {credit.items.map(([place, source, href]) => (
-                        <li key={place}>
-                          <b>{place}</b>
-
-                          <span>
-                            {href ? (
-                              <a
-                                className="credit-link"
-                                href={href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {source}
-                              </a>
-                            ) : (
-                              source
-                            )}
+                  <dd>
+                    {Array.isArray(credit.body)
+                      ? credit.body.map((line) => (
+                          <span className="footer-credit-line" key={line}>
+                            {line}
                           </span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
+                        ))
+                      : credit.body}
+
+                    {credit.link && (
+                      <>
+                        {" "}
+                        <a
+                          className="credit-link"
+                          href={credit.link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {credit.link.text}
+                        </a>
+                      </>
+                    )}
+
+                    {credit.items && (
+                      <ul className="credit-list">
+                        {credit.items.map(([place, source, href]) => (
+                          <li key={place}>
+                            <b>{place}</b>
+
+                            <span>
+                              {href ? (
+                                <a
+                                  className="credit-link"
+                                  href={href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {source}
+                                </a>
+                              ) : (
+                                source
+                              )}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </details>
 
         <div className="footer-bottom">
           <p className="footer-notice">
