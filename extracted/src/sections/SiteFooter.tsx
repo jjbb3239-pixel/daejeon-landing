@@ -24,7 +24,15 @@ const TEAM = {
   email: "문의 메일 (확인 중)",
 };
 
-const CREDITS = [
+type Credit = {
+  label: string;
+  body?: string;
+  /** 사진마다 출처가 다를 때 */
+  items?: [string, string][];
+  link?: { href: string; text: string };
+};
+
+const CREDITS: Credit[] = [
   {
     label: "캐릭터",
     body: "꿈돌이 · 꿈씨패밀리 — 대전광역시 공식 캐릭터. 「꿈씨패밀리 캐릭터 디자인 및 활용 가이드라인」의 기본형·응용 동작을 그대로 사용했습니다.",
@@ -38,8 +46,22 @@ const CREDITS = [
     body: "유성온날 · 동구동락 축제 · 대전콘텐츠페어 · 대전빵축제 각 주최 측 공식 홍보물. 유성온날 포스터는 뉴시스 보도 이미지를 사용했습니다.",
   },
   {
-    label: "장소 사진",
-    body: "출처 확인 중 — 명소 · 카페 · 맛집 · 코스 사진 16장의 촬영·이용 정보를 정리하고 있습니다.",
+    label: "명소 사진",
+    body: "엑스포다리 · 이응노미술관 · 엑스포과학공원 한빛탑 · 대전근현대사전시관 — 「대전 100선」에서 가져왔습니다.",
+    link: { href: "https://spot100x100.kr/", text: "spot100x100.kr ↗" },
+  },
+  {
+    label: "코스 사진",
+    items: [
+      ["소제동 철도관사촌", "스마트관광신문"],
+      ["구모카페 · 구름책방", "K-books trends"],
+      ["대동 하늘공원", "대전광역시 대전관광"],
+      ["식장산 해돋이전망대", "대전광역시 공공누리"],
+    ],
+  },
+  {
+    label: "카페 · 맛집 사진",
+    body: "출처 확인 중 — 궁동 소신 · 갈마동 톨드어스토리 · 대흥동 쌍리 · 토미야 · 트리니트 비스트로 · 희락반점 사진의 촬영·이용 정보를 정리하고 있습니다.",
   },
 ];
 
@@ -142,7 +164,35 @@ export default function SiteFooter() {
             {CREDITS.map((credit) => (
               <div key={credit.label}>
                 <dt>{credit.label}</dt>
-                <dd>{credit.body}</dd>
+
+                <dd>
+                  {credit.body}
+
+                  {credit.link && (
+                    <>
+                      {" "}
+                      <a
+                        className="credit-link"
+                        href={credit.link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {credit.link.text}
+                      </a>
+                    </>
+                  )}
+
+                  {credit.items && (
+                    <ul className="credit-list">
+                      {credit.items.map(([place, source]) => (
+                        <li key={place}>
+                          <b>{place}</b>
+                          <span>{source}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </dd>
               </div>
             ))}
           </dl>

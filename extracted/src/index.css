@@ -2078,6 +2078,38 @@ button{font:inherit}
   line-height:1.7;
 }
 
+/* 사진마다 출처가 다른 항목 (코스 사진 4장) */
+.footer-credits .credit-list{
+  margin:6px 0 0;
+  padding:0;
+  list-style:none;
+
+  display:grid;
+  gap:4px;
+}
+
+.footer-credits .credit-list li{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px 10px;
+}
+
+.footer-credits .credit-list b{
+  color:rgba(244,236,224,.88);
+  font-weight:700;
+}
+
+.footer-credits .credit-list span::before{
+  content:"— ";
+  opacity:.6;
+}
+
+.footer-credits .credit-link{
+  color:#75c8ff;
+  font-weight:700;
+  white-space:nowrap;
+}
+
 
 /* 아래쪽 */
 
