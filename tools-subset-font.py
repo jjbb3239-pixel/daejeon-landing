@@ -12,12 +12,23 @@ import io, os, sys, glob, subprocess, urllib.request
 
 ROOT = r'C:\Users\loco1\daejeon_landing\extracted'
 OUT = os.path.join(ROOT, 'src', 'fonts')
-TMP = r'C:\Users\loco1\AppData\Local\Temp\claude\C--Users-loco1-daejeon-landing\cfb71913-91e1-4942-97e9-93a7b126c433\scratchpad\fonts'
+TMP = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.font-cache')
 os.makedirs(OUT, exist_ok=True)
+os.makedirs(TMP, exist_ok=True)
 
 BASE = ('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9'
         '/packages/pretendard/dist/web/static/woff2/Pretendard-%s.woff2')
 WEIGHTS = [('Regular', 400), ('Medium', 500), ('Bold', 700), ('ExtraBold', 800), ('Black', 900)]
+
+# KS X 1001 2,350자를 여유분으로 넣을지.
+#
+# True  : 문구를 고쳐도 글자가 안 깨진다. 대신 5종 합계 887KB.
+# False : 소스에 실제로 쓰인 글자만 담는다. 합계가 1/3 로 줄어 LCP 가 빨라진다.
+#         단, 문구에 새 글자를 쓰면 그 글자만 대체 폰트로 떨어진다.
+#         -> 문구를 바꿀 때마다 이 스크립트를 다시 돌리고 빌드해야 한다.
+#
+# 2026-09-02 : 평가 기간(9/4~9/10) 에는 로드 속도가 CVR 을 직접 깎으므로 False.
+PAD_KSX = False
 
 # KS X 1001 한글 영역 (EUC-KR 0xB0A1~0xC8FE = 2,350자)
 ksx = []
@@ -30,7 +41,7 @@ for hi in range(0xB0, 0xC9):
         if '\uac00' <= c <= '\ud7a3':
             ksx.append(c)
 
-chars = set(ksx)
+chars = set(ksx) if PAD_KSX else set()
 for pat in ('src/**/*.tsx', 'src/**/*.ts', 'index.html'):
     for f in glob.glob(os.path.join(ROOT, pat), recursive=True):
         chars |= set(io.open(f, encoding='utf-8').read())

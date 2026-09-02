@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080,initial-scale=1">
+<style>
+@font-face{font-family:Pretendard;src:url('../../extracted/src/fonts/Pretendard-Regular.subset.woff2') format('woff2');font-weight:400}
+@font-face{font-family:Pretendard;src:url('../../extracted/src/fonts/Pretendard-Bold.subset.woff2') format('woff2');font-weight:700}
+@font-face{font-family:Pretendard;src:url('../../extracted/src/fonts/Pretendard-Black.subset.woff2') format('woff2');font-weight:900}
+*{box-sizing:border-box}
+html,body{margin:0;width:1080px;height:1080px;overflow:hidden}
+body{font-family:Pretendard,'Malgun Gothic',sans-serif;color:#172033;word-break:keep-all}
+.canvas{position:relative;width:1080px;height:1080px;overflow:hidden;background:#2869d8;
+ background-image:linear-gradient(rgba(255,255,255,.055) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.055) 2px,transparent 2px);background-size:44px 44px}
+.canvas:before{content:'DAEJEON  •  ONE DAY  •  MOOD QUIZ';position:absolute;left:-36px;bottom:24px;color:rgba(255,255,255,.16);font-size:25px;font-weight:900;letter-spacing:.18em;transform:rotate(-90deg);transform-origin:left bottom}
+.paper{position:absolute;inset:38px;background:#fff9ed;border:5px solid #172033;border-radius:38px;box-shadow:15px 17px 0 #172033;overflow:hidden}
+.paper:before{content:'';position:absolute;top:0;bottom:0;left:32px;border-left:3px dashed rgba(23,32,51,.16)}
+.paper:after{content:'';position:absolute;width:170px;height:170px;right:-76px;top:-76px;background:#ffd83d;border:5px solid #172033;border-radius:50%}
+.content{position:absolute;inset:68px 76px 70px 92px;z-index:3;display:flex;flex-direction:column;min-height:0}
+.topline{display:flex;justify-content:space-between;align-items:center;font-size:19px;font-weight:900;letter-spacing:.08em}
+.plan{padding:10px 19px;background:#ffd83d;border:3px solid #172033;border-radius:999px;box-shadow:4px 5px 0 #172033}
+.page{color:#2869d8}
+.eyebrow{align-self:flex-start;margin-top:34px;padding:11px 21px;background:#2869d8;color:white;border:3px solid #172033;border-radius:12px;font-size:22px;font-weight:900;letter-spacing:.02em;transform:rotate(-1.2deg);box-shadow:4px 5px 0 #172033}
+h1{margin:30px 0 0;font-size:76px;line-height:1.04;letter-spacing:-.06em;font-weight:900}
+h2{margin:30px 0 0;font-size:60px;line-height:1.08;letter-spacing:-.055em;font-weight:900}
+.marker{display:inline;background:linear-gradient(transparent 63%,#ffd83d 63% 94%,transparent 94%)}
+.lead{margin:26px 0 0;color:#4f4a43;font-size:29px;line-height:1.5;font-weight:700}
+.small{color:#777166;font-size:21px;line-height:1.5}
+.spacer{flex:1}
+.quizbox{margin-top:34px;padding:32px 36px;background:white;border:4px solid #172033;border-radius:28px;box-shadow:9px 10px 0 #172033}
+.question-no{display:inline-block;color:#2869d8;font-size:25px;font-weight:900;letter-spacing:.08em}
+.question{margin-top:11px;font-size:39px;line-height:1.3;font-weight:900;letter-spacing:-.04em}
+.ox{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:40px}
+.ox div{height:220px;display:grid;place-items:center;background:#f8fbff;border:5px solid #172033;border-radius:110px;font-size:132px;line-height:1;font-weight:900;box-shadow:10px 12px 0 #172033}
+.ox .o{color:#2869d8;background:#eaf3ff}.ox .x{color:#ef6978;background:#fff0f1}
+.hint{margin-top:28px;padding:17px 22px;border:3px solid #172033;border-radius:15px;background:#fff;font-size:23px;font-weight:700}
+.answer{margin-top:28px;display:flex;align-items:center;gap:28px}
+.stamp{width:172px;height:172px;flex:0 0 auto;display:grid;place-items:center;border:7px solid #172033;border-radius:50%;background:#ffd83d;box-shadow:10px 12px 0 #172033;font-size:100px;font-weight:900;transform:rotate(-5deg)}
+.answer-copy strong{display:block;font-size:48px;line-height:1.1}.answer-copy p{margin:12px 0 0;font-size:27px;line-height:1.45;color:#4f4a43;font-weight:700}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+.steps div{padding:21px 10px;text-align:center;border:3px solid #172033;border-radius:15px;background:white;font-size:22px;font-weight:900}
+.steps b{display:block;margin-bottom:7px;color:#2869d8;font-size:17px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.option{min-height:140px;padding:23px 25px;display:flex;align-items:center;gap:17px;background:white;border:3px solid #172033;border-radius:24px;font-size:26px;line-height:1.28;font-weight:800;box-shadow:5px 6px 0 #172033}
+.option b{width:42px;height:42px;flex:0 0 auto;display:grid;place-items:center;background:#ffd83d;border:3px solid #172033;border-radius:50%;font-size:20px}
+.moods{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:25px}
+.mood{height:158px;padding:16px;display:flex;align-items:center;gap:15px;background:white;border:3px solid #172033;border-radius:25px;box-shadow:6px 7px 0 #172033}
+.mood img{width:96px;height:96px;object-fit:contain}.mood strong{display:block;font-size:25px;line-height:1.2}.mood span{display:block;margin-top:7px;color:#2869d8;font-size:17px;font-weight:900;letter-spacing:.08em}
+.cta{margin-top:auto;padding:28px 30px;display:flex;align-items:center;justify-content:center;gap:14px;background:#ffd83d;border:4px solid #172033;border-radius:999px;box-shadow:9px 10px 0 #172033;font-size:34px;font-weight:900}
+.char{position:absolute;right:36px;bottom:42px;width:315px;height:315px;object-fit:contain;filter:drop-shadow(8px 10px 0 rgba(23,32,51,.14))}
+.cover h1{font-size:80px;max-width:735px}.cover .lead{max-width:590px}
+.scribble{display:inline-block;position:relative}.scribble:after{content:'';position:absolute;left:-4px;right:-8px;bottom:-9px;height:8px;background:#2869d8;transform:rotate(-1deg);border-radius:99px}
+.ticket-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;max-width:600px}
+.ticket-row span{padding:13px 17px;background:white;border:3px solid #172033;box-shadow:4px 5px 0 #172033;font-size:21px;font-weight:800;transform:rotate(var(--r))}
+.result-card{margin-top:30px;padding:27px 30px;background:white;border:4px solid #172033;border-radius:22px;box-shadow:8px 9px 0 #172033}
+.result-card strong{font-size:37px}.result-card p{margin:13px 0 0;color:#4f4a43;font-size:25px;line-height:1.45;font-weight:700}
+.theme-blue{background:#ffd83d;background-image:radial-gradient(rgba(23,32,51,.16) 2px,transparent 2px);background-size:24px 24px}
+.theme-blue .paper{background:#2869d8}.theme-blue .paper:before{border-left-color:rgba(255,255,255,.24)}.theme-blue .paper:after{background:#fff9ed}
+.theme-blue .content{color:#fff9ed}.theme-blue .page{color:#ffd83d}.theme-blue .plan{background:#fff9ed;color:#172033}
+.theme-blue .eyebrow{background:#ffd83d;color:#172033}.theme-blue .answer-copy p,.theme-blue .lead,.theme-blue .small{color:#e5efff}
+.theme-blue .marker{background:linear-gradient(transparent 62%,#ef6978 62% 94%,transparent 94%)}
+.theme-blue .result-card,.theme-blue .steps div{color:#172033;background:#fff9ed}
+.theme-yellow{background:#2869d8}.theme-yellow .paper{background:#ffd83d}.theme-yellow .paper:after{background:#ef6978}
+.theme-yellow .page{color:#172033}.theme-yellow .eyebrow{background:#fff9ed;color:#172033}
+.theme-yellow .mood{background:#fff9ed}.theme-yellow .hint{background:#172033;color:#fff9ed}
+</style>
+</head>
+<body>
+<main class="canvas theme-blue">
+  <section class="paper"></section>
+  <section class="content" data-content>
+    <div class="topline"><span class="plan">대전행 퀴즈</span><span class="page">05 / 07</span></div>
+    
+  <div class="eyebrow">정답 공개</div>
+  <div class="answer"><div class="stamp">C</div><div class="answer-copy"><strong>오늘 내가<br>원하는 기분</strong><p>장소보다 기분과 체력을 먼저 정하면<br>동선에서 버릴 곳이 보입니다.</p></div></div>
+  <div class="steps"><div><b>01</b>기분</div><div><b>02</b>체력</div><div><b>03</b>동선</div><div><b>04</b>장소</div></div>
+  <div class="result-card"><strong>순서를 바꾸면 저장 목록이 코스가 됩니다.</strong><p>이제 오늘 가장 가까운 기분만 하나 골라보세요.</p></div>
+  <div class="spacer"></div><p class="small">다음 장이 마지막 문제입니다.</p>
+
+  </section>
+</main>
+</body>
+</html>

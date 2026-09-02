@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { INSTAGRAM, isReady, notReadyProps } from "../links";
 import { share } from "../share";
+import { track } from "../analytics";
 import { FOOTER } from "../copy/footer";
 import { COMMON } from "../copy/common";
 import { useCopy } from "../i18n";
@@ -49,7 +50,10 @@ export default function SiteFooter() {
   }, [notice]);
 
   async function onShare() {
+    track("share_click", { where: "footer" });
+
     const result = await share({ title: t.shareTitle, text: t.shareText });
+    track("share_result", { where: "footer", outcome: result });
     if (result === "copied") setNotice(t.copied);
     if (result === "failed") setNotice(t.copyFailed);
   }

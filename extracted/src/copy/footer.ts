@@ -75,7 +75,7 @@ export const FOOTER: Copy<FooterCopy> = {
       },
       {
         label: "명소 사진",
-        body: "엑스포다리 · 이응노미술관 · 엑스포과학공원 한빛탑 · 대전근현대사전시관 — 「대전 100선」에서 가져왔습니다.",
+        body: "엑스포다리 · 이응노미술관 · 엑스포과학공원 한빛탑 · 대전근현대사전시관 — 한국관광공사 「대한민국 명소발굴 100×100」에서 가져왔습니다. 사이트에 이용조건 표시가 없어 재이용 범위는 확인 중입니다.",
         linkText: "spot100x100.kr ↗",
       },
       {
@@ -156,7 +156,7 @@ export const FOOTER: Copy<FooterCopy> = {
       },
       {
         label: "Landmark photos",
-        body: "Expo Bridge, Lee Ungno Museum, Hanbit Tower at Expo Science Park and the Daejeon Museum of Modern History are from the Daejeon 100 Selection.",
+        body: "Expo Bridge, Lee Ungno Museum, Hanbit Tower at Expo Science Park and the Daejeon Museum of Modern History are from Korea Tourism Organization's \"Discover Korea 100x100\". The site states no usage terms, so reuse scope is still being confirmed.",
         linkText: "spot100x100.kr ↗",
       },
       {

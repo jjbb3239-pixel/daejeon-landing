@@ -22,3 +22,9 @@ extracted/src/imports/guideline/
 Thumbs.db
 .DS_Store
 desktop.ini
+
+# 카드뉴스 중간 산출물 (build_cards.py -> render.py 로 언제든 재생성)
+promo/_standalone/
+
+# 폰트 서브셋 원본 캐시 (tools-subset-font.py 가 다시 받는다)
+.font-cache/
