@@ -6,7 +6,7 @@
 
 | 무엇 | 어디 |
 |---|---|
-| 라이브 | https://extracted-mu.vercel.app/ |
+| 라이브 | https://daejeon-love.vercel.app/ |
 | 코드 | https://github.com/jjbb3239-pixel/daejeon-landing (private) |
 
 `main` 에 push 하면 Vercel 이 자동 재배포한다.
@@ -1362,7 +1362,7 @@ git lfs ls-files    # 이미지가 잡히면 안 된다
 
 | 무엇 | 어디 | 용도 |
 |---|---|---|
-| 라이브 | https://extracted-mu.vercel.app/ | 팀 공유용. main 에 push 하면 자동 재배포 |
+| 라이브 | https://daejeon-love.vercel.app/ | 팀 공유용. main 에 push 하면 자동 재배포 |
 | 코드 | https://github.com/jjbb3239-pixel/daejeon-landing | private. 팀원은 Collaborator 초대 필요 |
 
 > **Figma 는 쓰지 않기로 했다 (2026-08-31).**
