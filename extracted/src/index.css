@@ -2107,7 +2107,20 @@ button{font:inherit}
 .footer-credits .credit-link{
   color:#75c8ff;
   font-weight:700;
+}
+
+/* 짧은 링크(spot100x100 등)만 한 줄로 붙여둔다 */
+.footer-credits dd > .credit-link{
   white-space:nowrap;
+}
+
+/* 출처 문장이 길어 장소명과 한 줄에 안 들어가는 경우 */
+.footer-credits .credit-list li{
+  display:block;
+}
+
+.footer-credits .credit-list b{
+  display:block;
 }
 
 

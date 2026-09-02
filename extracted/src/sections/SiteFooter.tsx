@@ -27,8 +27,8 @@ const TEAM = {
 type Credit = {
   label: string;
   body?: string;
-  /** 사진마다 출처가 다를 때 */
-  items?: [string, string][];
+  /** 사진마다 출처가 다를 때. [장소, 출처, 원문 주소(선택)] */
+  items?: [string, string, string?][];
   link?: { href: string; text: string };
 };
 
@@ -62,8 +62,24 @@ const CREDITS: Credit[] = [
     ],
   },
   {
-    label: "카페 · 맛집 사진",
-    body: "출처 확인 중 — 궁동 소신 · 갈마동 톨드어스토리 · 대흥동 쌍리 · 토미야 · 트리니트 비스트로 · 희락반점 사진의 촬영·이용 정보를 정리하고 있습니다.",
+    label: "카페 사진",
+    items: [
+      [
+        "궁동 소신",
+        "pan03184, 「대전 유성 궁동 충남대 유명한 파티세리소신 꿈돌이 디저트 카페」, 졍졍졍블로그 (2026.08.30)",
+        "https://blog.naver.com/pan03184/224139136491",
+      ],
+      [
+        "갈마동 톨드어스토리",
+        "톨드어스토리 공식 홈페이지 「COFFEE LETTER — 하리오 V60 드리퍼 브루잉 가이드」",
+        "https://www.toldastory.com/article/coffee-letter/13/857/",
+      ],
+      ["대흥동 쌍리", "출처 정리 중"],
+    ],
+  },
+  {
+    label: "맛집 사진",
+    body: "토미야 · 트리니트 비스트로 · 희락반점의 메뉴 이미지는 AI 로 만든 것입니다. 실제 매장에서 찍은 사진이 아닙니다.",
   },
 ];
 
@@ -186,10 +202,24 @@ export default function SiteFooter() {
 
                   {credit.items && (
                     <ul className="credit-list">
-                      {credit.items.map(([place, source]) => (
+                      {credit.items.map(([place, source, href]) => (
                         <li key={place}>
                           <b>{place}</b>
-                          <span>{source}</span>
+
+                          <span>
+                            {href ? (
+                              <a
+                                className="credit-link"
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {source}
+                              </a>
+                            ) : (
+                              source
+                            )}
+                          </span>
                         </li>
                       ))}
                     </ul>
