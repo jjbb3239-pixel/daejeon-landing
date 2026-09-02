@@ -12,6 +12,10 @@ import MoodTest from "./MoodTest";
 import MoodFold from "./MoodFold";
 import { COLLAPSE_MOOD_SECTIONS_ON_MOBILE } from "./features";
 import type { MoodId } from "./quiz";
+import { LangProvider } from "./i18n";
+import LangToggle from "./LangToggle";
+import { APP } from "./copy/app";
+import { useCopy } from "./i18n";
 
 const MOOD_IDS: MoodId[] = ["photo", "food", "cafe", "course"];
 const isMoodId = (v: string): v is MoodId => (MOOD_IDS as string[]).includes(v);
@@ -24,6 +28,15 @@ const isMoodId = (v: string): v is MoodId => (MOOD_IDS as string[]).includes(v);
  * 기분 섹션 4개는 모바일에서 접힌다. 끄려면 features.ts 참고.
  */
 export default function App() {
+  return (
+    <LangProvider>
+      <Page />
+    </LangProvider>
+  );
+}
+
+function Page() {
+  const t = useCopy(APP);
   const [testOpen, setTestOpen] = useState(false);
   const openTest = () => setTestOpen(true);
 
@@ -90,6 +103,8 @@ export default function App() {
     <>
       <span id="top" />
 
+      <LangToggle />
+
       <Hero onOpenTest={openTest} />
 
       <MoodSelect />
@@ -109,22 +124,24 @@ export default function App() {
       {/* 08 FINAL CTA */}
       <section className="final-section">
         <h2>
-          대전에는<br />
-          정해진 관광코스가 없습니다.
+          {t.finalHead1}<br />
+          {t.finalHead2}
         </h2>
 
         <p>
-          꼭 봐야 하는 것도, 꼭 해야 하는 것도 없으니까.
+          {t.finalLead}
           <br />
           <br />
-          혼자 온 오늘만큼은<br />
-          먹고 싶으면 먹고,<br />
-          걷고 싶으면 걷고,<br />
-          마음에 들면 조금 더 머물러도 됩니다.
+          {t.finalLines.map((line, i) => (
+            <span key={line}>
+              {line}
+              {i < t.finalLines.length - 1 && <br />}
+            </span>
+          ))}
         </p>
 
         <button type="button" className="ticket-cta" onClick={openTest}>
-          내 기분 다시 알아보기 →
+          {t.finalCta}
         </button>
       </section>
 
@@ -132,7 +149,7 @@ export default function App() {
 
       {/* FLOATING CTA */}
       <button type="button" className="floating-mood" onClick={openTest}>
-        ✦ 내 기분 알아보기
+        {t.floatingCta}
       </button>
 
       <MoodTest

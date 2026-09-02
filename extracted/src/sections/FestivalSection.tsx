@@ -92,7 +92,7 @@ const FESTIVALS: Festival[] = [
     badgePick: true,
     label: "OCTOBER PICK",
     title: ["귀여움 챙기고,", "빵으로 마무리"],
-    meta: { date: "2026.10.16 — 10.18", place: "DCC → 한빛탑 일원" },
+    meta: { date: "2026.10.16 — 10.18", place: "DCC → 엑스포과학공원" },
     description: [
       "캐릭터·게임·굿즈로 놀고, 물빛광장을 산책한 뒤",
       "대전 빵축제로 마무리하는 10월 코스.",
@@ -107,7 +107,7 @@ const FESTIVALS: Festival[] = [
       middle: "↓ 물빛광장 산책 20~30분",
       to: {
         title: "🍞 2026 대전빵축제",
-        when: "10.17 — 10.18 · 한빛탑 일원",
+        when: "10.17 — 10.18 · 엑스포과학공원 한빛탑",
         href: "https://www.instagram.com/bakery_festival_daejeon/",
         linkText: "공식 인스타그램 ↗",
       },

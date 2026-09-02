@@ -1,12 +1,14 @@
 import type { ReactNode } from "react";
 import type { MoodId } from "./quiz";
+import { MOOD_LABEL } from "./copy/moods";
+import { useCopy } from "./i18n";
 
-/** 접힘 머리에 쓰는 이름. 기분 카드 아래에 적힌 문구와 같게 맞춘다. */
-export const FOLD_LABEL: Record<MoodId, { emoji: string; label: string }> = {
-  photo: { emoji: "📸", label: "사진 왕창 찍고 싶은 날" },
-  food: { emoji: "🍜", label: "맛집 다 뿌수고 싶은 날" },
-  cafe: { emoji: "☕", label: "느좋 카페 가고 싶은 날" },
-  course: { emoji: "🗺️", label: "아무 생각 하기 싫은 날" },
+/** 접힘 머리 아이콘. 문구는 기분 카드와 같은 사전(MOOD_LABEL)을 쓴다. */
+const FOLD_EMOJI: Record<MoodId, string> = {
+  photo: "📸",
+  food: "🍜",
+  cafe: "☕",
+  course: "🗺️",
 };
 
 type MoodFoldProps = {
@@ -23,7 +25,8 @@ type MoodFoldProps = {
  * 섹션의 `id` 는 안쪽 컴포넌트에 그대로 있어서 앵커 링크가 그대로 동작한다.
  */
 export default function MoodFold({ id, open, onToggle, children }: MoodFoldProps) {
-  const { emoji, label } = FOLD_LABEL[id];
+  const emoji = FOLD_EMOJI[id];
+  const label = useCopy(MOOD_LABEL)[id];
 
   return (
     <div className={open ? "mood-fold is-open" : "mood-fold"} data-mood={id}>

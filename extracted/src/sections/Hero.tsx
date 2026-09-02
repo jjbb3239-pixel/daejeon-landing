@@ -1,4 +1,6 @@
 import kkumdori from "../imports/kkumdori.png";
+import { HERO } from "../copy/hero";
+import { useCopy } from "../i18n";
 
 type HeroProps = {
   onOpenTest: () => void;
@@ -6,6 +8,8 @@ type HeroProps = {
 
 /** 01 HERO — 승차권 */
 export default function Hero({ onOpenTest }: HeroProps) {
+  const t = useCopy(HERO);
+
   return (
     <section className="hero">
       <div className="hero-bg-word">DAEJEON</div>
@@ -33,13 +37,13 @@ export default function Hero({ onOpenTest }: HeroProps) {
           {/* MAIN COPY */}
           <div className="ticket-copy">
             <h1>
-              기분이 이끄는 대로,<br />
-              일단 <em>대전행.</em>
+              {t.titleLine1}<br />
+              {t.titleLead}<em>{t.titleEm}</em>
             </h1>
 
             <p>
-              대전에서 뭐 하지? 아직 몰라도 괜찮아요.<br />
-              <strong>오늘 내 기분부터 알아보면 되니까.</strong>
+              {t.leadLine1}<br />
+              <strong>{t.leadLine2}</strong>
             </p>
           </div>
 
@@ -62,7 +66,7 @@ export default function Hero({ onOpenTest }: HeroProps) {
           <div className="ticket-action">
             <div className="ticket-cta-wrap">
               <button type="button" className="ticket-cta" onClick={onOpenTest}>
-                30초 만에 내 대전 여행 기분 찾기 →
+                {t.cta}
               </button>
             </div>
           </div>
@@ -73,7 +77,7 @@ export default function Hero({ onOpenTest }: HeroProps) {
           <div className="stub-heading">
             <span className="boarding-label">BOARDING PASS</span>
 
-            <div className="boarding-title">대전행</div>
+            <div className="boarding-title">{t.boardingTitle}</div>
           </div>
 
           <div className="stub-divider" />
@@ -124,7 +128,7 @@ export default function Hero({ onOpenTest }: HeroProps) {
       </div>
 
       <a href="#choose" className="hero-scroll">
-        <strong>아직 어디 갈지 모르겠다면</strong>
+        <strong>{t.scrollLead}</strong>
 
         <small>SCROLL TO FIND YOUR DAEJEON</small>
 

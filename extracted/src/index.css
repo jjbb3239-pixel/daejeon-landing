@@ -3078,3 +3078,67 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
     scroll-behavior:auto !important;
   }
 }
+
+
+/* =========================================================
+   LANGUAGE TOGGLE — 우측 상단 고정
+   accent(옐로)는 CTA 전용이라 여기엔 쓰지 않는다.
+   활성 쪽을 잉크로 채워서 구분한다.
+========================================================= */
+.lang-toggle{
+  position:fixed;
+  top:20px;
+  right:24px;
+  z-index:600;      /* 플로팅 버튼(500) 위, 퀴즈 모달(1000) 아래 */
+
+  display:flex;
+  overflow:hidden;
+
+  background:#fff8e9;
+  border:3px solid #292929;
+  border-radius:999px;
+  box-shadow:4px 5px 0 #292929;
+}
+
+.lang-toggle button{
+  min-width:48px;
+  min-height:44px;   /* 터치 타겟 */
+  padding:0 4px;
+
+  background:transparent;
+  border:0;
+
+  color:#292929;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.06em;
+
+  cursor:pointer;
+}
+
+.lang-toggle button + button{
+  border-left:3px solid #292929;
+}
+
+.lang-toggle button.is-active{
+  background:#292929;
+  color:#fff8e9;
+}
+
+.lang-toggle button:not(.is-active):hover{
+  background:#f0e6d2;
+}
+
+@media(max-width:760px){
+  .lang-toggle{
+    top:12px;
+    right:12px;
+    box-shadow:3px 4px 0 #292929;
+  }
+
+  .lang-toggle button{
+    min-width:44px;
+    font-size:12px;
+  }
+}
