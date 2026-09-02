@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MOODS, QUESTIONS, resolveMood, type MoodId } from "./quiz";
 import { share } from "./share";
+import { track } from "./analytics";
 import { QUIZ } from "./copy/quiz";
 import { useCopy } from "./i18n";
 
@@ -33,6 +34,15 @@ export default function MoodTest({ open, onClose, onGoToMood }: MoodTestProps) {
     }
   }, [open]);
 
+  /**
+   * ★ 전환 이벤트. 4문항을 다 답해 결과가 뜬 순간이다.
+   * mood 는 완료 전에는 null 이고 완료 후 한 번만 값이 생기므로 중복으로 안 나간다.
+   * (다시 열면 answers 가 비워져 mood 가 null 로 돌아간 뒤 새로 찍힌다)
+   */
+  useEffect(() => {
+    if (open && mood) track("mood_test_complete", { mood });
+  }, [open, mood]);
+
   // 공유 안내는 잠깐 띄웠다 지운다
   useEffect(() => {
     if (!notice) return;
@@ -59,10 +69,15 @@ export default function MoodTest({ open, onClose, onGoToMood }: MoodTestProps) {
   }, [open, onClose]);
 
   async function onShare(mood: MoodId) {
+    // 클릭 자체를 먼저 남긴다. share() 는 OS 공유 시트를 기다리므로
+    // await 뒤에서 찍으면 사용자가 시트를 닫지 않는 한 안 찍힌다.
+    track("share_click", { where: "result", mood });
+
     const result = await share({
       title: t.shareTitle,
       text: t.shareText.replace("{mood}", t.moods[mood].title),
     });
+    track("share_result", { where: "result", outcome: result });
     if (result === "copied") setNotice(t.copied);
     if (result === "failed") setNotice(t.copyFailed);
   }

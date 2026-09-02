@@ -15,6 +15,7 @@ import type { MoodId } from "./quiz";
 import { LangProvider } from "./i18n";
 import LangToggle from "./LangToggle";
 import { APP } from "./copy/app";
+import { track, useViewOnce } from "./analytics";
 import { useCopy } from "./i18n";
 
 const MOOD_IDS: MoodId[] = ["photo", "food", "cafe", "course"];
@@ -38,7 +39,15 @@ export default function App() {
 function Page() {
   const t = useCopy(APP);
   const [testOpen, setTestOpen] = useState(false);
-  const openTest = () => setTestOpen(true);
+
+  /** 어느 버튼으로 열었는지 함께 남긴다. hero / final_cta / floating */
+  const openTest = (source: string) => () => {
+    track("mood_test_start", { source });
+    setTestOpen(true);
+  };
+
+  // 기분 섹션 도달 — 보조 전환
+  useViewOnce("choose", "mood_section_view");
 
   /** 지금 펼쳐진 기분 섹션. 모바일에서만 의미가 있다. */
   const [openMood, setOpenMood] = useState<MoodId | null>(null);
@@ -105,7 +114,7 @@ function Page() {
 
       <LangToggle />
 
-      <Hero onOpenTest={openTest} />
+      <Hero onOpenTest={openTest("hero")} />
 
       <MoodSelect />
 
@@ -140,7 +149,7 @@ function Page() {
           ))}
         </p>
 
-        <button type="button" className="ticket-cta" onClick={openTest}>
+        <button type="button" className="ticket-cta" onClick={openTest("final_cta")}>
           {t.finalCta}
         </button>
       </section>
@@ -148,7 +157,7 @@ function Page() {
       <SiteFooter />
 
       {/* FLOATING CTA */}
-      <button type="button" className="floating-mood" onClick={openTest}>
+      <button type="button" className="floating-mood" onClick={openTest("floating")}>
         {t.floatingCta}
       </button>
 

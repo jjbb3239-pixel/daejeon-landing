@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { setTrackedLang, track } from "./analytics";
 
 export type Lang = "ko" | "en";
 
@@ -46,6 +47,7 @@ export function LangProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(readInitialLang);
 
   useEffect(() => {
+    setTrackedLang(lang);
     document.documentElement.lang = lang;
     document.title = TITLE[lang];
 
@@ -63,7 +65,11 @@ export function LangProvider({ children }: { children: ReactNode }) {
     window.history.replaceState(null, "", url);
   }, [lang]);
 
-  const setLang = useCallback((next: Lang) => setLangState(next), []);
+  const setLang = useCallback((next: Lang) => {
+    // 버튼을 눌러 바꾼 것만 남긴다. 첫 진입은 setTrackedLang 이 처리한다.
+    track("lang_switch", { to: next });
+    setLangState(next);
+  }, []);
   const value = useMemo(() => ({ lang, setLang }), [lang, setLang]);
 
   return <LangContext.Provider value={value}>{children}</LangContext.Provider>;
