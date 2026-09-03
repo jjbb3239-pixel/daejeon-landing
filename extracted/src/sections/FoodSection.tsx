@@ -4,6 +4,8 @@ import huirak from "../imports/food/huirak.jpg";
 import { FOOD } from "../copy/food";
 import { COMMON } from "../copy/common";
 import { useCopy } from "../i18n";
+import MapLink from "../MapLink";
+import { FOOD_MAP_QUERIES } from "../maps";
 
 const PHOTOS = [tomiya, trinite, huirak];
 
@@ -52,7 +54,15 @@ export default function FoodSection() {
               </div>
 
               <div className="restaurant-body">
-                <h3>{place.name}</h3>
+                <div className="card-heading-row">
+                  <h3>{place.name}</h3>
+                  <MapLink
+                    label={common.map}
+                    place={place.name}
+                    query={FOOD_MAP_QUERIES[i]}
+                    source="food"
+                  />
+                </div>
 
                 <p>{place.copy}</p>
 

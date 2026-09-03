@@ -4,6 +4,8 @@ import ssangri from "../imports/cafe/ssangri.jpeg";
 import { CAFE } from "../copy/cafe";
 import { COMMON } from "../copy/common";
 import { useCopy } from "../i18n";
+import MapLink from "../MapLink";
+import { CAFE_MAP_QUERIES } from "../maps";
 
 /** 문구는 copy/cafe.ts. 여기 남는 건 사진과 앵커 id 뿐이다. */
 const CARDS = [
@@ -68,7 +70,15 @@ export default function CafeSection() {
               <div className="cafe-body">
                 <span className="cafe-label">{cafe.label}</span>
 
-                <h3>{cafe.name}</h3>
+                <div className="card-heading-row">
+                  <h3>{cafe.name}</h3>
+                  <MapLink
+                    label={common.map}
+                    place={cafe.name}
+                    query={CAFE_MAP_QUERIES[i]}
+                    source="cafe"
+                  />
+                </div>
 
                 <p className="cafe-headline">{cafe.headline}</p>
 

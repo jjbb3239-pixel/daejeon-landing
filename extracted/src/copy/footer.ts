@@ -4,7 +4,7 @@ type CreditCopy = {
   label: string;
   body?: string | string[];
   /** [장소, 출처] — 원문 주소는 SiteFooter 에 코드로 있다 */
-  items?: [string, string][];
+  items?: [string, string, string?][];
   linkText?: string;
 };
 
@@ -98,7 +98,11 @@ export const FOOTER: Copy<FooterCopy> = {
             "갈마동 톨드어스토리",
             "톨드어스토리 공식 홈페이지 「COFFEE LETTER — 하리오 V60 드리퍼 브루잉 가이드」",
           ],
-          ["대흥동 쌍리", "출처 정리 중"],
+          [
+            "대흥동 쌍리",
+            "사진: rlasafkd, 「대전 중앙로 카페, 쌍리」, 아 인블로그, 2026.09.03",
+            "원문: https://blog.naver.com/rlasafkd/224371029248",
+          ],
         ],
       },
       {
@@ -179,7 +183,11 @@ export const FOOTER: Copy<FooterCopy> = {
             "Told a Story, Galma-dong",
             "Told a Story official site, “COFFEE LETTER — Hario V60 brewing guide”",
           ],
-          ["Ssangri, Daeheung-dong", "Source being confirmed"],
+          [
+            "Ssangri, Daeheung-dong",
+            "Photo: rlasafkd, 「대전 중앙로 카페, 쌍리」, 아 인블로그, 2026.09.03",
+            "Original: https://blog.naver.com/rlasafkd/224371029248",
+          ],
         ],
       },
       {
