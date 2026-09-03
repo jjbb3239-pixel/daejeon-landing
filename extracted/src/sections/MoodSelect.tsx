@@ -6,12 +6,17 @@ import type { MoodId } from "../quiz";
 import ssiFood from "../imports/kkumssi/food.webp";
 import ssiCafe from "../imports/kkumssi/cafe.webp";
 import ssiLazy from "../imports/kkumssi/lazy.webp";
+import expoBridge from "../imports/photo/expo-bridge.jpg";
+import tomiya from "../imports/food/tomiya.jpg";
+import toldAStory from "../imports/cafe/told-a-story.jpg";
+import hanbitTower from "../imports/photo/hanbit-tower.jpg";
 
 /** 문구는 copy/ 로 나갔다. 여기 남는 건 언어와 상관없는 것뿐이다. */
 type Card = {
   id: MoodId;
   href: string;
   art: string;
+  background: string;
   tone: string;
 };
 
@@ -22,10 +27,34 @@ type Card = {
  * 공식 가이드에 있는 응용 동작만 쓴다 — 없는 포즈는 만들지 않는다.
  */
 const CARDS: Card[] = [
-  { id: "photo", href: "#photo", art: ssiPhoto, tone: "photo-blue" },
-  { id: "food", href: "#food", art: ssiFood, tone: "photo-orange" },
-  { id: "cafe", href: "#cafe", art: ssiCafe, tone: "photo-brown" },
-  { id: "course", href: "#course", art: ssiLazy, tone: "photo-course" },
+  {
+    id: "photo",
+    href: "#photo",
+    art: ssiPhoto,
+    background: expoBridge,
+    tone: "photo-blue",
+  },
+  {
+    id: "food",
+    href: "#food",
+    art: ssiFood,
+    background: tomiya,
+    tone: "photo-orange",
+  },
+  {
+    id: "cafe",
+    href: "#cafe",
+    art: ssiCafe,
+    background: toldAStory,
+    tone: "photo-brown",
+  },
+  {
+    id: "course",
+    href: "#course",
+    art: ssiLazy,
+    background: hanbitTower,
+    tone: "photo-course",
+  },
 ];
 
 export default function MoodSelect() {
@@ -51,10 +80,24 @@ export default function MoodSelect() {
             return (
             <a key={card.href} href={card.href} className="mood-card">
               <div className={`card-photo photo-frame is-character ${card.tone}`}>
-                <img src={card.art} alt={c.alt}
+                <img
+                  className="mood-card-background"
+                  src={card.background}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
+                />
+
+                <span className="mood-character-stage">
+                  <img
+                    className="mood-card-character"
+                    src={card.art}
+                    alt={c.alt}
                     loading="lazy"
                     decoding="async"
                   />
+                </span>
               </div>
 
               <div className="card-body">
@@ -80,3 +123,4 @@ export default function MoodSelect() {
     </section>
   );
 }
+
