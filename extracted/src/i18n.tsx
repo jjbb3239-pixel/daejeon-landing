@@ -19,6 +19,16 @@ export type Copy<T> = { ko: T; en?: T };
 
 const STORAGE_KEY = "lang";
 
+/**
+ * 예전에는 localStorage 에 저장했다. 그러면 EN 을 한 번 누른 사람은
+ * 그 브라우저에서 계속 영문을 보게 되고, 주소창에 붙은 ?lang=en 을
+ * 복사해 공유하면 받는 사람까지 영문으로 열렸다.
+ *
+ * 이 페이지는 한국어가 원본이고 영문은 외국인 방문자를 위한 보조다.
+ * 그래서 기억은 「지금 열어둔 탭」 안에서만 한다.
+ * 탭을 새로 열면 언제나 한글로 시작한다.
+ */
+
 const TITLE: Record<Lang, string> = {
   ko: "기분이 이끄는 대로, 일단 대전행.",
   en: "Follow your mood. Just go to Daejeon.",
@@ -36,7 +46,7 @@ function readInitialLang(): Lang {
   if (fromUrl === "en" || fromUrl === "ko") return fromUrl;
 
   try {
-    return window.localStorage.getItem(STORAGE_KEY) === "en" ? "en" : "ko";
+    return window.sessionStorage.getItem(STORAGE_KEY) === "en" ? "en" : "ko";
   } catch {
     // 시크릿 창이나 저장을 막아둔 브라우저
     return "ko";
@@ -52,7 +62,9 @@ export function LangProvider({ children }: { children: ReactNode }) {
     document.title = TITLE[lang];
 
     try {
-      window.localStorage.setItem(STORAGE_KEY, lang);
+      window.sessionStorage.setItem(STORAGE_KEY, lang);
+      // 예전 방식으로 저장돼 계속 영문이 뜨던 사람을 풀어준다
+      window.localStorage.removeItem(STORAGE_KEY);
     } catch {
       // 저장 못 해도 이번 방문 동안은 동작한다
     }
