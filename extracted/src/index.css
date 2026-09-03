@@ -2164,6 +2164,10 @@ button{font:inherit}
   font-weight:700;
 }
 
+.footer-credits .footer-credit-source-link{
+  display:block;
+}
+
 /* 짧은 링크(spot100x100 등)만 한 줄로 붙여둔다 */
 .footer-credits dd > .credit-link{
   white-space:nowrap;
