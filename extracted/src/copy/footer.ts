@@ -58,7 +58,7 @@ export const FOOTER: Copy<FooterCopy> = {
     credits: [
       {
         label: "캐릭터",
-        body: "꿈돌이 · 꿈씨패밀리 — 대전광역시 공식 캐릭터. 「꿈씨패밀리 캐릭터 디자인 및 활용 가이드라인」의 기본형·응용 동작을 그대로 사용했습니다.",
+        body: "꿈돌이 · 꿈씨패밀리 — 대전광역시 공식 캐릭터. 「꿈씨패밀리 캐릭터 디자인 및 활용 가이드라인」의 기본형·응용 동작을 사용했습니다. 기분 카드에 넣으면서 원본에 그려진 바닥 그림자만 지웠고, 형태·색·비율은 바꾸지 않았습니다.",
       },
       {
         label: "리뷰",
@@ -139,7 +139,7 @@ export const FOOTER: Copy<FooterCopy> = {
     credits: [
       {
         label: "Characters",
-        body: "Kkumdori and the Kkumssi Family are the official characters of Daejeon Metropolitan City. The base and applied poses are used as published in the official character design and usage guidelines.",
+        body: "Kkumdori and the Kkumssi Family are the official characters of Daejeon Metropolitan City. The base and applied poses are taken from the official character design and usage guidelines. For the mood cards the ground shadow drawn into the original artwork was removed; the shape, colours and proportions are unchanged.",
       },
       {
         label: "Reviews",

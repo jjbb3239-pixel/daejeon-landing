@@ -740,10 +740,12 @@ button{font:inherit}
   font-size:60px;
 }
 
-.photo-blue{background:linear-gradient(145deg,#9dd8f6,#548fc1)}
-.photo-orange{background:linear-gradient(145deg,#f8d48c,#bd7039)}
-.photo-brown{background:linear-gradient(145deg,#ddc6aa,#84644c)}
-.photo-course{background:linear-gradient(145deg,#b5d5e8,#668ba8)}
+/* 캐릭터가 파스텔이라 배경이 진하면 오려 붙인 것처럼 보인다.
+   끝색을 흰쪽으로 당겨 명도 차를 줄였다. 색 구분은 그대로 남는다. */
+.photo-blue{background:linear-gradient(145deg,#bae4f9,#95bad9)}
+.photo-orange{background:linear-gradient(145deg,#fae1ae,#d6a684)}
+.photo-brown{background:linear-gradient(145deg,#e7d7c3,#b29e90)}
+.photo-course{background:linear-gradient(145deg,#cbe1ee,#a0b7c9)}
 
 .card-body{
   min-height:285px;
@@ -2843,17 +2845,35 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
    그라데이션 배경 위에 contain 으로 띄운다.
 ------------------------------------------------------------ */
 .card-photo.is-character img{
+  position:relative;   /* 빛무리(::before) 위에 오게 */
   width:78%;
   height:78%;
   margin:auto;
   object-fit:contain;
-  filter:drop-shadow(0 10px 14px rgba(0,0,0,.16));
+
+  /* 그림자는 원본 그림에서 지웠으므로 여기서 한 번만 준다.
+     넓고 옅게 — 진하면 다시 오려 붙인 느낌이 난다. */
+  filter:drop-shadow(0 8px 13px rgba(41,41,41,.15));
 }
 
 .card-photo.is-character{
+  position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
+}
+
+/* 캐릭터 뒤에 깔리는 빛무리. 배경과 캐릭터 사이를 이어준다. */
+.card-photo.is-character::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(
+    circle at 50% 47%,
+    rgba(255,252,242,.52),
+    rgba(255,252,242,0) 62%
+  );
+  pointer-events:none;
 }
 
 .mood-card:hover .card-photo.is-character img{

@@ -1,11 +1,13 @@
-import ssiPhoto from "../imports/kkumssi/photo.webp";
+// -clean 은 원본에서 바닥 그림자만 지우고 캐릭터에 맞춰 잘라낸 것.
+// 형태·색·비율은 그대로다. 되돌리려면 -clean 만 빼면 된다.
+import ssiPhoto from "../imports/kkumssi/photo-clean.webp";
 import { MOOD_SELECT } from "../copy/moodSelect";
 import { MOOD_LABEL } from "../copy/moods";
 import { useCopy } from "../i18n";
 import type { MoodId } from "../quiz";
-import ssiFood from "../imports/kkumssi/food.webp";
-import ssiCafe from "../imports/kkumssi/cafe.webp";
-import ssiLazy from "../imports/kkumssi/lazy.webp";
+import ssiFood from "../imports/kkumssi/food-clean.webp";
+import ssiCafe from "../imports/kkumssi/cafe-clean.webp";
+import ssiLazy from "../imports/kkumssi/lazy-clean.webp";
 
 /** 문구는 copy/ 로 나갔다. 여기 남는 건 언어와 상관없는 것뿐이다. */
 type Card = {
