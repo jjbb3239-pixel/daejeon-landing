@@ -8,6 +8,7 @@ import daedong from "../imports/_______.jpg";
 import sikjangsan from "../imports/photo/sikjangsan-night.jpg";
 import { PROOF } from "../copy/proof";
 import { useCopy } from "../i18n";
+import { PROOF_MARQUEE } from "../features";
 
 /**
  * 문구는 copy/proof.ts. 여기 남는 건 사진과 수치다.
@@ -59,6 +60,53 @@ const GROUPS: { no: string; label: string; reviews: ReviewData[] }[] = [
   },
 ];
 
+/** 4묶음을 한 줄로 펴둔 것. 흐르는 배치에서 쓴다. */
+const FLAT = GROUPS.flatMap((group, gi) =>
+  group.reviews.map((review, ri) => ({ review, gi, ri })),
+);
+
+type ReviewCopy = { alt: string; place: string; quote: string; source: string };
+
+function ReviewCard({
+  review,
+  copy,
+  eager,
+}: {
+  review: ReviewData;
+  copy: ReviewCopy;
+  /** 흐르는 배치에서는 화면 밖 카드도 미리 받아둔다. 흐르다 툭 나타나면 어색하다. */
+  eager?: boolean;
+}) {
+  return (
+    <article className="proof-card">
+      <div className={review.photoClass ? `proof-photo ${review.photoClass}` : "proof-photo"}>
+        <img
+          src={review.photo}
+          alt={copy.alt}
+          loading={eager ? "eager" : "lazy"}
+          decoding="async"
+        />
+      </div>
+
+      <div className="proof-body">
+        <div className="proof-place">{copy.place}</div>
+
+        <div className="proof-score">
+          <span className="proof-stars">{review.stars}</span>
+          <span className="proof-rating">{review.rating}</span>
+          <span className="proof-count">{review.count}</span>
+        </div>
+
+        <div className="proof-user">{review.user}</div>
+
+        <p className="proof-quote">{copy.quote}</p>
+
+        <div className="proof-source">{copy.source}</div>
+      </div>
+    </article>
+  );
+}
+
 /** 07 COMPACT PROOF */
 export default function ProofSection() {
   const t = useCopy(PROOF);
@@ -87,65 +135,61 @@ export default function ProofSection() {
           </p>
         </header>
 
-        <div className="proof-groups">
-          {GROUPS.map((group, gi) => {
-            const g = t.groups[gi];
+        {PROOF_MARQUEE ? (
+          /* 한 줄로 흐르는 배치. 이음매가 안 보이도록 같은 8장을 두 벌 놓고
+             절반만큼 밀어준다. 뒤쪽 한 벌은 눈속임이므로 읽기 도구에서 숨긴다. */
+          <div className="proof-marquee">
+            <div className="proof-marquee-track">
+              {[0, 1].map((copy) => (
+                <div
+                  key={copy}
+                  className="proof-marquee-set"
+                  aria-hidden={copy === 1 ? true : undefined}
+                >
+                  {FLAT.map(({ review, gi, ri }) => (
+                    <ReviewCard
+                      key={`${copy}-${gi}-${ri}`}
+                      review={review}
+                      copy={t.groups[gi].reviews[ri]}
+                      eager
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="proof-groups">
+            {GROUPS.map((group, gi) => {
+              const g = t.groups[gi];
 
-            return (
-            <section key={group.no} className="proof-group">
-              <div className="proof-group-label">
-                <span>
-                  {group.no} · {group.label}
-                </span>
+              return (
+                <section key={group.no} className="proof-group">
+                  <div className="proof-group-label">
+                    <span>
+                      {group.no} · {group.label}
+                    </span>
 
-                <h3>
-                  {g.title[0]}<br />
-                  {g.title[1]}
-                </h3>
-              </div>
+                    <h3>
+                      {g.title[0]}<br />
+                      {g.title[1]}
+                    </h3>
+                  </div>
 
-              <div className="proof-row">
-                {group.reviews.map((review, ri) => {
-                  const r = g.reviews[ri];
-
-                  return (
-                  <article key={r.place} className="proof-card">
-                    <div
-                      className={
-                        review.photoClass
-                          ? `proof-photo ${review.photoClass}`
-                          : "proof-photo"
-                      }
-                    >
-                      <img src={review.photo} alt={r.alt}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                    </div>
-
-                    <div className="proof-body">
-                      <div className="proof-place">{r.place}</div>
-
-                      <div className="proof-score">
-                        <span className="proof-stars">{review.stars}</span>
-                        <span className="proof-rating">{review.rating}</span>
-                        <span className="proof-count">{review.count}</span>
-                      </div>
-
-                      <div className="proof-user">{review.user}</div>
-
-                      <p className="proof-quote">{r.quote}</p>
-
-                      <div className="proof-source">{r.source}</div>
-                    </div>
-                  </article>
-                  );
-                })}
-              </div>
-            </section>
-            );
-          })}
-        </div>
+                  <div className="proof-row">
+                    {group.reviews.map((review, ri) => (
+                      <ReviewCard
+                        key={`${gi}-${ri}`}
+                        review={review}
+                        copy={g.reviews[ri]}
+                      />
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        )}
 
         <p className="proof-note">{t.note}</p>
       </div>
