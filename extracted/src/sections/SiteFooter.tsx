@@ -28,12 +28,13 @@ const CREDIT_HREFS: Record<string, string> = {
   "sikjangsan": "https://commons.wikimedia.org/wiki/File:%EC%8B%9D%EC%9E%A5%EC%82%B0_%EC%A0%95%EC%83%81%EC%97%90_%EC%A1%B0%EC%84%B1%ED%95%9C_%EC%A0%84%EB%A7%9D%EB%8C%80_%EC%95%BC%EA%B2%BD.jpg",
   "sosin": "https://blog.naver.com/pan03184/224139136491",
   "told": "https://www.toldastory.com/article/coffee-letter/13/857/",
+  "ssangri": "https://blog.naver.com/rlasafkd/224371029248",
 };
 
 /** 항목 링크는 [출처 그룹 index][항목 index] 로 찾는다. */
 const CREDIT_ITEM_HREFS: Record<number, Record<number, string>> = {
   4: { 3: CREDIT_HREFS.sikjangsan },
-  5: { 0: CREDIT_HREFS.sosin, 1: CREDIT_HREFS.told },
+  5: { 0: CREDIT_HREFS.sosin, 1: CREDIT_HREFS.told, 2: CREDIT_HREFS.ssangri },
 };
 
 export default function SiteFooter() {
@@ -164,7 +165,7 @@ export default function SiteFooter() {
 
                     {credit.items && (
                       <ul className="credit-list">
-                        {credit.items.map(([place, source], ii) => {
+                        {credit.items.map(([place, source, linkText], ii) => {
                           const href = CREDIT_ITEM_HREFS[ci]?.[ii];
 
                           return (
@@ -172,7 +173,7 @@ export default function SiteFooter() {
                               <b>{place}</b>
 
                               <span>
-                                {href ? (
+                                {href && !linkText ? (
                                   <a
                                     className="credit-link"
                                     href={href}
@@ -183,6 +184,17 @@ export default function SiteFooter() {
                                   </a>
                                 ) : (
                                   source
+                                )}
+
+                                {href && linkText && (
+                                  <a
+                                    className="credit-link footer-credit-source-link"
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {linkText}
+                                  </a>
                                 )}
                               </span>
                             </li>
