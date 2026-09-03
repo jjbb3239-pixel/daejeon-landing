@@ -85,16 +85,6 @@ export default function FestivalSection() {
               {t.leadLine2}
             </p>
           </div>
-
-          <a
-            className={isReady(INSTAGRAM) ? "festival-all-link" : "festival-all-link is-pending"}
-            {...(isReady(INSTAGRAM)
-              ? { href: INSTAGRAM, target: "_blank", rel: "noopener noreferrer" }
-              : { ...notReadyProps, title: common.linkPending })}
-          >
-            {t.allEvents}
-            <span>↗</span>
-          </a>
         </div>
 
         <div className="festival-cph-grid">

@@ -1545,11 +1545,8 @@ button{font:inherit}
    TOP
 ========================= */
 
+/* 오른쪽에 있던 ALL EVENTS 링크를 뺐다. 이제 제목 하나뿐이다. */
 .festival-cph-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  gap:60px;
   margin-bottom:60px;
 }
 
@@ -1608,31 +1605,6 @@ button{font:inherit}
 /* =========================
    ALL EVENTS
 ========================= */
-
-.festival-all-link{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  flex-shrink:0;
-
-  padding-bottom:5px;
-
-  border-bottom:2px solid #292929;
-
-  color:#292929;
-  text-decoration:none;
-
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:.08em;
-
-  white-space:nowrap;
-}
-
-.festival-all-link span{
-  font-size:17px;
-}
-
 
 /* =========================
    CARD GRID
@@ -2035,11 +2007,6 @@ button{font:inherit}
 
   .festival-cph-top{
     display:block;
-  }
-
-  .festival-all-link{
-    width:max-content;
-    margin-top:30px;
   }
 
   .festival-cph-grid{

@@ -24,7 +24,6 @@ type FestivalCopy = {
   headTail: string;
   leadLine1: string;
   leadLine2: string;
-  allEvents: string;
   bottomCta: string;
   cards: FestivalCardCopy[];
 };
@@ -40,7 +39,6 @@ export const FESTIVAL: Copy<FestivalCopy> = {
     headTail: "를 아직 못 본 거예요.",
     leadLine1: "계획에 없던 축제나 행사를 만나는 것도 여행의 재미니까.",
     leadLine2: "지금 대전에서 열리는 행사를 가볍게 둘러보세요.",
-    allEvents: "ALL EVENTS",
     bottomCta: "또 다른 대전 행사 보러가기",
     cards: [
       {
@@ -101,7 +99,6 @@ export const FESTIVAL: Copy<FestivalCopy> = {
     headTail: " right now.",
     leadLine1: "Running into a festival you never planned for is part of the trip.",
     leadLine2: "Have a quick look at what is happening in Daejeon right now.",
-    allEvents: "ALL EVENTS",
     bottomCta: "See more Daejeon events",
     cards: [
       {
