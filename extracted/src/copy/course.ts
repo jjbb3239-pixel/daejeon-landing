@@ -15,6 +15,11 @@ type CourseCopy = {
   titleStrong: string;
   leadLine1: string;
   leadLine2: string;
+  mapEyebrow: string;
+  mapTitle: string;
+  mapLead: string;
+  mapRoute: string;
+  mapNote: string;
   stops: StopCopy[];
 };
 
@@ -25,6 +30,11 @@ export const COURSE: Copy<CourseCopy> = {
     titleStrong: "오늘 코스는 정해드릴게요.",
     leadLine1: "오래된 골목부터 카페와 책방, 대전의 풍경이 내려다보이는 곳까지.",
     leadLine2: "그냥 이 순서대로 따라가면 되는 대전의 하루.",
+    mapEyebrow: "4 STOP MAP",
+    mapTitle: "오늘 코스, 한 지도에",
+    mapLead: "핀을 누르면 각 장소를 Google 지도에서 바로 확인할 수 있어요.",
+    mapRoute: "Google 지도에서 전체 코스 보기",
+    mapNote: "표시된 선은 이동 순서를 보여주는 간략 동선입니다. 정확한 길과 교통 상황은 Google 지도에서 확인해 주세요.",
     stops: [
       {
         alt: "오래된 관사와 전봇대가 늘어선 소제동 골목",
@@ -63,6 +73,11 @@ export const COURSE: Copy<CourseCopy> = {
     titleStrong: "We’ll set today’s route for you.",
     leadLine1: "Old alleys, a cafe and a bookshop, and a place that looks out over the whole city.",
     leadLine2: "One Daejeon day you can follow in order and nothing else.",
+    mapEyebrow: "4 STOP MAP",
+    mapTitle: "Today’s route on one map",
+    mapLead: "Tap any pin to open that place directly in Google Maps.",
+    mapRoute: "Open the full route in Google Maps",
+    mapNote: "The line shows the order of the stops, not an exact road route. Check Google Maps for live directions and traffic.",
     stops: [
       {
         alt: "An alley in Sojedong lined with old railway houses and power poles",
