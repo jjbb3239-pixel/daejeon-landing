@@ -5,6 +5,8 @@ import modernHistory from "../imports/photo/modern-history.jpg";
 import { PHOTO } from "../copy/photo";
 import { COMMON } from "../copy/common";
 import { useCopy } from "../i18n";
+import MapLink from "../MapLink";
+import { PHOTO_MAP_QUERIES } from "../maps";
 
 const PHOTOS = [expoBridge, ungnoMuseum, hanbitTower, modernHistory];
 
@@ -51,7 +53,15 @@ export default function PhotoSection() {
               <div className="place-content">
                 <span className="place-category">{place.category}</span>
 
-                <h3>{place.name}</h3>
+                <div className="card-heading-row">
+                  <h3>{place.name}</h3>
+                  <MapLink
+                    label={common.map}
+                    place={place.name}
+                    query={PHOTO_MAP_QUERIES[i]}
+                    source="photo"
+                  />
+                </div>
 
                 <p className="place-subtitle">{place.subtitle}</p>
 
