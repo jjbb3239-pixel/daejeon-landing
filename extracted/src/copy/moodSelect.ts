@@ -44,8 +44,8 @@ export const MOOD_SELECT: Copy<MoodSelectCopy> = {
       cafe: {
         alt: "화분을 들고 서 있는 안경 쓴 꿈씨패밀리",
         category: "CAFE",
-        title: ["대전만의 카페를", "갈래"],
-        copy: "오늘 기분에 맞는 대전다운 카페 리스트",
+        title: ["대전만의", "카페를 갈래"],
+        copy: "오늘 기분에 따라 고를 수 있는, 대전만의 분위기를 담은 카페",
         cta: "대전에서만 만날 수 있는 카페가 궁금한 날",
       },
       course: {
