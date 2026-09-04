@@ -113,7 +113,7 @@ export default function MoodSelect() {
                 <p>{c.copy}</p>
 
                 <div className="card-bottom">
-                  <span>{moodLabel[card.id]}</span>
+                  <span>{c.cta ?? moodLabel[card.id]}</span>
                   <span className="card-arrow">→</span>
                 </div>
               </div>
