@@ -3278,7 +3278,7 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
 
   .ticket-cta-wrap{display:block;width:100%}
 
-  .ticket-cta{
+  .hero .ticket-cta{
     position:relative;
     display:grid;
     grid-template-columns:minmax(0,1fr) 70px;
@@ -3289,14 +3289,14 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
     text-align:left;
   }
 
-  .ticket-cta:hover,
-  .ticket-cta:active{
+  .hero .ticket-cta:hover,
+  .hero .ticket-cta:active{
     transform:none;
     box-shadow:5px 5px 0 #172033;
   }
 
-  .ticket-cta::before,
-  .ticket-cta::after{
+  .hero .ticket-cta::before,
+  .hero .ticket-cta::after{
     content:"";
     position:absolute;
     top:50%;
@@ -3309,12 +3309,12 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
     border-radius:50%;
   }
 
-  .ticket-cta::before{left:-10px}
-  .ticket-cta::after{right:-10px}
+  .hero .ticket-cta::before{left:-10px}
+  .hero .ticket-cta::after{right:-10px}
 
-  .ticket-cta-desktop{display:none}
+  .hero .ticket-cta-desktop{display:none}
 
-  .ticket-cta-mobile{
+  .hero .ticket-cta-mobile{
     display:flex;
     min-width:0;
     padding:14px 18px 14px 20px;
@@ -3322,20 +3322,20 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
     justify-content:center;
   }
 
-  .ticket-cta-mobile small{
+  .hero .ticket-cta-mobile small{
     margin-bottom:4px;
     font-size:9px;
     font-weight:900;
     letter-spacing:.13em;
   }
 
-  .ticket-cta-mobile strong{
+  .hero .ticket-cta-mobile strong{
     font-size:18px;
     line-height:1.25;
     letter-spacing:-.035em;
   }
 
-  .ticket-cta-stub{
+  .hero .ticket-cta-stub{
     position:relative;
     display:grid;
     align-self:stretch;
@@ -3345,8 +3345,8 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
     border-left:2px dashed #172033;
   }
 
-  .ticket-cta-stub::before,
-  .ticket-cta-stub::after{
+  .hero .ticket-cta-stub::before,
+  .hero .ticket-cta-stub::after{
     content:"";
     position:absolute;
     left:-10px;
@@ -3357,10 +3357,10 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
     border-radius:50%;
   }
 
-  .ticket-cta-stub::before{top:-10px}
-  .ticket-cta-stub::after{bottom:-10px}
+  .hero .ticket-cta-stub::before{top:-10px}
+  .hero .ticket-cta-stub::after{bottom:-10px}
 
-  .ticket-cta-stub > strong{
+  .hero .ticket-cta-stub > strong{
     display:grid;
     width:42px;
     height:42px;
