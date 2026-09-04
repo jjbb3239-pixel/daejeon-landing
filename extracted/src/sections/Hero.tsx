@@ -66,7 +66,17 @@ export default function Hero({ onOpenTest }: HeroProps) {
           <div className="ticket-action">
             <div className="ticket-cta-wrap">
               <button type="button" className="ticket-cta" onClick={onOpenTest}>
-                {t.cta}
+                <span className="ticket-cta-desktop">{t.cta}</span>
+                <span className="ticket-cta-mobile">
+                  <small>MOOD CHECK · 30 SEC</small>
+                  <strong>
+                    {t.mobileCtaLine1}<br />
+                    {t.mobileCtaLine2}
+                  </strong>
+                </span>
+                <span className="ticket-cta-stub" aria-hidden="true">
+                  <strong>→</strong>
+                </span>
               </button>
             </div>
           </div>

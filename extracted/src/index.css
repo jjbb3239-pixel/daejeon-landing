@@ -363,6 +363,9 @@ button{font:inherit}
   box-shadow:2px 2px 0 #172033;
 }
 
+.ticket-cta-mobile,
+.ticket-cta-stub{display:none}
+
 .ticket-cta-hint{
   color:#7b7568;
   font-size:9px;
@@ -3177,6 +3180,173 @@ body :is(h1,h2,h3,.question-title,.result-title,.detail-title,.boarding-title){
 @media(max-width:980px){.proof-head{display:block}.proof-head p{margin-top:18px}.proof-group{grid-template-columns:1fr}.proof-group-label{min-height:auto}.proof-group-label h3{margin-top:8px}.proof-row{grid-template-columns:1fr 1fr}}
 @media(max-width:700px){.proof-section{padding:70px 18px 80px}.proof-row{grid-template-columns:1fr}.proof-card{grid-template-columns:115px 1fr;min-height:145px}.proof-photo{min-height:145px}.proof-body{padding:16px 16px 13px}.proof-head h2{font-size:42px}}
 @media(max-width:430px){.proof-card{grid-template-columns:100px 1fr}.proof-quote{font-size:12px}.proof-count{display:none}}
+
+/* =========================================================
+   MOBILE HERO — 휴대폰에서만 한 장짜리 승차권 + 티켓 CTA
+========================================================= */
+@media(max-width:540px){
+  .hero{
+    min-height:0;
+    padding:44px 14px 52px;
+    align-items:flex-start;
+  }
+
+  .train-ticket{
+    width:100%;
+    min-height:0;
+    grid-template-columns:1fr;
+    transform:rotate(-.55deg);
+    box-shadow:
+      8px 10px 0 #172033,
+      0 24px 42px rgba(9,40,90,.3);
+  }
+
+  .train-ticket:hover{
+    transform:rotate(-.55deg);
+    box-shadow:
+      8px 10px 0 #172033,
+      0 24px 42px rgba(9,40,90,.3);
+  }
+
+  .ticket-left{padding:24px 20px 22px}
+  .ticket-topline{margin-bottom:20px}
+  .ticket-oneway{padding:6px 9px;font-size:9px}
+  .ticket-code{font-size:20px}
+
+  .ticket-copy{
+    max-width:none;
+    padding-top:22px;
+  }
+
+  .ticket-copy h1{
+    font-size:clamp(36px,10.2vw,40px);
+    line-height:1.08;
+  }
+
+  .ticket-copy p{
+    margin-top:15px;
+    font-size:14px;
+    line-height:1.6;
+  }
+
+  .ticket-route{
+    gap:8px;
+    margin-top:20px;
+    padding:14px 0;
+  }
+
+  .route-place strong{font-size:23px}
+  .ticket-route-line::after{background:#fff9e7}
+
+  .ticket-action{
+    display:block;
+    margin-top:18px;
+  }
+
+  .ticket-cta-wrap{display:block;width:100%}
+
+  .ticket-cta{
+    position:relative;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 70px;
+    width:100%;
+    min-height:88px;
+    padding:0;
+    overflow:hidden;
+    text-align:left;
+  }
+
+  .ticket-cta:hover,
+  .ticket-cta:active{
+    transform:none;
+    box-shadow:5px 5px 0 #172033;
+  }
+
+  .ticket-cta::before,
+  .ticket-cta::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    z-index:3;
+    width:17px;
+    height:17px;
+    transform:translateY(-50%);
+    background:#fff9e7;
+    border:2px solid #172033;
+    border-radius:50%;
+  }
+
+  .ticket-cta::before{left:-10px}
+  .ticket-cta::after{right:-10px}
+
+  .ticket-cta-desktop{display:none}
+
+  .ticket-cta-mobile{
+    display:flex;
+    min-width:0;
+    padding:14px 18px 14px 20px;
+    flex-direction:column;
+    justify-content:center;
+  }
+
+  .ticket-cta-mobile small{
+    margin-bottom:4px;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.13em;
+  }
+
+  .ticket-cta-mobile strong{
+    font-size:18px;
+    line-height:1.25;
+    letter-spacing:-.035em;
+  }
+
+  .ticket-cta-stub{
+    position:relative;
+    display:grid;
+    align-self:stretch;
+    place-items:center;
+    color:#172033;
+    background:#2869d8;
+    border-left:2px dashed #172033;
+  }
+
+  .ticket-cta-stub::before,
+  .ticket-cta-stub::after{
+    content:"";
+    position:absolute;
+    left:-10px;
+    width:17px;
+    height:17px;
+    background:#fff9e7;
+    border:2px solid #172033;
+    border-radius:50%;
+  }
+
+  .ticket-cta-stub::before{top:-10px}
+  .ticket-cta-stub::after{bottom:-10px}
+
+  .ticket-cta-stub > strong{
+    display:grid;
+    width:42px;
+    height:42px;
+    place-items:center;
+    background:#ffd83d;
+    border:2px solid #172033;
+    border-radius:50%;
+    font-size:20px;
+  }
+
+  .ticket-stub,
+  .ticket-perforation,
+  .ticket-notch-top,
+  .ticket-notch-bottom{display:none}
+
+  .hero-scroll{bottom:7px}
+  .hero-scroll strong{display:none}
+  .scroll-arrow{display:none}
+}
 
 
 /* =========================================================
