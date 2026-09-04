@@ -7,7 +7,8 @@
  * 비어 있는 동안에는 링크가 인스타그램 홈으로 잘못 가지 않도록
  * 눌리지 않는 상태로 그려진다. (`isReady` 로 판별)
  */
-export const INSTAGRAM = "";
+export const INSTAGRAM =
+  "https://www.instagram.com/daejeon_mg?igsi=MTMxYXZjNHU1ZTdidQ%3D%3D&utm_source=qr";
 
 export const isReady = (url: string) => url.trim().length > 0;
 
