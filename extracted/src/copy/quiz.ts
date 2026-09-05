@@ -29,6 +29,8 @@ type QuizCopy = {
   shareTitle: string;
   /** {mood} 자리에 결과 이름이 들어간다 */
   shareText: string;
+  shared: string;
+  cancelled: string;
   copied: string;
   copyFailed: string;
   moods: Record<MoodId, MoodResultCopy>;
@@ -50,6 +52,8 @@ export const QUIZ: Copy<QuizCopy> = {
     retry: "↻ 다시 테스트하기",
     shareTitle: "기분이 이끄는 대로, 일단 대전행.",
     shareText: "오늘 내 대전 여행 기분은 「{mood}」. 당신은요?",
+    shared: "공유했어요",
+    cancelled: "공유를 취소했어요",
     copied: "결과 링크가 복사됐어요",
     copyFailed: "복사가 막혀 있어요. 주소창의 링크를 직접 복사해 주세요",
     moods: {
@@ -144,6 +148,8 @@ export const QUIZ: Copy<QuizCopy> = {
     retry: "↻ Take it again",
     shareTitle: "Follow your mood. Just go to Daejeon.",
     shareText: "My Daejeon mood today is “{mood}”. What’s yours?",
+    shared: "Shared",
+    cancelled: "Sharing cancelled",
     copied: "Link copied",
     copyFailed: "Copying is blocked. Please copy the link from the address bar.",
     moods: {

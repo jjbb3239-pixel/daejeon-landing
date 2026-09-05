@@ -15,6 +15,8 @@ type FooterCopy = {
   brandCopy: string;
   instagram: string;
   shareButton: string;
+  shared: string;
+  cancelled: string;
   copied: string;
   copyFailed: string;
   navTitle: string;
@@ -39,6 +41,8 @@ export const FOOTER: Copy<FooterCopy> = {
       "오늘 내 기분에 맞는 대전 하루를 찾아주는 페이지입니다. 계획은 도착해서 세워도 괜찮으니까요.",
     instagram: "Instagram ↗",
     shareButton: "친구에게 공유",
+    shared: "공유했어요",
+    cancelled: "공유를 취소했어요",
     copied: "링크가 복사됐어요",
     copyFailed: "복사가 막혀 있어요. 주소창의 링크를 직접 복사해 주세요",
     navTitle: "바로가기",
@@ -124,6 +128,8 @@ export const FOOTER: Copy<FooterCopy> = {
       "A page that finds you a day in Daejeon to match the mood you are in. You can plan once you get there.",
     instagram: "Instagram ↗",
     shareButton: "Share with a friend",
+    shared: "Shared",
+    cancelled: "Sharing cancelled",
     copied: "Link copied",
     copyFailed: "Copying is blocked. Please copy the link from the address bar.",
     navTitle: "Jump to",

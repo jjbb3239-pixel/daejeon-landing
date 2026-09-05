@@ -55,8 +55,18 @@ export default function SiteFooter() {
 
     const result = await share({ title: t.shareTitle, text: t.shareText });
     track("share_result", { where: "footer", outcome: result });
-    if (result === "copied") setNotice(t.copied);
-    if (result === "failed") setNotice(t.copyFailed);
+
+    // 네 가지 결과 모두 한 줄을 띄운다. 예전에는 copied/failed 만 처리해서
+    // 공유 시트를 닫으면 화면이 아무 반응도 하지 않아 버튼이 고장 난 줄 알았다.
+    setNotice(
+      result === "shared"
+        ? t.shared
+        : result === "cancelled"
+          ? t.cancelled
+          : result === "copied"
+            ? t.copied
+            : t.copyFailed,
+    );
   }
 
   return (

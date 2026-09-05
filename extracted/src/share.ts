@@ -60,9 +60,20 @@ export async function share(data: { title: string; text: string }): Promise<Shar
     try {
       await navigator.share({ ...data, url });
       return "shared";
-    } catch {
-      // 사용자가 취소한 경우가 대부분이라 조용히 끝낸다
-      return "cancelled";
+    } catch (error) {
+      /*
+       * 사용자가 공유 시트를 닫은 것만 「취소」다.
+       *
+       * 예전에는 모든 예외를 취소로 봤는데, 그러면 아래 경우에
+       * 복사 대체 경로로 넘어가지 못하고 아무 일도 안 일어난 것처럼 끝났다.
+       *   · 브라우저 정책으로 공유가 막힘 (NotAllowedError)
+       *   · 공유할 대상 앱이 하나도 없음
+       *   · 인앱 브라우저(카카오톡 등)에 share 가 껍데기만 있음
+       */
+      if ((error as { name?: string } | null)?.name === "AbortError") {
+        return "cancelled";
+      }
+      // 진짜 실패다. 아래 복사로 넘어간다.
     }
   }
 
