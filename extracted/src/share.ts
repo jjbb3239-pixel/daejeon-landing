@@ -53,10 +53,28 @@ function shareUrl(): string {
   }
 }
 
+/**
+ * OS 공유 시트를 쓸 기기인지.
+ *
+ * 윈도우 크롬·엣지도 navigator.share 가 있어서 PC 에서도 시트가 떴는데,
+ * 처음 본 사람은 대개 그냥 닫는다. 그러면 아무 일도 안 일어난 것처럼 보인다.
+ * 손가락이 주 입력인 기기(휴대폰·태블릿)에서만 시트를 띄우고,
+ * 마우스를 쓰는 PC 는 바로 링크를 복사한다.
+ *
+ * UA 문자열 대신 입력 방식으로 가른다. UA 는 사칭이 흔하고 기기가 바뀌면 틀린다.
+ */
+function prefersSystemShare(): boolean {
+  try {
+    return window.matchMedia("(pointer: coarse)").matches;
+  } catch {
+    return false;
+  }
+}
+
 export async function share(data: { title: string; text: string }): Promise<ShareOutcome> {
   const url = shareUrl();
 
-  if (navigator.share) {
+  if (navigator.share && prefersSystemShare()) {
     try {
       await navigator.share({ ...data, url });
       return "shared";
