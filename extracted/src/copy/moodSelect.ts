@@ -7,6 +7,7 @@ type CardCopy = {
   /** 두 줄 구성. 카드 높이를 맞추려고 일부러 끊는다. */
   title: [string, string];
   copy: string;
+  cta?: string;
 };
 
 type MoodSelectCopy = {
@@ -29,20 +30,23 @@ export const MOOD_SELECT: Copy<MoodSelectCopy> = {
       photo: {
         alt: "셀카봉을 들고 사진을 찍는 꿈누리",
         category: "PHOTO SPOT",
-        title: ["오늘 피드 좀", "채워볼까?"],
-        copy: "찍는 곳마다 그림 되는 대전의 인생샷 스팟들.",
+        title: ["대전에서 인생샷", "하나 건질래?"],
+        copy: "인생샷 건지기 쉬운 대전 숨겨진 스팟 모음",
+        cta: "인생샷 하나 건지고 싶은 날",
       },
       food: {
         alt: "빵 봉지를 안고 뛰어가는 온솔",
         category: "EAT",
-        title: ["맛집", "도장깨기"],
-        copy: "하나씩 찍어 먹다 보면 어느새 대전 맛집 투어 완성.",
+        title: ["대전 맛집,", "블루리본 모음Zip"],
+        copy: "오늘 먹방은 성공하고 싶으니까, 블루리본 선정 맛집 완성",
+        cta: "맛집만큼은 제대로 뿌수고 싶은 날",
       },
       cafe: {
         alt: "화분을 들고 서 있는 안경 쓴 꿈씨패밀리",
         category: "CAFE",
-        title: ["기분 따라", "고르는 카페"],
-        copy: "오늘 무드에 딱 맞는 대전 카페를 골라볼까요?",
+        title: ["대전만의", "카페를 갈래"],
+        copy: "오늘 기분에 따라 고를 수 있는, 대전만의 분위기를 담은 카페",
+        cta: "대전에서만 만날 수 있는 카페가 궁금한 날",
       },
       course: {
         alt: "엎드려 누워 쉬고 있는 꿈동이",
